@@ -9,11 +9,12 @@ class Motor{
 
 	public:
 		Motor( int pin, int channel );
-		void setPWM( int duty );
+		void setIntensity( int intensity );
+		
 	private:
 		int _channel;
 		int _duty;
-
+		void setPWM( int duty );
 
 
 };
