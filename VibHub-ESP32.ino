@@ -1,7 +1,7 @@
 #ifndef ESP32
   #define ESP32
 #endif
-#include <SocketIOClient.h>
+#include "src/SocketIOClient/SocketIOClient.h"
 #include <WiFi.h>
 #include "src/Motor/Motor.h"
 
