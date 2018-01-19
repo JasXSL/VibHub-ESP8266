@@ -61,6 +61,8 @@ public:
 	void postREST(String path, String type, String data);
 	void putREST(String path, String type, String data);
 	void deleteREST(String path);
+	String RID;
+	String Rcontent;
 private:
 	void parser(int index);
 	void sendHandshake(char hostname[]);

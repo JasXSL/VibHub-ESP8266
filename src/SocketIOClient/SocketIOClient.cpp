@@ -27,10 +27,10 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 
 String tmpdata = "";	//External variables
+/*
 String RID = "";
-String Rname = "";
 String Rcontent = "";
-
+*/
 
 
 bool SocketIOClient::connect( char thehostname[], int theport ){
