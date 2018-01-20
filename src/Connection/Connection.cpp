@@ -3,11 +3,10 @@
 #endif
 #include "Connection.h"
 #include <WiFi.h>
+#include "../../VibHub-ESP32.h"
 //#include "../Config/Config.h"
 
 // external
-
-void onSocketMessage(String type, String message);
 
 Connection::Connection(){}
 
@@ -100,9 +99,11 @@ void Connection::ini( Config co ){
 
 void Connection::loop(){
 
+  /*
 	if( !client.connected() )
     	socketConnect(true);
-
+  */
+  
 	if( client.monitor() ){
 
 		//Serial.println(RID);
