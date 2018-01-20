@@ -1,27 +1,40 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "esp_system.h"
-#include "esp_log.h"
-#include "nvs_flash.h"
-#include "bt.h"
-#include "bta_api.h"
-#include "esp_gap_ble_api.h"
-#include "esp_gatts_api.h"
-#include "esp_bt_defs.h"
-#include "esp_bt_main.h"
-#include "sdkconfig.h"
+#include "Config.h"
 #include "Gatt.h"
 
-void Gatt(){}
+/*
+    Based on Neil Kolban example for IDF: https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLE%20Tests/SampleServer.cpp
+    Ported to Arduino ESP32 by Evandro Copercini
+*/
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+
+// See the following for generating UUIDs:
+// https://www.uuidgenerator.net/
+
+#define SERVICE_UUID        "44325abd-809d-447e-8d80-bb57c47f81d9"
+#define CHARACTERISTIC_UUID "8995fa13-f9b6-4501-8e54-6247b817a7ab"
+
+
+Gatt::Gatt(){}
 
 void Gatt::ini(){
 
-	
+	//esp_log_level_set("*", ESP_LOG_DEBUG);
+	BLEDevice::init("VibHub");
+	BLEServer *pServer = BLEDevice::createServer();
+	BLEService *pService = pServer->createService(SERVICE_UUID);
+	BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+											CHARACTERISTIC_UUID,
+											BLECharacteristic::PROPERTY_READ |
+											BLECharacteristic::PROPERTY_WRITE
+										);
+
+	pCharacteristic->setValue("Characteristic output");
+	pService->start();
+	BLEAdvertising *pAdvertising = pServer->getAdvertising();
+	pAdvertising->start();
+
+	//Serial.println("BLE Setup");
 
 }
-
-

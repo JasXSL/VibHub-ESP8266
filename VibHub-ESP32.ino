@@ -1,9 +1,11 @@
 #include "src/Config/Config.h"
 #include "src/Motor/Motor.h"
 #include "src/Connection/Connection.h"
+#include "src/Gatt/Gatt.h"
 
 Config conf;
 Connection con;
+Gatt gatt;
 
 Motor motors[1] = {
   Motor(25, 0)
@@ -20,7 +22,8 @@ void updateMotor( int port, int intensity ) {
 }
 */
 
-extern void onSocketMessage( String type, String message ){
+// Shared in the header file
+void onSocketMessage( String type, String message ){
 
   if( type == "pw" ){
 
@@ -53,6 +56,8 @@ extern void onSocketMessage( String type, String message ){
 }
 
 
+
+
 void setup() {
 
   // Initialize
@@ -66,15 +71,17 @@ void setup() {
   // initialize wifi and sockets
   con.ini(conf);
 
-  
+  // Initialize gatt
+  gatt.ini();
+  Serial.println("Gatt enabled");
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
   con.loop();
-  
-  
+
 
 }
 

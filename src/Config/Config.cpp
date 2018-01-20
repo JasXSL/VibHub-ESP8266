@@ -5,6 +5,7 @@
 #define ConfigPATH "/config.txt"
 
 
+
 // Loads the config
 Config::Config(){}
 
