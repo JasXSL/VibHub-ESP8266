@@ -13,6 +13,11 @@
 #endif
 #include <WiFiManager.h>   //https://github.com/tzapu/WiFiManager
 
+#include "src/Config/Config.h"
+#include "src/Connection/Connection.h"
+
+Config conf;
+Connection con;
 
 //Don't use the onboard flash button on gpio0 as this can put the chip different bootmode by accident
 //This could be used for other functions after setup as part of a single button interface
@@ -25,6 +30,45 @@
 #define BLUE_LED 2
 #include <Ticker.h>
 Ticker ticker;
+
+
+
+// Shared in the header file
+void onSocketMessage( String type, String message ){
+
+  Serial.println("Got message - type: '" + type + "' message: '" + message + "'");
+  
+  if( type == "pw" ){
+
+      char r[message.length()+1];
+      message.toCharArray(r, message.length()+1);
+
+      char *ptr = strtok(r, "|");
+      while( ptr != NULL ){
+
+        char *sub = strtok(ptr, ",");
+        int params[2];
+        int i = 0;
+        while( sub != NULL ){
+
+          String s(sub);
+          int n = s.toInt();
+          params[i++] = s.toInt();
+
+          sub = strtok(NULL, ",");
+        }
+
+        Serial.println("Update motors here");
+        //updateMotor(params[0], params[1]);
+        ptr = strtok(NULL, "|");
+
+      }
+
+    }
+  
+}
+
+
 
 void tick() {
     //toggle LED indicator
@@ -60,25 +104,41 @@ void setup() {
     // start ticker with 0.5 because we start in AP mode and try to connect
     ticker.attach(0.6, tick);
 
+    
+    Serial.println("Setting up config");
+    
+    #if defined(ESP8266)
+      itoa(ESP.getChipId(), conf.device_id, sizeof(conf.device_id));
+    #elif defined(ESP32)
+      uint64_t chipid = ESP.getEfuseMac();
+      itoa((uint16_t)(chipid>>32), conf.device_id, sizeof(conf.device_id));
+    #endif
+    
+    
     //WiFiManager
     //Local intialization. Once its business is done, there is no need to keep it around
     WiFiManager wifiManager;
     //reset settings - for testing
     //wifiManager.resetSettings();
-    
+
+    //Reset everything when button is held down while turing on
     if(digitalRead(WIFIRESET_PIN) == LOW) {
         Serial.println("Resetting wifi settings");
         wifiManager.resetSettings();
+        
+        conf.format();
     }
 
-  //set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
-  wifiManager.setAPCallback(configModeCallback);
+    conf.begin();
+
+    //set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
+    wifiManager.setAPCallback(configModeCallback);
     
     //fetches ssid and pass and tries to connect
-  //if it does not connect it starts an access point
+    //if it does not connect it starts an access point
     //and goes into a blocking loop awaiting configuration
     #if defined(ESP8266)
-      String ssid = "VibHud_" + String(ESP.getChipId());
+     String ssid = "VibHud_" + String(ESP.getChipId());
     #else
       uint64_t chipid = ESP.getEfuseMac();
       String ssid = "VibHud_" + String((uint16_t)(chipid>>32));
@@ -100,9 +160,16 @@ void setup() {
     digitalWrite(RED_LED, HIGH);
     digitalWrite(BLUE_LED, HIGH);
     digitalWrite(GREEN_LED, LOW);
-  
+
+    
+    // initialize wifi and sockets
+    con.ini(conf);
+
+    //TODO: this should be somewhere better, here for testing
+    //Save config
+    conf.save();
 }
 
 void loop() {
-  
+    con.loop();
 }
