@@ -13,3 +13,6 @@ Red through 470ohm to RED_LED pin
 Green  through 330ohm to GREEN_LED pin
 Blue  through 330ohm to BLUE_LED pin
 Resistor values can be lower, but this is already really bright at 2.5v for green/blue.
+
+
+Ticker requires https://github.com/bertmelis/Ticker-esp32

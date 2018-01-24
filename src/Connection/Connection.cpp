@@ -51,7 +51,7 @@ void Connection::socketConnect( bool reconnect ){
   if( !wifiConnected() )
     return;
 
-  int len = conf.host + 1;
+  int len = conf.host.length() + 1;
   char host[len];
   conf.host.toCharArray(host, len);
   

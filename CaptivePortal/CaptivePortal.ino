@@ -1,17 +1,19 @@
-#if defined(ESP8266)
-#include <ESP8266WiFi.h>   //https://github.com/esp8266/Arduino
-#else
-#include <WiFi.h>          //https://github.com/esp8266/Arduino
-#endif
+//#if defined(ESP8266)
+//#include <ESP8266WiFi.h>    //https://github.com/esp8266/Arduino
+//#elif defined(ESP32)
+//#include <WiFi.h>           //https://github.com/esp8266/Arduino
+//#endif
 
-//needed for library
-#include <DNSServer.h>
 #if defined(ESP8266)
 #include <ESP8266WebServer.h>
-#else
+#include <Ticker.h>
+#elif defined(ESP32)
 #include <WebServer.h>
+#include <ESP32Ticker.h>    //https://github.com/bertmelis/Ticker-esp32
 #endif
-#include <WiFiManager.h>   //https://github.com/tzapu/WiFiManager
+
+#include <DNSServer.h>
+#include <WiFiManager.h>    //https://github.com/tzapu/WiFiManager
 
 #include "src/Config/Config.h"
 #include "src/Connection/Connection.h"
@@ -25,10 +27,22 @@ Connection con;
 
 //for LED status
 //Set to which ever pins the LEDs are connected to, BUILTIN_LED is incorrect for ESP8266 and should 2 not 16
-#define RED_LED 5
-#define GREEN_LED 4
-#define BLUE_LED 2
-#include <Ticker.h>
+#if defined(ESP8266)
+  #define RED_LED 5
+  #define GREEN_LED 4
+  #define BLUE_LED 2
+#elif defined(ESP32)
+  //Sparkfun's ESP32 Thing BUILTIN_LED is on GPIO5 and is driven high
+  //ESP32 devboard's BUILTIN_LED might be on GPIO25
+  #define RED_LED 5
+  #define GREEN_LED 4
+  #define BLUE_LED 2
+#endif
+
+
+
+
+
 Ticker ticker;
 
 
@@ -107,12 +121,12 @@ void setup() {
     
     Serial.println("Setting up config");
     
-    #if defined(ESP8266)
-      itoa(ESP.getChipId(), conf.device_id, sizeof(conf.device_id));
-    #elif defined(ESP32)
-      uint64_t chipid = ESP.getEfuseMac();
-      itoa((uint16_t)(chipid>>32), conf.device_id, sizeof(conf.device_id));
-    #endif
+//    #if defined(ESP8266)
+//      itoa(ESP.getChipId(), conf.device_id, sizeof(conf.device_id));
+//    #elif defined(ESP32)
+//      uint64_t chipid = ESP.getEfuseMac();
+//      itoa((uint16_t)(chipid>>32), conf.device_id, sizeof(conf.device_id));
+//    #endif
     
     
     //WiFiManager
