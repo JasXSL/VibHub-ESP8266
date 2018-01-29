@@ -16,11 +16,11 @@ Config::Config(){}
 
 void Config::begin(){
     
-    // strlcpy(host, "vibhub.dangly.parts", sizeof(host));
+    // strlcpy(host, "vibhub.io", sizeof(host));
     // port = 80;
     strlcpy(host, "192.168.0.104", sizeof(host));
-    port = 8080;
-    strlcpy(device_id, "ESP32", sizeof(device_id));
+    port = 6969;
+    strlcpy(device_id, "ESP8266", sizeof(device_id));
     
     // char * path = ConfigPATH;
     

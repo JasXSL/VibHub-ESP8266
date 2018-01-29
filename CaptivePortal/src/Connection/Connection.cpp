@@ -57,7 +57,7 @@ void Connection::socketConnect( bool reconnect ){
   // conf.host.toCharArray(host, len);
   
   Serial.println("Starting socket.io:");
-  Serial.println("Host: "+String(conf.host)+" Port: "+(String)conf.port);
+  Serial.println("Host: "+String(conf.host)+" Port: "+String(conf.port));
 
   // Reconnect
   if( reconnect ){
@@ -76,7 +76,7 @@ void Connection::socketConnect( bool reconnect ){
 
   if( client.connected() ){
     client.send("id", conf.device_id);
-  	Serial.println("Connection established, sending ID");
+  	Serial.println("Connection established, sending ID: "+String(conf.device_id));
   }
   
 
@@ -106,9 +106,8 @@ void Connection::loop(){
   */
   
 	if( client.monitor() ){
-
-		//Serial.println(RID);
-		//Serial.println(Rcontent);
+		// Serial.println(RID);
+		// Serial.println(Rcontent);
 		onSocketMessage( client.RID, client.Rcontent );		
 
 	}

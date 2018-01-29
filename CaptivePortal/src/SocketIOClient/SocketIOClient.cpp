@@ -170,13 +170,14 @@ bool SocketIOClient::monitor() {
 	if( !client.available() ){
 		return 0;
 	}
-	char which;
+	// char which;
 
 	while (client.available()) {
 		readLine();
 		tmp = databuffer;
 		#ifdef DEBUG
-		Serial.println(databuffer);
+		Serial.print("monitor: ");
+        Serial.println(databuffer);
 		#endif 
 		dataptr = databuffer;
 		index = tmp.indexOf((char)129);	//129 DEC = 0x81 HEX = sent for proper communication
@@ -194,6 +195,8 @@ bool SocketIOClient::monitor() {
 			parser(index2);
 		}
 	}
+    
+    return 1;
 }
 
 void SocketIOClient::sendHandshake(char hostname[]) {
@@ -386,6 +389,9 @@ void SocketIOClient::deleteREST(String path)
 }
 
 void SocketIOClient::readLine() {
+    #ifdef DEBUG
+    Serial.print("> ");
+    #endif
 	for (int i = 0; i < DATA_BUFFER_LEN; i++)
 		databuffer[i] = ' ';
 	dataptr = databuffer;
@@ -393,22 +399,27 @@ void SocketIOClient::readLine() {
 	{
 		char c = client.read();
 		
-		//Serial.print(c);			//Can be used for debugging
+        #ifdef DEBUG
+		Serial.print(c);
+        #endif
 		if (c == 0){
 			#ifdef DEBUG
 			Serial.print("");
 			#endif
 		}
-		else if (c == 255){ 
-			#ifdef DEBUG
-			Serial.println("");
-			#endif
-		}
+		// else if (c == 255){ 
+			// #ifdef DEBUG
+			// Serial.println("");
+			// #endif
+		// }
 		else if (c == '\r') { ; }
 		else if (c == '\n') break;
 		else *dataptr++ = c;
 	}
 	*dataptr = 0;
+    #ifdef DEBUG
+    Serial.println("");
+    #endif
 }
 
 void SocketIOClient::send(String RID, String Rcontent) {
