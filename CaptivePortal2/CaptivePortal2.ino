@@ -16,6 +16,45 @@ https://github.com/bbx10/webserver_tng
 
 
 */
+
+// Default Config:
+
+// #define SERVER_DOMAIN  "vibhub.io"
+// #define SERVER_PORT    80
+#define SERVER_DOMAIN  "192.168.0.104"
+#define SERVER_PORT    6969
+
+
+// IO Config
+
+//Don't use the onboard flash button on gpio0 as this can put the chip different bootmode by accident
+//This could be used for other functions after setup as part of a single button interface
+#if defined(ESP8266)
+#define WIFIRESET_PIN 14
+#elif defined(ESP32)
+//ESP32 DevKit
+#define WIFIRESET_PIN 36
+#endif
+
+//for LED status
+//Set to which ever pins the LEDs are connected to, BUILTIN_LED is incorrect for ESP8266 and should 2 not 16
+#if defined(ESP8266)
+  #define RED_LED 5
+  #define GREEN_LED 4
+  #define BLUE_LED 2
+#elif defined(ESP32)
+  //Sparkfun's ESP32 Thing BUILTIN_LED is on GPIO5 and is driven high
+  //ESP32 devboard's BUILTIN_LED might be on GPIO25
+  // #define RED_LED 5
+  // #define GREEN_LED 4
+  // #define BLUE_LED 2
+  //ESP32 DevKit
+  #define RED_LED 13
+  #define GREEN_LED 12
+  #define BLUE_LED 14
+#endif
+
+
 #include <Arduino.h>
 
 #if defined(ESP8266)
@@ -31,42 +70,22 @@ https://github.com/bbx10/webserver_tng
 
 #include <SocketIoClient.h>
 
-#define USE_SERIAL Serial
-
-//Don't use the onboard flash button on gpio0 as this can put the chip different bootmode by accident
-//This could be used for other functions after setup as part of a single button interface
-#define WIFIRESET_PIN 14
-
-//for LED status
-//Set to which ever pins the LEDs are connected to, BUILTIN_LED is incorrect for ESP8266 and should 2 not 16
-#if defined(ESP8266)
-  #define RED_LED 5
-  #define GREEN_LED 4
-  #define BLUE_LED 2
-#elif defined(ESP32)
-  //Sparkfun's ESP32 Thing BUILTIN_LED is on GPIO5 and is driven high
-  //ESP32 devboard's BUILTIN_LED might be on GPIO25
-  #define RED_LED 5
-  #define GREEN_LED 4
-  #define BLUE_LED 2
-#endif
 
 Ticker ticker;
-
 SocketIoClient webSocket;
 
 
 void event_connect(const char * payload, size_t length) {
-  USE_SERIAL.println("got connect");
+  Serial.println("got connect");
   webSocket.emit("id", "\"ESP8266\"");
 }
 
 void event_disconnect(const char * payload, size_t length) {
-  USE_SERIAL.println("got disconnect");
+  Serial.println("got disconnect");
 }
 
 void event_vib(const char * payload, size_t length) {
-  USE_SERIAL.printf("got vib: %s\n", payload);
+  Serial.printf("got vib: %s\n", payload);
 }
 
 void event_p(const char * payload, size_t length) {
@@ -76,7 +95,7 @@ void event_p(const char * payload, size_t length) {
   vibArray[1] = (int)((data & 0x00FF0000) >> 16 );
   vibArray[2] = (int)((data & 0x0000FF00) >> 8 );
   vibArray[3] = (int)((data & 0X000000FF));
-  USE_SERIAL.printf("got p - v0: %u, v1: %u, v2: %u, v3: %u\n", vibArray[0], vibArray[1], vibArray[2], vibArray[3]);
+  Serial.printf("got p - v0: %u, v1: %u, v2: %u, v3: %u\n", vibArray[0], vibArray[1], vibArray[2], vibArray[3]);
 }
 
 
@@ -100,7 +119,7 @@ void configModeCallback (WiFiManager *myWiFiManager) {
 
 void setup() {
     Serial.begin(115200);
-    //USE_SERIAL.setDebugOutput(true);
+    //Serial.setDebugOutput(true);
     
     delay(500);
     Serial.println("\nStarting...");
@@ -165,8 +184,7 @@ void setup() {
     webSocket.on("vib", event_vib);
     webSocket.on("p", event_p);
     
-    webSocket.begin("vibhub.io", 80);
-    // webSocket.begin("192.168.0.104", 6969);
+    webSocket.begin(SERVER_DOMAIN, SERVER_PORT);
 }
 
 void loop() {
