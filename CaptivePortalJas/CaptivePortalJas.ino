@@ -38,7 +38,10 @@ https://github.com/bbx10/webserver_tng
 #define WIFIRESET_PIN 14
 #elif defined(ESP32)
 //ESP32 DevKit
-#define WIFIRESET_PIN 36
+	#define CONF_PIN 36
+	int CONF_PIN_STATE = 0;
+	bool CONF_ACTIVE = false;
+	#define getssid() "VibHub_"+String((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
 
 //for LED status
@@ -106,7 +109,7 @@ std::vector<Motor> motors;
 int indicator = 0;
 Ticker ticker;
 SocketIoClient webSocket;
-//Motor motorCtrl;
+
 
 
 void event_connect(const char * payload, size_t length) {
@@ -122,6 +125,7 @@ void event_vib(const char * payload, size_t length) {
   Serial.printf("got vib: %s\n", payload);
 }
 
+// Received a quick set of all 4 motors PWM values
 void event_p(const char * payload, size_t length) {
   unsigned long int data = strtoul(payload, 0, 16);
   uint8_t vibArray[4];
@@ -147,15 +151,70 @@ void tick() {
 }
 
 //gets called when WiFiManager enters configuration mode
-void configModeCallback (WiFiManager *myWiFiManager) {
+void configModeCallback( WiFiManager *myWiFiManager ){
+
+    CONF_ACTIVE = true;
+
     Serial.println("Entered config mode");
     Serial.println(WiFi.softAPIP());
     //if you used auto generated SSID, print it
     Serial.println(myWiFiManager->getConfigPortalSSID());
     //entered config mode, make led toggle faster
     ticker.attach(0.2, tick);
+
 }
 
+void reboot(){
+	/*
+	Serial.println("Restarting now");
+	ESP.restart();
+	delay(1000);
+	*/
+}
+
+void configModeSaveCallback(){
+	
+	ticker.detach();
+	Serial.println("Device configured, restarting in 1 sec");
+	ticker.attach(1, reboot);
+	
+}
+
+
+
+void initWifi( bool force ){
+	
+	WiFiManager wifiManager;
+	// Setup custom CSS
+    wifiManager.setCustomHeadElement("<style>body{background-color:#000;color:#FFF;}</style>");
+
+    //set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
+    wifiManager.setAPCallback(configModeCallback);
+	wifiManager.setSaveConfigCallback(configModeSaveCallback);
+	WiFiManagerParameter par("Device ID", "Your device ID", "", 64);
+	wifiManager.addParameter(&par);
+
+
+	String ssid = getssid();
+	if( force ){
+		if( !wifiManager.startConfigPortal(ssid.c_str()) ){
+			Serial.println("failed to connect and hit timeout");
+			//reset and try again, or maybe put it to deep sleep
+			ESP.restart();
+			delay(1000);
+		}
+	}
+    else if( !wifiManager.autoConnect(ssid.c_str()) ){
+		Serial.println("failed to connect and hit timeout");
+		//reset and try again, or maybe put it to deep sleep
+		ESP.restart();
+		delay(1000);
+    }
+
+	Serial.println("New device ID: ");
+	Serial.println(par.getValue());
+
+}
 
 void setup() {
     Serial.begin(115200);
@@ -165,7 +224,7 @@ void setup() {
     Serial.println("\nStarting...");
 
     //set wifireset pin as input
-    pinMode(WIFIRESET_PIN, INPUT);
+    pinMode(CONF_PIN, INPUT);
     
     //set led pin as output
     ledcSetup(CHANNEL_RED, LEDC_FREQ, LEDC_RES);
@@ -187,41 +246,8 @@ void setup() {
     
     // start ticker with 0.5 because we start in AP mode and try to connect
     ticker.attach(0.6, tick);
-    
-    //motorCtrl.begin();
-    
-    //WiFiManager
-    //Local intialization. Once its business is done, there is no need to keep it around
-    WiFiManager wifiManager;
-    //reset settings - for testing
-    //wifiManager.resetSettings();
-
-    //Reset everything when button is held down while turing on
-    if(digitalRead(WIFIRESET_PIN) == LOW) {
-        Serial.println("Resetting wifi settings");
-        wifiManager.resetSettings();
-    }
-
-
-    //set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
-    wifiManager.setAPCallback(configModeCallback);
-
-    //fetches ssid and pass and tries to connect
-    //if it does not connect it starts an access point
-    //and goes into a blocking loop awaiting configuration
-    #if defined(ESP8266)
-      String ssid = "VibHub_" + String(ESP.getChipId());
-    #else
-      uint64_t chipid = ESP.getEfuseMac();
-      String ssid = "VibHub_" + String((uint16_t)(chipid>>32));
-    #endif
-
-    if (!wifiManager.autoConnect(ssid.c_str())) {
-      Serial.println("failed to connect and hit timeout");
-      //reset and try again, or maybe put it to deep sleep
-      ESP.restart();
-      delay(1000);
-    }
+ 
+	initWifi(false);    
 
     //if you get here you have connected to the WiFi
     Serial.println("Connected");
@@ -243,4 +269,10 @@ void setup() {
 
 void loop() {
     webSocket.loop();
+
+    // Check the button
+    int r = digitalRead(CONF_PIN);
+    if( r == 1 )
+		initWifi(true);
+
 }
