@@ -26,6 +26,10 @@ https://github.com/bbx10/webserver_tng
 // #define SERVER_PORT    6969
 
 
+// ledC
+#define LEDC_FREQ 12000
+#define LEDC_RES 8
+
 // IO Config
 
 //Don't use the onboard flash button on gpio0 as this can put the chip different bootmode by accident
@@ -59,10 +63,21 @@ https://github.com/bbx10/webserver_tng
   #define CHANNEL_GREEN 1
   #define CHANNEL_BLUE 2
 
-  #define LED_PWM 150
+  #define CHANNEL_MOTOR_0 3
+  #define CHANNEL_MOTOR_1 4
+  #define CHANNEL_MOTOR_2 5
+  #define CHANNEL_MOTOR_3 6
 
+  #define PIN_MOTOR_0 25
+  #define PIN_MOTOR_1 33
+  #define PIN_MOTOR_2 32
+  #define PIN_MOTOR_3 35
   
+
+  #define LED_PWM 150
 #endif
+
+
 
 
 #include <Arduino.h>
@@ -80,11 +95,13 @@ https://github.com/bbx10/webserver_tng
 #include "driver/ledc.h"
 #include <SocketIoClient.h>
 
-// #include "./Motor.h"
+#include "./Motor.h"
 
-// ledC
-#define LEDC_FREQ 12000
-#define LEDC_RES 8
+
+
+std::vector<Motor> motors;
+
+
 
 int indicator = 0;
 Ticker ticker;
@@ -113,10 +130,12 @@ void event_p(const char * payload, size_t length) {
   vibArray[2] = (int)((data & 0x0000FF00) >> 8 );
   vibArray[3] = (int)((data & 0X000000FF));
   Serial.printf("got p - v0: %u, v1: %u, v2: %u, v3: %u\n", vibArray[0], vibArray[1], vibArray[2], vibArray[3]);
-  /*
-  motorCtrl.setAll(vibArray);
-  motorCtrl.runAll(FORWARD);
-  */
+
+  int i;
+  for( i = 0; i < 4; ++i )
+    motors[i].setPWM(vibArray[i]);
+
+
 }
 
 
@@ -159,6 +178,12 @@ void setup() {
     ledcAttachPin(BLUE_LED, CHANNEL_BLUE);
 
     ledcWrite(CHANNEL_RED, LED_PWM);
+
+    // Initialize motors
+    motors.push_back(Motor(PIN_MOTOR_0, CHANNEL_MOTOR_0));
+    motors.push_back(Motor(PIN_MOTOR_1, CHANNEL_MOTOR_1));
+    motors.push_back(Motor(PIN_MOTOR_2, CHANNEL_MOTOR_2));
+    motors.push_back(Motor(PIN_MOTOR_3, CHANNEL_MOTOR_3));
     
     // start ticker with 0.5 because we start in AP mode and try to connect
     ticker.attach(0.6, tick);
@@ -185,7 +210,7 @@ void setup() {
     //if it does not connect it starts an access point
     //and goes into a blocking loop awaiting configuration
     #if defined(ESP8266)
-     String ssid = "VibHub_" + String(ESP.getChipId());
+      String ssid = "VibHub_" + String(ESP.getChipId());
     #else
       uint64_t chipid = ESP.getEfuseMac();
       String ssid = "VibHub_" + String((uint16_t)(chipid>>32));

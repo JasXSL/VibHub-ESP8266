@@ -1,55 +1,30 @@
-/*
 #include "Arduino.h"
 #include "Motor.h"
+#include "driver/ledc.h"
+
+#define LEDC_FREQ 12000
+#define LEDC_RES 8
 
 
-#include <Wire.h>
-#include <Adafruit_MotorShield.h>
+Motor::Motor( int pin, int channel ){
 
-Adafruit_MotorShield AFMS = Adafruit_MotorShield();
+  pinMode(pin, OUTPUT); 
 
-Adafruit_DCMotor *Motors [4] = {
-    AFMS.getMotor(1),
-    AFMS.getMotor(2),
-    AFMS.getMotor(3),
-    AFMS.getMotor(4)
-};
+  ledcSetup(channel, LEDC_FREQ, LEDC_RES);
+  ledcAttachPin(pin, channel);
 
-Motor::Motor(){
-    
-}
-
-void Motor::begin( uint16_t freq, TwoWire *theWire ){
-    AFMS.begin( freq, theWire);
-}
-
-// Sets channels 1-4 at intensity between 0 and 255
-void Motor::setIntensity( uint8_t channel, uint8_t intensity ){
-
-	Motors[channel]->setSpeed(intensity);
+  _channel = channel;
+  _duty = 0;
 
 }
 
-void Motor::run( uint8_t channel, uint8_t cmd ){
-    
-    Motors[channel]->run(cmd);
-    
+void Motor::setPWM( int duty ){
+
+  _duty = duty;
+  ledcWrite(_channel, _duty);
+
 }
 
-void Motor::setAll( uint8_t *intensities ){
-    
-    for(int i=0; i<4; i++) {
-        Motors[i]->setSpeed(intensities[i]);
-    }
-    
-}
 
-void Motor::runAll( uint8_t cmd ){
-    
-    for(int i=0; i<4; i++) {
-        Motors[i]->run(cmd);
-    }
-    
-}
-*/
+
 
