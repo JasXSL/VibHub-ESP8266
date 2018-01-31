@@ -55,6 +55,12 @@ https://github.com/bbx10/webserver_tng
   #define BLUE_LED 14
 #endif
 
+// PWM Channels
+#define CHANNEL_RED 0
+#define CHANNEL_GREEN 1
+#define CHANNEL_BLUE 2
+#define LED_PWM 150
+
 
 #include <Arduino.h>
 
@@ -73,6 +79,11 @@ https://github.com/bbx10/webserver_tng
 
 #include "./Motor.h"
 
+// ledC
+#define LEDC_FREQ 12000
+#define LEDC_RES 8
+
+bool indicator = false;
 
 Ticker ticker;
 SocketIoClient webSocket;
@@ -107,9 +118,9 @@ void event_p(const char * payload, size_t length) {
 
 void tick() {
     //toggle LED indicator
-    int state = digitalRead(BLUE_LED);
-    digitalWrite(BLUE_LED, !state);
-    digitalWrite(RED_LED, state);
+    indicator = (int)(!indicator);
+    ledcWrite(CHANNEL_BLUE, !(indicator*LED_PWM));
+    ledcWrite(CHANNEL_RED, indicator*LED_PWM);
 }
 
 //gets called when WiFiManager enters configuration mode
@@ -134,12 +145,21 @@ void setup() {
     pinMode(WIFIRESET_PIN, INPUT);
     
     //set led pin as output
-    pinMode(RED_LED, OUTPUT);
-    pinMode(GREEN_LED, OUTPUT);
-    pinMode(BLUE_LED, OUTPUT);
-    digitalWrite(GREEN_LED, HIGH);
+    ledcSetup(CHANNEL_RED, LEDC_FREQ, LEDC_RES);
+    ledcSetup(CHANNEL_GREEN, LEDC_FREQ, LEDC_RES);
+    ledcSetup(CHANNEL_BLUE, LEDC_FREQ, LEDC_RES);
+
+    // Attach pins
+    ledcAttachPin(RED_LED, CHANNEL_RED);
+    ledcAttachPin(GREEN_LED, CHANNEL_GREEN);
+    ledcAttachPin(BLUE_LED, CHANNEL_BLUE);
+
+    ledcWrite(CHANNEL_RED, LED_PWM);
+    
     // start ticker with 0.5 because we start in AP mode and try to connect
     ticker.attach(0.6, tick);
+    
+    
     
     motorCtrl.begin();
     
@@ -163,10 +183,10 @@ void setup() {
     //if it does not connect it starts an access point
     //and goes into a blocking loop awaiting configuration
     #if defined(ESP8266)
-     String ssid = "VibHud_" + String(ESP.getChipId());
+     String ssid = "VibHub_" + String(ESP.getChipId());
     #else
       uint64_t chipid = ESP.getEfuseMac();
-      String ssid = "VibHud_" + String((uint16_t)(chipid>>32));
+      String ssid = "VibHub_" + String((uint16_t)(chipid>>32));
     #endif
 
     if (!wifiManager.autoConnect(ssid.c_str())) {
@@ -181,9 +201,9 @@ void setup() {
     
     ticker.detach();
     //keep LED on
-    digitalWrite(RED_LED, HIGH);
-    digitalWrite(BLUE_LED, HIGH);
-    digitalWrite(GREEN_LED, LOW);
+    ledcWrite(CHANNEL_RED, LED_PWM);
+    ledcWrite(CHANNEL_GREEN, 0);
+    ledcWrite(CHANNEL_BLUE, LED_PWM);
     
     //Do socket.io stuff
     webSocket.on("connect", event_connect);
