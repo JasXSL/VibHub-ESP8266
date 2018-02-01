@@ -1,21 +1,16 @@
 
 /*
-  VibHub motor data
+	VibHub motor data
 */
 #ifndef Motor_h
 #define Motor_h
 
-class Motor{
+#include "VhPwm.h"
+class Motor: public VhPwm{
 
-  public:
-    Motor( int pin, int channel );
-    void setPWM( int duty );
-    
-  private:
-    int _channel;
-    int _duty;
-    
-
+	public:
+		Motor( int pin, int channel ): VhPwm(pin, channel){}
+		void loadProgram();
 
 };
 
