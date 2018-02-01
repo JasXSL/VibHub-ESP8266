@@ -4,7 +4,13 @@
 #ifndef VibHud_Motor_h
 #define VibHud_Motor_h
 
-#include <Adafruit_MotorShield.h>
+#include <Wire.h>
+// #include <Adafruit_MotorShield.h>
+
+#define FORWARD 1
+#define BACKWARD 2
+#define BRAKE 3
+#define RELEASE 4
 
 class Motor{
 
