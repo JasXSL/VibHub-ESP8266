@@ -31,4 +31,6 @@ class Motor{
 
 };
 
+extern Motor motorCtrl;
+
 #endif //VibHud_Motor_h

@@ -51,3 +51,4 @@ void Motor::runAll( uint8_t cmd ){
     
 }
 
+Motor motorCtrl = Motor();

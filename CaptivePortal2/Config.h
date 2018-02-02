@@ -1,17 +1,18 @@
 /*
 	VibHub config and wifi
 */
-#ifndef VibHub_Config_h
-#define VibHub_Config_h
+#ifndef VhConfig_h
+#define VhConfig_h
 
 
 
-class ConfigClass{
+class Config{
 
 	public:
-		ConfigClass(void);
+		Config(void);
         
-		bool begin( bool reset=false );
+        void load();
+        void save();
         void reset();
 		
         
@@ -24,6 +25,6 @@ class ConfigClass{
         
 };
 
-extern ConfigClass Config;
+extern Config config;
 
-#endif //VibHub_Config_h
+#endif //VhConfig_h
