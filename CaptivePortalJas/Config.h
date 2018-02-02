@@ -11,7 +11,7 @@ class Config{
 
 	public:
 		Config();								
-		void begin();			// Loads the config
+		void begin( bool reset );			// Loads the config
 		void save();
 		void generateDeviceID();
 

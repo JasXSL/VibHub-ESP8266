@@ -9,7 +9,7 @@
 Config::Config(){}
 
 
-void Config::begin(){
+void Config::begin( bool reset ){
 
 	if(!SPIFFS.begin(true)){
         Serial.println("SPIFFS Mount Failed. Device may be damaged");
@@ -24,34 +24,43 @@ void Config::begin(){
 		// Check if config exists
 		if( SPIFFS.exists(ConfigPATH) ){
 
-            //file exists, reading and loading
-            Serial.println("reading config file");
-            File configFile = SPIFFS.open("/config.json", "r");
-            if( configFile ){
+			// Reset button held
+			if( reset )
+				SPIFFS.remove(ConfigPATH);
+			
+			// No reset, load the file
+			else{
 
-                Serial.println("opened config file");
-                size_t size = configFile.size();
-                // Allocate a buffer to store contents of the file.
-                std::unique_ptr<char[]> buf(new char[size]);
+				//file exists, reading and loading
+				Serial.println("reading config file");
+				File configFile = SPIFFS.open(ConfigPATH, "r");
+				if( configFile ){
 
-                configFile.readBytes(buf.get(), size);
-                DynamicJsonBuffer jsonBuffer;
-                JsonObject& json = jsonBuffer.parseObject(buf.get());
-                json.printTo(Serial);
+					Serial.println("opened config file");
+					size_t size = configFile.size();
+					// Allocate a buffer to store contents of the file.
+					std::unique_ptr<char[]> buf(new char[size]);
 
-                if( json.success() ){
+					configFile.readBytes(buf.get(), size);
+					DynamicJsonBuffer jsonBuffer;
+					JsonObject& json = jsonBuffer.parseObject(buf.get());
+					json.printTo(Serial);
 
-                    Serial.println("\nparsed json");
+					if( json.success() ){
 
-                    strcpy(server, json["server"]);
-					char p[5];
-                    strcpy(p, json["port"]);
-					port = atoi(p);
-                    strcpy(deviceid, json["deviceid"]);
+						Serial.println("\nparsed json");
 
-                }
-				else
-                    Serial.println("failed to load json config");
+						strcpy(server, json["server"]);
+						char p[5];
+						strcpy(p, json["port"]);
+						port = atoi(p);
+						strcpy(deviceid, json["deviceid"]);
+
+					}
+					else
+						Serial.println("failed to load json config");
+
+				}
                 
             }
 

@@ -3,10 +3,6 @@ Library requirements:
 https://github.com/timum-viw/socket.io-client
 Install Adafruit Motor Shield V2 from library manager
 
-ESP8266 library requirements:
-https://github.com/Links2004/arduinoWebSockets/
-https://github.com/tzapu/WiFiManager/
-
 ESP32 library requirements:
 Comment out SocketIoClient.cpp#L41, hexdump() is not available on ESP32
 https://github.com/tzapu/WiFiManager/tree/esp32 (In high flux as of 2018-01-28, hopefully will be RC soon)
@@ -71,12 +67,7 @@ https://github.com/bbx10/webserver_tng
 	std::vector<VhPwm> leds;		// Vector containing LEDs
 
 	Config conf;					// Object that holds FS-stored configuration
-
-	int buttonTime;					// Time in MS when button was pressed
-	#define DEBOUNCE_MS 50			// Prevents button bounce
-
-	Ticker confButtonHeld;			// Ticker for the button
-	bool confSaveSettings;			// Checks if config settings should be saved
+	bool confSaveSettings;			// Whether to save settings on disconnect from captive or not
 
 	Ticker ledTicker;				// Ticker for LED
 	bool ledTickerHigh;				// Whether LED ticker is high
@@ -264,10 +255,21 @@ https://github.com/bbx10/webserver_tng
 		delay(500);
 		Serial.println("\nStarting...");
 
-		conf.begin();
-
 		//set wifireset pin as input
 		pinMode(CONF_PIN, INPUT);
+
+		int r = digitalRead(CONF_PIN);
+		Serial.println(r);
+		if( r == HIGH ){
+
+			Serial.println("Resetting to factory default");
+			WiFiManager wifiManager;
+			wifiManager.resetSettings();
+
+		}
+
+		// Begin configuration and tell it if it should reset or not
+		conf.begin( r == HIGH );
 
 		leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED));
 		leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN));
@@ -305,27 +307,10 @@ https://github.com/bbx10/webserver_tng
 
 		// Check the button
 		int r = digitalRead(CONF_PIN);
-		if( r == 1 ){
+		// Enter config mode
+		if( r == HIGH )
+			initWifi(true);
+		
 
-			if( buttonTime == 0 )
-				buttonTime = millis();
-
-			if( millis()-buttonTime > 5000 ){
-
-				Serial.println("TODO: RESET DEVICE!");
-				delay(1000);
-
-			}
-
-
-		}
-		else if( buttonTime && millis()-buttonTime > DEBOUNCE_MS ){
-				
-			if( millis()-buttonTime < 5000 )
-				initWifi(true);
-
-			buttonTime = 0;
-
-		}
 
 	}
