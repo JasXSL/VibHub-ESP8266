@@ -68,11 +68,30 @@ void Config::begin(){
     Serial.println("Port:");
 	Serial.println(port);
 
-	if( deviceid[0] == '\0' ){
+	if( deviceid[0] == '\0' || port == 0 || port > 65535 || server[0] == '\0' ){
 
-		Serial.println("No device ID found, randomizing one");
-		generateDeviceID();
+		if( deviceid[0] == '\0' ){
 
+			Serial.println("No device ID found, randomizing one");
+			gen_random(deviceid, 16);
+
+		}
+
+		if( port == 0 || port > 65535 ){
+			
+			Serial.println("Invalid port, resetting to default");
+			port = DEFAULT_PORT;
+
+		}
+
+		if( server[0] == '\0' ){
+
+			Serial.println("Invalid server, resetting to factory default");
+			strcpy(server, DEFAULT_SERVER);
+
+		}
+
+		save();
 	}
     
 
@@ -89,13 +108,6 @@ void Config::gen_random( char *s, const int len ){
         s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
     
     s[len] = 0;
-
-}
-
-void Config::generateDeviceID(){
-
-	gen_random(deviceid, 16);
-	save();
 
 }
 

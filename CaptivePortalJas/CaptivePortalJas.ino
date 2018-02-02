@@ -188,10 +188,18 @@ https://github.com/bbx10/webserver_tng
 		//set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
 		wifiManager.setAPCallback(configModeCallback);
 		wifiManager.setSaveConfigCallback(configModeSaveCallback);
-		WiFiManagerParameter par("Device ID", "Your device ID", conf.deviceid, 64);
-		wifiManager.addParameter(&par);
 
+		// Custom settings
+		WiFiManagerParameter devId("Device ID", "Your device ID", conf.deviceid, 64);
+		WiFiManagerParameter serverHost("Server Host", "vibhub.io", conf.server, 64);
+		char port[6];
+		itoa(conf.port, port, 10);
+		WiFiManagerParameter serverPort("Server Port", "80", port, 6);
 
+		wifiManager.addParameter(&devId);
+		wifiManager.addParameter(&serverHost);
+		wifiManager.addParameter(&serverPort);
+		
 		String ssid = getssid();
 		if( force ){
 
@@ -217,9 +225,14 @@ https://github.com/bbx10/webserver_tng
 
 		if( confSaveSettings ){
 
-			Serial.println("Configuration change detected, rebooting. Device ID:");
-			Serial.println(par.getValue());
-			strcpy(conf.deviceid, par.getValue());
+			Serial.println("Configuration change detected, saving and rebootski");
+
+			strcpy(conf.deviceid, devId.getValue());
+			strcpy(conf.server, serverHost.getValue());
+			char p[5];
+			strcpy(p, serverPort.getValue());
+			conf.port = atoi(p);
+			
 			conf.save();
 
 			ESP.restart();
