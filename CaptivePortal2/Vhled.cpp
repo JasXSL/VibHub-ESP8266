@@ -46,6 +46,9 @@ void Vhled::setState( int state ){
     
     int rgb[3] = {0,0,0};
     switch(state) {
+        case STATE_INIT :
+            rgb[BLUE] = 255;
+            break;
         case STATE_PORTAL :
             rgb[BLUE] = 255;
             ledTicker.attach(0.5, ledTickerCallback);

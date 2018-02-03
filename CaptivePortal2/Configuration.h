@@ -27,14 +27,16 @@ anything board specific or shared between classes
 
 // Defaults
 	// Brightness of RGB LED (0-255)
-	#define DEFAULT_LED_PWM 50
+	#define DEFAULT_LED_PWM 90
     #define LED_INVERT true
     
-    #define SERVER_DOMAIN  "vibhub.io"
-    #define SERVER_PORT    80
+    #define DEFAULT_SERVER  "vibhub.io"
+    #define DEFAULT_PORT    80
 
-    #define DEBOUNCE_MS 50			// Prevents button bounce
-    
+    #define DEBOUNCE    90          // Prevents button bounce
+    #define HOLD_TIME   2000        // ms hold period
+    #define BUTTON_UP   HIGH
+    #define BUTTON_DOWN LOW
 
 // PWM Channel reservation
 	#define CHANNEL_RED 0

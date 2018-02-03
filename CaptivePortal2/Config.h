@@ -4,24 +4,26 @@
 #ifndef VhConfig_h
 #define VhConfig_h
 
+#include "Configuration.h"
 
 
 class Config{
 
 	public:
-		Config(void);
+		Config(void) {}
         
-        void load();
+        void load( bool reset=false );
         void save();
         void reset();
+		void generateDeviceID();
 		
         
-        char server[40] = "vibhub.io";
-        char port[6]    = "80";
-        char deviceid[24];
+        char server[64]     = DEFAULT_SERVER;
+        unsigned int port   = DEFAULT_PORT;
+        char deviceid[64];
         
 	private:
-        
+        void gen_random( char *s, const int len );
         
 };
 

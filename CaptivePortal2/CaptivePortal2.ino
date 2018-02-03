@@ -1,11 +1,11 @@
 /*
 Library requirements:
 https://github.com/timum-viw/socket.io-client
-Install Adafruit Motor Shield V2 from library manager
+// Install Adafruit Motor Shield V2 from library manager
 
-ESP8266 library requirements:
-https://github.com/Links2004/arduinoWebSockets/
-https://github.com/tzapu/WiFiManager/
+// ESP8266 library requirements:
+// https://github.com/Links2004/arduinoWebSockets/
+// https://github.com/tzapu/WiFiManager/
 
 ESP32 library requirements:
 Comment out SocketIoClient.cpp#L41, hexdump() is not available on ESP32
@@ -22,12 +22,6 @@ https://github.com/bbx10/webserver_tng
 // Libraries
     #include <Arduino.h>
     #include "Configuration.h"
-	//#include <WebServer.h>      //https://github.com/bbx10/webserver_tng
-	#include <ESP32Ticker.h>    //https://github.com/bertmelis/Ticker-esp32
-	//#include <DNSServer.h>
-	//#include <WiFiManager.h>    //https://github.com/tzapu/WiFiManager
-	// #include "driver/ledc.h"
-	// #include <SocketIoClient.h>     //https://github.com/timum-viw/socket.io-client
 	#include "Config.h"
 	#include "VhPwm.h"
 	#include "Vhled.h"
@@ -37,9 +31,15 @@ https://github.com/bbx10/webserver_tng
 
 
 // Globals
-    int buttonTime;					// Time in MS when button was pressed
-    Ticker confButtonHeld;			// Ticker for the button
-    VhSocket socket;                // Socket.io client
+    // Socket.io client
+    VhSocket socket;
+    
+// Local state vars
+    int lastButtonState = BUTTON_UP;
+    long buttonDownTime;
+    bool buttonHeld = false;
+
+
 
 // Socket.io events
 
@@ -75,22 +75,30 @@ void setup() {
     vhled.setState(STATE_BOOT);
     
     
-    config.load();
     
+    bool reset = false;
 
     //set wifireset pin as input
     pinMode(CONF_PIN, INPUT);
     
     
-    motorCtrl.begin();
+    // Reset config and wifi if config button is held on boot
+    if( digitalRead(CONF_PIN) == BUTTON_DOWN ){
+        Serial.println("Resetting everything");
+        reset = true;
+    }
+    
+    config.load(reset);
     
     
-    vhWifi.connect(false, false);
+    vhWifi.connect(reset, reset);
     //if you get here you have connected to the WiFi
     Serial.println("Connected");
     
     // Set socket loading state
     vhled.setState(STATE_SOCKET_ERR);
+    
+    motorCtrl.begin();
     
     //TODO: Possibly connect directly to motor controller
     socket.on("vib", event_vib);
@@ -103,25 +111,35 @@ void loop() {
     socket.loop();
     
     // Check the button
-    if( digitalRead(CONF_PIN) == LOW ){
-
-        if( buttonTime == 0 )
-            buttonTime = millis();
-
-        if( millis()-buttonTime > 5000 ){
-
-            Serial.println("TODO: RESET DEVICE!");
-            delay(1000);
-
+    int buttonState = digitalRead(CONF_PIN);
+    
+    if (buttonState == BUTTON_DOWN){
+        // Pressed
+        if (lastButtonState == BUTTON_UP){
+            buttonDownTime = millis();
         }
-        
+        // Held
+        else if (!buttonHeld && (millis() - buttonDownTime) > long(HOLD_TIME)){
+            Serial.println("== Button is being held");
+            // Give visual indication that button has been held long enough
+            vhled.setState(STATE_INIT);
+            buttonHeld = true;
+        }
     }
-    else if( buttonTime && millis()-buttonTime > DEBOUNCE_MS ){
-            
-        if( millis()-buttonTime < 5000 )
-            vhWifi.connect(true, true);
-
-        buttonTime = 0;
-
+    // Released
+    else if (buttonState == BUTTON_UP && lastButtonState == BUTTON_DOWN){
+        if (buttonHeld){
+            Serial.println("== Button Held >5s");
+            buttonHeld = false;
+            //TODO
+            vhled.setState(STATE_PORTAL);
+            //vhWifi.connect(true, false);
+        }
+        else if ((millis() - buttonDownTime) > long(DEBOUNCE)){
+            Serial.println("== Button Pressed");
+            //TODO: cancel config mode
+            vhled.setState(STATE_RUNNING);
+        }
     }
+    lastButtonState = buttonState;
 }

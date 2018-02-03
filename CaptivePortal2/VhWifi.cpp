@@ -39,18 +39,23 @@ VhWifi::VhWifi(){
 void VhWifi::connect( bool force, bool reset ){
     WiFiManager wifiManager;
     
-    // The extra parameters to be configured
-    WiFiManagerParameter custom_server("server", "VibHud server", config.server, 40);
-    WiFiManagerParameter custom_port("port", "VibHud port", config.port, 6);
-    WiFiManagerParameter custom_deviceid("deviceid", "DeviceID", config.deviceid, 24);
-    wifiManager.addParameter(&custom_server);
-    wifiManager.addParameter(&custom_port);
-    wifiManager.addParameter(&custom_deviceid);
-    
     if (reset){
         Serial.println("Wifi settings reset");
         wifiManager.resetSettings();
     }
+    
+    
+    // The extra parameters to be configured
+    WiFiManagerParameter devId("deviceid", "Device ID", config.deviceid, 64);
+    WiFiManagerParameter serverHost("server", "Server Host", config.server, 64);
+    char port[6];
+    itoa(config.port, port, 10);
+    WiFiManagerParameter serverPort("port", "Server Port", port, 6);
+    
+    wifiManager.addParameter(&devId);
+    wifiManager.addParameter(&serverHost);
+    wifiManager.addParameter(&serverPort);
+    
     
     //set config save notify callback
     wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -87,19 +92,28 @@ void VhWifi::connect( bool force, bool reset ){
     }
     
     if (shouldSaveConfig) {
+        
+        Serial.println("Configuration change detected, saving and rebootski");
+        
         //read updated parameters
-        strcpy(config.server, custom_server.getValue());
-        strcpy(config.port, custom_port.getValue());
-        strcpy(config.deviceid, custom_deviceid.getValue());
+        strcpy(config.deviceid, devId.getValue());
+        strcpy(config.server, serverHost.getValue());
+        char p[5];
+        strcpy(p, serverPort.getValue());
+        config.port = atoi(p);
+        
         config.save();
+
+        ESP.restart();
+        delay(1000);
     }
     else
         Serial.println("No device ID change detected");
     
-    Serial.print("local ip: ");
-    Serial.println(WiFi.localIP());
+    // Serial.print("local ip: ");
+    // Serial.println(WiFi.localIP());
     
-    Serial.println("connected");
+    // Serial.println("connected");
 }
 
 

@@ -14,7 +14,7 @@ void VhSocket::connect(){
     SocketIoClient::on("disconnect", std::bind(&VhSocket::event_disconnect, this, _1, _2));
     
     //TODO: atoi here is a kludge, fix properly
-    begin(config.server, atoi(config.port));
+    begin(config.server, config.port);
 }
 
 

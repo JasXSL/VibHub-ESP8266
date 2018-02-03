@@ -4,35 +4,33 @@
 #include <SPIFFS.h>
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 
-
-Config::Config(){
-    
-}
+#define ConfigPATH "/config.json"
 
 
-void Config::load(){
+void Config::load( bool reset ){
     
-    //Set default device ID
-    #if defined(ESP8266)
-        itoa(ESP.getChipId(), deviceid, 16);
-    #else
-        itoa(ESP.getEfuseMac(), deviceid, 16);
-    #endif
+    if(!SPIFFS.begin(true)){
+        Serial.println("SPIFFS Mount Failed. Device may be damaged");
+        return;
+    }
     
+    Serial.println("mounted file system");
     
-    //clean FS, for testing
-    // SPIFFS.format();
+    // Check if config exists
+    if( SPIFFS.exists(ConfigPATH) ){
 
-    //read configuration from FS json
-    Serial.println("mounting FS...");
-    
-    if (SPIFFS.begin(true)) {
-        Serial.println("mounted file system");
-        if (SPIFFS.exists("/config.json")) {
+        // Reset button held
+        if( reset )
+            SPIFFS.remove(ConfigPATH);
+        
+        // No reset, load the file
+        else{
+
             //file exists, reading and loading
             Serial.println("reading config file");
-            File configFile = SPIFFS.open("/config.json", "r");
-            if (configFile) {
+            File configFile = SPIFFS.open(ConfigPATH, "r");
+            if( configFile ){
+
                 Serial.println("opened config file");
                 size_t size = configFile.size();
                 // Allocate a buffer to store contents of the file.
@@ -42,47 +40,106 @@ void Config::load(){
                 DynamicJsonBuffer jsonBuffer;
                 JsonObject& json = jsonBuffer.parseObject(buf.get());
                 json.printTo(Serial);
-                if (json.success()) {
+
+                if( json.success() ){
+
                     Serial.println("\nparsed json");
 
                     strcpy(server, json["server"]);
-                    strcpy(port, json["port"]);
+                    char p[5];
+                    strcpy(p, json["port"]);
+                    port = atoi(p);
                     strcpy(deviceid, json["deviceid"]);
-                } else {
-                    Serial.println("failed to load json config");
+
                 }
+                else
+                    Serial.println("failed to load json config");
+
             }
+            
         }
-    } else {
-        Serial.println("failed to mount FS");
+
     }
-}
-
-
     
-void Config::save(){
-    //save the custom parameters to FS
-    Serial.println("saving config");
-    DynamicJsonBuffer jsonBuffer;
-    JsonObject& json = jsonBuffer.createObject();
-    json["server"] = server;
-    json["port"] = port;
-    json["deviceid"] = deviceid;
+    Serial.println("DeviceID:");
+	Serial.println(deviceid);
+    Serial.println("Server:");
+	Serial.println(server);
+    Serial.println("Port:");
+	Serial.println(port);
 
-    File configFile = SPIFFS.open("/config.json", "w");
-    if (!configFile) {
-        Serial.println("failed to open config file for writing");
-    }
+	if( deviceid[0] == '\0' || port == 0 || port > 65535 || server[0] == '\0' ){
 
-    json.printTo(Serial);
-    json.printTo(configFile);
-    configFile.close();
-    //end save
+		if( deviceid[0] == '\0' ){
+
+			Serial.println("No device ID found, randomizing one");
+			gen_random(deviceid, 16);
+
+		}
+
+		if( port == 0 || port > 65535 ){
+			
+			Serial.println("Invalid port, resetting to default");
+			port = DEFAULT_PORT;
+
+		}
+
+		if( server[0] == '\0' ){
+
+			Serial.println("Invalid server, resetting to factory default");
+			strcpy(server, DEFAULT_SERVER);
+
+		}
+
+		save();
+	}
+    
 }
+
+
+void Config::save(){
+    
+    Serial.println("saving config");
+	DynamicJsonBuffer jsonBuffer;
+	JsonObject& json = jsonBuffer.createObject();
+	json["server"] = server;
+	json["port"] = port;
+	json["deviceid"] = deviceid;
+
+	File configFile = SPIFFS.open(ConfigPATH, "w");
+	if( !configFile )
+		Serial.println("failed to open config file for writing");
+	
+	json.printTo(Serial);
+	json.printTo(configFile);
+	configFile.close();
+    
+}
+
 
 void Config::reset(){
     Serial.println("Resetting config");
-    SPIFFS.format();
+    
+    if(SPIFFS.begin(true)){
+        if( SPIFFS.exists(ConfigPATH) ){
+            SPIFFS.remove(ConfigPATH);
+        }
+    }
+}
+
+
+void Config::gen_random( char *s, const int len ){
+    
+	static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+
+    for( int i = 0; i < len; ++i )
+        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    
+    s[len] = 0;
+
 }
 
 
