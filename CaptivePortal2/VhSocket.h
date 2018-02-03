@@ -4,34 +4,23 @@
 #ifndef VhSocket_h
 #define VhSocket_h
 
-#include "VhPwm.h"
+#include <Arduino.h>
+#include <SocketIoClient.h>
+#include <functional>
 
-//TODO: Color enum class
+using namespace std::placeholders;
 
-//TODO: enum class
-#define STATE_BOOT 0			// Program is booting	<0,0,128>
-#define STATE_PORTAL 1			// Program is in captive portal mode	<0,0,255> blinking
-#define STATE_WIFI_ERR 2		// Unable to connect to wifi	<255,0,0>
-#define STATE_SOCKET_ERR 3		// Unable to connect to socket server 	<128,128,0>
-#define STATE_RUNNING 4			// Connected and listening	<0,255,0>
 
-class VhSocket{
+class VhSocket : public SocketIoClient {
 
 	public:
-		VhSocket(void);
+        VhSocket(void): SocketIoClient(){}
         
         void connect();
         
-        void loop();
-        
 	private:
-        
+        void event_connect(const char * payload, size_t length);
+        void event_disconnect(const char * payload, size_t length);
 };
-
-
-
-
-
-extern VhSocket vhSocket;
 
 #endif //VhSocket_h

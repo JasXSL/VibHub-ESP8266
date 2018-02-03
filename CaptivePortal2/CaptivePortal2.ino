@@ -39,7 +39,28 @@ https://github.com/bbx10/webserver_tng
 // Globals
     int buttonTime;					// Time in MS when button was pressed
     Ticker confButtonHeld;			// Ticker for the button
+    VhSocket socket;                // Socket.io client
 
+// Socket.io events
+
+    void event_vib(const char * payload, size_t length) {
+        Serial.printf("got vib: %s\n", payload);
+    }
+
+    void event_p(const char * payload, size_t length) {
+        unsigned long int data = strtoul(payload, 0, 16);
+        uint8_t vibArray[4];
+        vibArray[0] = (int)((data & 0xFF000000) >> 24 );
+        vibArray[1] = (int)((data & 0x00FF0000) >> 16 );
+        vibArray[2] = (int)((data & 0x0000FF00) >> 8 );
+        vibArray[3] = (int)((data & 0X000000FF));
+        Serial.printf("got p - v0: %u, v1: %u, v2: %u, v3: %u\n", vibArray[0], vibArray[1], vibArray[2], vibArray[3]);
+        motorCtrl.setAll(vibArray);
+        motorCtrl.runAll(FORWARD);
+    }
+
+    
+    
 
 void setup() {
     Serial.begin(115200);
@@ -71,11 +92,15 @@ void setup() {
     // Set socket loading state
     vhled.setState(STATE_SOCKET_ERR);
     
-    vhSocket.connect();
+    //TODO: Possibly connect directly to motor controller
+    socket.on("vib", event_vib);
+    socket.on("p", event_p);
+    
+    socket.connect();
 }
 
 void loop() {
-    vhSocket.loop();
+    socket.loop();
     
     // Check the button
     if( digitalRead(CONF_PIN) == LOW ){
