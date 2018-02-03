@@ -50,7 +50,7 @@ https://github.com/bbx10/webserver_tng
 	#include <WebServer.h>      //https://github.com/bbx10/webserver_tng
 	#include <ESP32Ticker.h>    //https://github.com/bertmelis/Ticker-esp32
 	#include <DNSServer.h>
-	#include <WiFiManager.h>    //https://github.com/tzapu/WiFiManager
+	#include "WiFiManager.h"    //https://github.com/tzapu/WiFiManager (MODIFIED BY JAS)
 	#include "driver/ledc.h"
 	#include <SocketIoClient.h>
 	#include "Motor.h"
