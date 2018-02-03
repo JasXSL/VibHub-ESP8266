@@ -25,4 +25,6 @@ class Config{
 
 };
 
+extern Config vhConf;
+
 #endif

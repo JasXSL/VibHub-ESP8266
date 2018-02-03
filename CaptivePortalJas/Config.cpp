@@ -141,3 +141,4 @@ void Config::save(){
 }
 
 
+Config vhConf = Config();

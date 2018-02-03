@@ -46,13 +46,13 @@ https://github.com/bbx10/webserver_tng
 
 
 // Libraries
+	#include "Config.h"
 	#include <WebServer.h>      //https://github.com/bbx10/webserver_tng
 	#include <ESP32Ticker.h>    //https://github.com/bertmelis/Ticker-esp32
 	#include <DNSServer.h>
 	#include <WiFiManager.h>    //https://github.com/tzapu/WiFiManager
 	#include "driver/ledc.h"
 	#include <SocketIoClient.h>
-	#include "Config.h"
 	#include "Motor.h"
 	#include "VhPwm.h"
 	#include <Arduino.h>
@@ -66,7 +66,6 @@ https://github.com/bbx10/webserver_tng
 	std::vector<Motor> motors;		// Vector containing motors to be PWMed
 	std::vector<VhPwm> leds;		// Vector containing LEDs
 
-	Config conf;					// Object that holds FS-stored configuration
 	bool confSaveSettings;			// Whether to save settings on disconnect from captive or not
 
 	Ticker ledTicker;				// Ticker for LED
@@ -116,7 +115,7 @@ https://github.com/bbx10/webserver_tng
 
 	void event_connect(const char * payload, size_t length) {
 		Serial.println("got connect");
-		webSocket.emit("id", ("\"" + (String)conf.deviceid + "\"").c_str());
+		webSocket.emit("id", ("\"" + (String)vhConf.deviceid + "\"").c_str());
 		setState(STATE_RUNNING);
 	}
 
@@ -181,10 +180,10 @@ https://github.com/bbx10/webserver_tng
 		wifiManager.setSaveConfigCallback(configModeSaveCallback);
 
 		// Custom settings
-		WiFiManagerParameter devId("Device ID", "Your device ID", conf.deviceid, 64);
-		WiFiManagerParameter serverHost("Server Host", "vibhub.io", conf.server, 64);
+		WiFiManagerParameter devId("Device ID", "Your device ID", vhConf.deviceid, 64);
+		WiFiManagerParameter serverHost("Server Host", "vibhub.io", vhConf.server, 64);
 		char port[6];
-		itoa(conf.port, port, 10);
+		itoa(vhConf.port, port, 10);
 		WiFiManagerParameter serverPort("Server Port", "80", port, 6);
 
 		wifiManager.addParameter(&devId);
@@ -218,13 +217,13 @@ https://github.com/bbx10/webserver_tng
 
 			Serial.println("Configuration change detected, saving and rebootski");
 
-			strcpy(conf.deviceid, devId.getValue());
-			strcpy(conf.server, serverHost.getValue());
+			strcpy(vhConf.deviceid, devId.getValue());
+			strcpy(vhConf.server, serverHost.getValue());
 			char p[5];
 			strcpy(p, serverPort.getValue());
-			conf.port = atoi(p);
+			vhConf.port = atoi(p);
 			
-			conf.save();
+			vhConf.save();
 
 			ESP.restart();
 			delay(1000);
@@ -269,7 +268,7 @@ https://github.com/bbx10/webserver_tng
 		}
 
 		// Begin configuration and tell it if it should reset or not
-		conf.begin( r == HIGH );
+		vhConf.begin( r == HIGH );
 
 		leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED));
 		leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN));
@@ -299,7 +298,7 @@ https://github.com/bbx10/webserver_tng
 		webSocket.on("vib", event_vib);
 		webSocket.on("p", event_p);
 		
-		webSocket.begin(conf.server, conf.port);
+		webSocket.begin(vhConf.server, vhConf.port);
 	}
 
 	void loop() {
