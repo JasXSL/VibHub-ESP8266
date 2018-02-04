@@ -560,12 +560,12 @@ void WiFiManager::handleRoot() {
     page += configPortalActive ? _apName : WiFi.localIP().toString();
     page += "</h3>";
   page+= "</div>";
-  //
-
   page += FPSTR(HTTP_PORTAL_OPTIONS);
-  page += "<div class='deviceID'><p class='title'>Device ID:</p><p class='body'>";
+  page += "<div class='deviceID msg P'><p class='title'>Device ID:</p><p class='body'>";
     page += vhConf.deviceid;
   page += "</p></div>";
+  //
+
   reportStatus(page);
   page += FPSTR(HTTP_END);
 
@@ -579,6 +579,7 @@ void WiFiManager::handleRoot() {
 /** 
  * HTTPD CALLBACK Wifi config page handler
  */
+/* MODIFIED BY JAS */
 void WiFiManager::handleWifi(boolean scan) {
 
   DEBUG_WM("<- HTTP Wifi");
@@ -591,7 +592,9 @@ void WiFiManager::handleWifi(boolean scan) {
   page += FPSTR(HTTP_HEAD_END);
 
   if (scan) {
+    page += "<div class='connections center'>";
     page += getScanItemOut();
+    page += "</div>";
   }
 
   String pitem = FPSTR(HTTP_FORM_START);
@@ -614,6 +617,7 @@ void WiFiManager::handleWifi(boolean scan) {
 
   DEBUG_WM(F("Sent config page"));
 }
+//
 
 String WiFiManager::getScanItemOut(){
     String page;
@@ -701,7 +705,7 @@ String WiFiManager::getScanItemOut(){
         }
 
       }
-      page += "<br/>";
+      // page += "<br/>"; Modified by jas
     }
 
     return page;
@@ -1025,6 +1029,7 @@ void WiFiManager::handleInfo() {
   #endif
 
   #ifdef ESP32
+  page += F("<div class='center'>");  // JAS added
   page += F("<h3>esp32</h3><hr><dl>");
 
   // subject to rollover!
@@ -1142,6 +1147,8 @@ void WiFiManager::handleInfo() {
   // @todo add callback here
   page += F("</table>");
   page += F("<p/>More information about WiFiManager at <a href=\"https://github.com/tzapu/WiFiManager\">https://github.com/tzapu/WiFiManager</a>.");
+  
+  page += F("</div>");  // JAS added
   page += FPSTR(HTTP_END);
 
   server->sendHeader("Content-Length", String(page.length()));

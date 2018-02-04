@@ -53,13 +53,17 @@ const char HTTP_HEAD[] PROGMEM            = "<!DOCTYPE html><html lang='en'><hea
 // const char HTTP_STYLE[] PROGMEM           = "<style>.c{text-align: center;} div,input{padding:5px;font-size:1em;} input{width:95%;} body{text-align: center;font-family:verdana;} button{border:0;border-radius:0.3rem;background-color:#1fa3ec;color:#fff;line-height:2.4rem;font-size:1.2rem;width:100%;} .q{float: right;width: 64px;text-align: right;} .l{background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAALVBMVEX///8EBwfBwsLw8PAzNjaCg4NTVVUjJiZDRUUUFxdiZGSho6OSk5Pg4eFydHTCjaf3AAAAZElEQVQ4je2NSw7AIAhEBamKn97/uMXEGBvozkWb9C2Zx4xzWykBhFAeYp9gkLyZE0zIMno9n4g19hmdY39scwqVkOXaxph0ZCXQcqxSpgQpONa59wkRDOL93eAXvimwlbPbwwVAegLS1HGfZAAAAABJRU5ErkJggg==') no-repeat left center;background-size: 1em;}</style>";
 const char HTTP_STYLE[] PROGMEM           = "<style>"
 ".c,body{margin:0;text-align:center;font-family:verdana;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADFJREFUeNpifPTo0du3bxlgQFhYGJnLhEcOyGXCIwfkMuGRAxmORw4kjUdugJ0GEGAATr8+gQ2rX7QAAAAASUVORK5CYII=')}"
-"div,input{padding:0.5vmax;font-size:3vmax}input{width:95%;margin:0.5vmax 0}"
+"input{width:95%;margin:0.5vmax 0;padding:0.5vmax;font-size:3vmax}"
 "button{box-shadow:0 0 3vmax rgba(0,0,0,.5);border:0;border-radius:1vmax;background:linear-gradient(to bottom, #edfeff 0%,#d0fdff 100%);padding:2vmax;font-size:3vmax;width:100%;0 0 3vmax rgba(0,0,0,.5);margin-bottom:2vmax}"
 "button.setup{background:linear-gradient(to bottom, #eeffed 0%,#d3ffd1 100%);font-size:4vmax;font-weight:bold}"
-".wrap {text-align:left;position:absolute;left:0;right:0;padding:0}"
-"h1,h3{margin:0}h3{font-style:italic}"
+".wrap {text-align:left;position:absolute;left:0;right:0;padding:0;min-height:100%;padding-top:2vmax}"
+"h1,h3,p.title,p.body{margin:0}h3,p.title{font-style:italic}"
+"p.body{font-weight:bold;text-align:center;background:#FFE;padding:1vmax;border:.25vmax dashed #AA9;}"
 "div.header{margin-bottom:3vmax;padding:3vmax;box-shadow:0 0 3vmax rgba(0,0,0,.5);background:rgba(255,255,255,.75)}"
-"div.center,div.msg{margin:0 3vw 3vw 3vw;}"
+"div.center,div.msg,form.center{margin:0 3vw 3vw 3vw;}"
+"form{margin-top:1vmax}"
+"div.connections{padding-top:1vmax}"
+"div.connection{background:rgba(255,255,255,.75);box-shadow:0 0 3vmax rgba(0,0,0,.5);margin-top:0.5vmax;padding:1vmax}"
 // links
 "a{color:#000;font-weight:700;text-decoration:none}a:hover{color:#1fa3ec;text-decoration:underline}"
 // quality icons
@@ -71,6 +75,7 @@ const char HTTP_STYLE[] PROGMEM           = "<style>"
 "background-size: 95px 16px;}}"
 // msg callouts
 ".msg{padding:20px;margin:20px 0;border:1px solid #eee;border-left-width:5px;border-radius:2vmax;border-left-color:#777;background:rgba(255,255,255,.75);box-shadow:0 0 3vmax rgba(0,0,0,.5)}.msg h4{margin-top:0;margin-bottom:5px}.msg.P{border-left-color:#9AFAFF}.msg.P h4{color:#1fa3ec}.msg.D{border-left-color:#d9534f}.msg.D h4{color:#d9534f}"
+".msg.middle{position:absolute;top:50%;left:3vmax;right:3vmax;transform:translateY(-50%)}"
 // lists
 "dt{font-weight:bold}dd{margin:0;padding:0 0 0.5em 0}"
 "</style>";
@@ -78,17 +83,17 @@ const char HTTP_STYLE[] PROGMEM           = "<style>"
 const char HTTP_SCRIPT[] PROGMEM          = "<script>function c(l){document.getElementById('s').value=l.innerText||l.textContent;document.getElementById('p').focus();}</script>";
 const char HTTP_HEAD_END[] PROGMEM        = "</head><body><div class='wrap'>";
 const char HTTP_PORTAL_OPTIONS[] PROGMEM  = "<div class=\"center\"><form action='/wifi' method='GET'><button class='setup'>Setup</button></form><form action='/0wifi' method='GET'><button>Configure WiFi (No Scan)</button></form><form action='/i' method='GET'><button>Info</button></form><form action='/exit' method='GET'><button>Quit</button></form></div>";
-const char HTTP_ITEM[] PROGMEM            = "<div><a href='#p' onclick='c(this)'>{v}</a><div role='img' aria-label='{r}%' title='{r}%' class='q q-{q} {i}'></div></div>";
+const char HTTP_ITEM[] PROGMEM            = "<div class='connection'><a href='#p' onclick='c(this)'>{v}</a><div role='img' aria-label='{r}%' title='{r}%' class='q q-{q} {i}'></div></div>";
 // const char HTTP_ITEM[] PROGMEM         = "<div><a href='#p' onclick='c(this)'>{v}</a> {R} {r}% {q} {e}</div>"; // test all tokens
 //const char HTTP_ITEM_PADLOCK[] PROGMEM = "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAALVBMVEX///8EBwfBwsLw8PAzNjaCg4NTVVUjJiZDRUUUFxdiZGSho6OSk5Pg4eFydHTCjaf3AAAAZElEQVQ4je2NSw7AIAhEBamKn97/uMXEGBvozkWb9C2Zx4xzWykBhFAeYp9gkLyZE0zIMno9n4g19hmdY39scwqVkOXaxph0ZCXQcqxSpgQpONa59wkRDOL93eAXvimwlbPbwwVAegLS1HGfZAAAAABJRU5ErkJggg==' width='13px'/>";
-const char HTTP_FORM_START[] PROGMEM      = "<form method='POST' action='wifisave'><label for='s'>SSID</label><input id='s' name='s' maxlength=32 placeholder='{v}'><br/><label for='p'>Password</label><input id='p' name='p' maxlength='64' type='password' placeholder=''><br/>";
+const char HTTP_FORM_START[] PROGMEM      = "<form class='center' method='POST' action='wifisave'><label for='s'>SSID</label><input id='s' name='s' maxlength=32 placeholder='{v}'><br/><label for='p'>Password</label><input id='p' name='p' maxlength='64' type='password' placeholder=''><br/>";
 const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>Save</button></form>";
-const char HTTP_FORM_LABEL[] PROGMEM      = "<label for='{i}'>{t}</label>";
+const char HTTP_FORM_LABEL[] PROGMEM      = "<label for='{i}'>{i}</label>";
 const char HTTP_FORM_PARAM_START[] PROGMEM = "<hr>";
-const char HTTP_FORM_PARAM[] PROGMEM      = "<br/><input id='{i}' name='{n}' maxlength={l} placeholder='' value='{v}' {c}>";
+const char HTTP_FORM_PARAM[] PROGMEM      = "<br/><input id='{i}' name='{n}' maxlength={l} placeholder='{n}' value='{v}' {c}>";
 const char HTTP_FORM_PARAM_END[] PROGMEM  = "<br/>";
-const char HTTP_SCAN_LINK[] PROGMEM       = "<br/><form action='/wifi' method='get'><button>Refresh</button></form>";
-const char HTTP_SAVED[] PROGMEM           = "<div class='msg'>Saving Credentials<br/>Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
+const char HTTP_SCAN_LINK[] PROGMEM       = "<form class='center' action='/wifi' method='get'><button>Refresh</button></form>";
+const char HTTP_SAVED[] PROGMEM           = "<div class='msg middle'>Saving Credentials<br/>Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
 const char HTTP_END[] PROGMEM             = "</div></body></html>";
 
 // ALTERNATIONS END
