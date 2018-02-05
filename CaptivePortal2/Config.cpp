@@ -7,6 +7,12 @@
 #define ConfigPATH "/config.json"
 
 
+Config::Config(void) :
+    server(DEFAULT_SERVER),
+    port(DEFAULT_PORT)
+{}
+
+
 void Config::load( bool reset ){
     
     if(!SPIFFS.begin(true)){
@@ -99,7 +105,7 @@ void Config::load( bool reset ){
 
 void Config::save(){
     
-    Serial.println("saving config");
+    Serial.println("Config::save");
 	DynamicJsonBuffer jsonBuffer;
 	JsonObject& json = jsonBuffer.createObject();
 	json["server"] = server;
@@ -118,7 +124,7 @@ void Config::save(){
 
 
 void Config::reset(){
-    Serial.println("Resetting config");
+    Serial.println("Config::reset");
     
     if(SPIFFS.begin(true)){
         if( SPIFFS.exists(ConfigPATH) ){
@@ -143,4 +149,4 @@ void Config::gen_random( char *s, const int len ){
 }
 
 
-Config config = Config();
+Config vhConf = Config();

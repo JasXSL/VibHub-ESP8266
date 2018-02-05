@@ -10,7 +10,7 @@
 class Config{
 
 	public:
-		Config(void) {}
+		Config(void);
         
         void load( bool reset=false );
         void save();
@@ -18,8 +18,8 @@ class Config{
 		void generateDeviceID();
 		
         
-        char server[64]     = DEFAULT_SERVER;
-        unsigned int port   = DEFAULT_PORT;
+        char server[64];
+        unsigned int port;
         char deviceid[64];
         
 	private:
@@ -27,6 +27,6 @@ class Config{
         
 };
 
-extern Config config;
+extern Config vhConf;
 
 #endif //VhConfig_h
