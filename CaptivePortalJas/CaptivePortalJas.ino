@@ -56,7 +56,7 @@ https://github.com/bbx10/webserver_tng
 	#include "Motor.h"
 	#include "VhPwm.h"
 	#include <Arduino.h>
-
+	#include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 
 // move these later
 #define getssid() "VibHub_"+String((uint16_t)(ESP.getEfuseMac()>>32))
@@ -126,6 +126,54 @@ https://github.com/bbx10/webserver_tng
 
 	void event_vib(const char * payload, size_t length) {
 		Serial.printf("got vib: %s\n", payload);
+
+		DynamicJsonBuffer jsonBuffer;
+		JsonObject& json = jsonBuffer.parseObject(payload);
+		
+		json.printTo(Serial);
+
+		if( json.success() ){
+
+			bool mo[4] = {true, true, true, true};
+			
+
+			if( json.containsKey("port") ){
+
+				int port = atoi(json["port"]);
+				if( port != -1 ){
+
+					mo[0] = mo[1] = mo[2] = mo[3] =  false;
+					mo[port] = true;
+
+				}
+
+			}
+
+			int repeats = 0;
+			if( json.containsKey("repeats") )
+				repeats = atoi(json["repeats"]);
+
+			int i;
+			for( i=0; i<4; ++i ){
+				
+				//Todo: Add type checking?
+				if( mo[i] )
+					motors[i].loadProgram(json["stages"], repeats);
+
+			}
+
+			Serial.println("\nparsed json");
+			/*
+			strcpy(server, json["server"]);
+			char p[5];
+			strcpy(p, json["port"]);
+			port = atoi(p);
+			strcpy(deviceid, json["deviceid"]);
+			*/
+		}
+		else
+			Serial.println("failed to load json config");
+
 	}
 
 	// Received a quick set of all 4 motors PWM values
