@@ -5,7 +5,8 @@ Firmware configuration stuff
 anything board specific or shared between classes
 
 */
-
+#ifndef VhConfiguration_h
+#define VhConfiguration_h
 
 // PIN RESERVATIONS
 
@@ -33,8 +34,8 @@ anything board specific or shared between classes
     #define DEFAULT_SERVER  "vibhub.io"
     #define DEFAULT_PORT    80
 
-    #define DEBOUNCE    90          // Prevents button bounce
-    #define HOLD_TIME   2000        // ms hold period
+    #define DEBOUNCE    30          // Prevents button bounce
+    #define HOLD_TIME   3000        // ms hold period
     #define BUTTON_UP   HIGH
     #define BUTTON_DOWN LOW
 
@@ -49,3 +50,4 @@ anything board specific or shared between classes
 	#define CHANNEL_MOTOR_3 6
 
 
+#endif //VhConfiguration_h

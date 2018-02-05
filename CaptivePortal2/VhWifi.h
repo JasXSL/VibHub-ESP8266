@@ -4,20 +4,17 @@
 #ifndef VhWifi_h
 #define VhWifi_h
 
-
+#include "WiFiManager.h"
 
 class VhWifi{
-
 	public:
-		VhWifi(void);
+		VhWifi(void) {}
         
-		void connect( bool force=false, bool reset=false );
-		
-        
+		void connect( bool force=false, bool resetSetting=false );
+		void clearSettings();
         
 	private:
-        
-        
+        WiFiManager* _wifiManager;
 };
 
 
