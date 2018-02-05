@@ -358,6 +358,9 @@ https://github.com/bbx10/webserver_tng
 		if( r == HIGH )
 			initWifi(true);
 		
+		int i;
+		for( i=0; i<4; ++i )
+			motors[i].update();
 
 
 	}

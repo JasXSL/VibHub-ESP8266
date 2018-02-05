@@ -21,7 +21,7 @@ VhPwm::VhPwm( int pin, int channel ){
 void VhPwm::setPWM( int duty ){
 
   _duty = duty;
-  ledcWrite(_channel, _duty);
+  ledcWrite(_channel, round(_duty));
 
 }
 

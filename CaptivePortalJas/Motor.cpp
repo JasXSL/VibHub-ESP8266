@@ -10,8 +10,12 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 	Serial.print("Program loaded on:");
 	Serial.print(_channel);
 
+	_repeats = repeats;
+	timeline = TweenDuino::Timeline();
+
 	int size = stages.size();
 	int i;
+	int lastpwm = _duty;
 	for( i=0; i<size; ++i ){
 
 		Serial.print("\nStage: ");
@@ -19,7 +23,7 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 
 		JsonObject& s = stages[i];
 		int intensity = 0;
-		int duration = 0;
+		int duration = 1;
 		char easing[48] = "Linear.None";
 		int rep = 0;
 		bool yoyo = false;
@@ -35,6 +39,12 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 		if( s.containsKey("y") )
 			yoyo = s["y"] ? true : false;
 		
+		if( duration < 1 )
+			duration = 1;
+		if( rep < 0 )
+			rep = 0;
+
+		/*
 		Serial.print("\nIntensity: ");
 		Serial.print(intensity);
 		Serial.print(" | Duration: ");
@@ -47,8 +57,64 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 		Serial.print(yoyo);
 		
 		Serial.println();
+		*/
+
+		++rep;
+		int r;
+		bool yflip = false;
+		for( r = 0; r < rep; ++r ){
+
+			
+			// Snapback repeats
+			if( !yoyo ) 
+				timeline.addTo(_duty, (float)lastpwm, 1);
+
+			int v = intensity;
+			if( yflip )
+				v = lastpwm;
+
+			timeline.addTo(_duty, (float)v, duration);
+			Serial.print("\nAdded playback: ");
+			Serial.print("yFlip ");
+			Serial.print(yflip);
+			Serial.print(" | to ");
+			Serial.print(v);
+			Serial.print(" | Over ");
+			Serial.print(duration);
+			
+			if( yoyo )
+				yflip = !yflip;
+
+		}
+		
+
+		lastpwm = intensity;
 
 	}
+
+	timeline.begin(millis());
+
+}
+
+void Motor::update(){
+
+	uint32_t time = millis();
+	timeline.update(time);
+	if( timeline.isComplete() ){
+
+		if( _repeats == -1 || _repeats > 0 ){
+			
+			timeline.restartFrom(time);
+			if( _repeats > 0 )
+				--_repeats;
+
+		}
+
+		
+
+	}
+
+	setPWM(_duty);
 
 }
 

@@ -13,7 +13,7 @@ class VhPwm{
     
   protected:
     int _channel;
-    int _duty;
+    float _duty;
     
 
 
