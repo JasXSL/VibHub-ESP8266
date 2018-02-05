@@ -1,15 +1,9 @@
 /*
 Library requirements:
-https://github.com/timum-viw/socket.io-client
-// Install Adafruit Motor Shield V2 from library manager
 
-// ESP8266 library requirements:
-// https://github.com/Links2004/arduinoWebSockets/
-// https://github.com/tzapu/WiFiManager/
 
 ESP32 library requirements:
 Comment out SocketIoClient.cpp#L41, hexdump() is not available on ESP32
-https://github.com/tzapu/WiFiManager/tree/esp32 (In high flux as of 2018-01-28, hopefully will be RC soon)
 https://github.com/bertmelis/Ticker-esp32
 https://github.com/bbx10/arduinoWebSockets/tree/esp32
 https://github.com/bbx10/Hash_tng
