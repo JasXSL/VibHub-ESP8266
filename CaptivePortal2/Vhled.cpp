@@ -14,13 +14,32 @@ std::vector<VhPwm> leds;		// Vector containing LEDs
 
 
 Ticker ledTicker;               // Ticker for LED
+
+
+// Flash led on and off
 bool ledTickerHigh;				// Whether LED ticker is high
-
-
-// Flash blue on and off
-void ledTickerCallback(){
+void flashingTick(int led){
     ledTickerHigh = !ledTickerHigh;
-    leds[BLUE].setPWM(round((int)ledTickerHigh*DEFAULT_LED_PWM));
+    #if defined(LED_INVERT)
+    leds[led].setPWM(255-round((int)ledTickerHigh*DEFAULT_LED_PWM));
+    #else
+    leds[led].setPWM(round((int)ledTickerHigh*DEFAULT_LED_PWM));
+    #endif
+}
+
+// Fade led on and off
+int pulseBrightness = 255;
+int pulseAmount = -5;
+void pulseTick(int led){
+    #if defined(LED_INVERT)
+    leds[led].setPWM(255-round(pulseBrightness/255.0*DEFAULT_LED_PWM));
+    #else
+    leds[led].setPWM(round(pulseBrightness/255.0*DEFAULT_LED_PWM));
+    #endif
+    pulseBrightness = pulseBrightness + pulseAmount;
+    if (pulseBrightness <= 0 || pulseBrightness >= 255) {
+        pulseAmount = -pulseAmount;
+    }
 }
 
 
@@ -30,9 +49,9 @@ Vhled::Vhled() :
 
 
 void Vhled::setup(){
-    leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED, LED_INVERT));
-    leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN, LED_INVERT));
-    leds.push_back(VhPwm(PIN_LED_BLUE, CHANNEL_BLUE, LED_INVERT));
+    leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED));
+    leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN));
+    leds.push_back(VhPwm(PIN_LED_BLUE, CHANNEL_BLUE));
 }
 
 void Vhled::setState( int state ){
@@ -51,10 +70,12 @@ void Vhled::setState( int state ){
             break;
         case STATE_PORTAL :
             rgb[BLUE] = 255;
-            ledTicker.attach(0.5, ledTickerCallback);
+            pulseBrightness = 255;
+            ledTicker.attach_ms(15, pulseTick, BLUE);
             break;
         case STATE_WIFI_ERR :
             rgb[RED] = 255;
+            ledTicker.attach_ms(500, flashingTick, RED);
             break;
         case STATE_SOCKET_ERR :
             rgb[RED] = rgb[GREEN] = 128;
@@ -67,7 +88,11 @@ void Vhled::setState( int state ){
     }
     
     for( int i = 0; i < 3; ++i ){
+        #if defined(LED_INVERT)
+        leds[i].setPWM(255-round(rgb[i]/255.0*DEFAULT_LED_PWM));
+        #else
         leds[i].setPWM(round(rgb[i]/255.0*DEFAULT_LED_PWM));
+        #endif
     }
 }
 

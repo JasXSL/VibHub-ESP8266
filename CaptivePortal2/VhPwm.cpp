@@ -6,10 +6,9 @@
 #define LEDC_RES 8
 
 
-VhPwm::VhPwm( int pin, int channel, bool _invert ) :
+VhPwm::VhPwm( int pin, int channel ) :
     _channel(channel),
-    _duty(0),
-    _invert(_invert)
+    _duty(0)
 {
     
     ledcSetup(channel, LEDC_FREQ, LEDC_RES);
@@ -20,7 +19,7 @@ VhPwm::VhPwm( int pin, int channel, bool _invert ) :
 void VhPwm::setPWM( int duty ){
 
     _duty = duty;
-    ledcWrite( _channel, _invert ? (255 - _duty) : _duty );
+    ledcWrite(_channel, round(_duty));
 
 }
 
