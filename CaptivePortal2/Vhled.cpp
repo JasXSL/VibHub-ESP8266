@@ -30,9 +30,9 @@ Vhled::Vhled() :
 
 
 void Vhled::setup(){
-    leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED, LED_INVERT));
-    leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN, LED_INVERT));
-    leds.push_back(VhPwm(PIN_LED_BLUE, CHANNEL_BLUE, LED_INVERT));
+    leds.push_back(VhPwm(PIN_LED_RED, CHANNEL_RED));
+    leds.push_back(VhPwm(PIN_LED_GREEN, CHANNEL_GREEN));
+    leds.push_back(VhPwm(PIN_LED_BLUE, CHANNEL_BLUE));
 }
 
 void Vhled::setState( int state ){
@@ -67,7 +67,11 @@ void Vhled::setState( int state ){
     }
     
     for( int i = 0; i < 3; ++i ){
+        #if defined(LED_INVERT)
+        leds[i].setPWM(round(255-(rgb[i]/255.0*DEFAULT_LED_PWM)));
+        #else
         leds[i].setPWM(round(rgb[i]/255.0*DEFAULT_LED_PWM));
+        #endif
     }
 }
 

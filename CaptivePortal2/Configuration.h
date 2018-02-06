@@ -29,7 +29,8 @@ anything board specific or shared between classes
 // Defaults
 	// Brightness of RGB LED (0-255)
 	#define DEFAULT_LED_PWM 90
-    #define LED_INVERT true
+    // Define LED_INVERT for common anode LED
+    #define LED_INVERT
     
     #define DEFAULT_SERVER  "vibhub.io"
     #define DEFAULT_PORT    80

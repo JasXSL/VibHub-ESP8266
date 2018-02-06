@@ -8,13 +8,13 @@
 class VhPwm{
 
   public:
-    VhPwm( int pin, int channel, bool _invert=false );
+    VhPwm( int pin, int channel );
     void setPWM( int duty );
     
   protected:
     int _channel;
-    int _duty;
-    bool _invert;
+    float _duty;
+    
 
 
 };
