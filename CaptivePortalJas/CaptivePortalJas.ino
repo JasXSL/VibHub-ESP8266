@@ -13,6 +13,9 @@ https://github.com/bbx10/webserver_tng
 
 */
 
+// TWEENDUINO
+	#define TIMELINE_SIZE 64		// Max stages of the timeline
+
 // PIN RESERVATIONS
 
 	// RGB LED
