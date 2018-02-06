@@ -4,10 +4,10 @@
 */
 #ifndef Motor_h
 #define Motor_h
-
 #include "VhPwm.h"
+#include <vector>
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
-#include <TweenDuino.h> // https://github.com/stickywes/TweenDuino
+#include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 
 class Motor: public VhPwm{
 

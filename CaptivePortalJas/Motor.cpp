@@ -1,7 +1,6 @@
 #include "Arduino.h"
 #include "Motor.h"
-
-#include <TweenDuino.h> // https://github.com/stickywes/TweenDuino
+#include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 
 void Motor::loadProgram( JsonArray &stages, int repeats ){
@@ -12,6 +11,8 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 
 	_repeats = repeats;
 	timeline = TweenDuino::Timeline();
+
+	
 
 	int size = stages.size();
 	int i;
@@ -24,10 +25,14 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 		JsonObject& s = stages[i];
 		int intensity = 0;
 		int duration = 1;
-		char easing[48] = "Linear.None";
+		char easing[48] = "Linear.In";
 		int rep = 0;
 		bool yoyo = false;
 
+		
+		TweenDuino::Tween::Ease ease = TweenDuino::Tween::LINEAR;
+		TweenDuino::Tween::EaseType easeType = TweenDuino::Tween::IN;
+		
 		if( s.containsKey("i") )
 			intensity = s["i"];
 		if( s.containsKey("d") )
@@ -43,6 +48,61 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 			duration = 1;
 		if( rep < 0 )
 			rep = 0;
+
+		
+		char *token = strtok(easing, ".");
+
+		std::vector<char*> tokens;
+		while( token ){
+
+			tokens.push_back(token);
+			token = strtok(NULL,".");
+
+		}
+
+		if( tokens.size() >= 2 ){
+
+			Serial.print("\nEasing: ");
+			Serial.print(tokens[0]);
+			Serial.print(" >> ");
+			Serial.print(tokens[1]);
+
+			// Translate into a const
+			if( strcmp(tokens[0], "Quadratic") == 0 )
+				ease = TweenDuino::Tween::QUAD;
+			else if( strcmp(tokens[0], "Cubic") == 0 )
+				ease = TweenDuino::Tween::CUBIC;
+			else if( strcmp(tokens[0], "Quartic") == 0 )
+				ease = TweenDuino::Tween::QUART;
+			else if( strcmp(tokens[0], "Quintic") == 0 )
+				ease = TweenDuino::Tween::QUINT;
+			else if( strcmp(tokens[0], "Sinusoidal") == 0 )
+				ease = TweenDuino::Tween::SINE;
+			else if( strcmp(tokens[0], "Exponential") == 0 )
+				ease = TweenDuino::Tween::EXPONENTIAL;
+			else if( strcmp(tokens[0], "Circular") == 0 )
+				ease = TweenDuino::Tween::CIRCULAR;
+			else if( strcmp(tokens[0], "Elastic") == 0 )
+				ease = TweenDuino::Tween::ELASTIC;
+			else if( strcmp(tokens[0], "Back") == 0 )
+				ease = TweenDuino::Tween::BACK;
+			else if( strcmp(tokens[0], "Bounce") == 0 )
+				ease = TweenDuino::Tween::BOUNCE;
+			else{
+				Serial.print("\nUnknown easing function: ");
+				Serial.print(tokens[0]);
+			}
+			
+			if( strcmp(tokens[1], "In") == 0 )
+				easeType = TweenDuino::Tween::IN;
+			else if( strcmp(tokens[1], "Out") == 0 )
+				easeType = TweenDuino::Tween::OUT;
+			else if( strcmp(tokens[1], "InOut") == 0 )
+				easeType = TweenDuino::Tween::INOUT;
+			
+
+		}
+		
 
 		/*
 		Serial.print("\nIntensity: ");
@@ -66,14 +126,15 @@ void Motor::loadProgram( JsonArray &stages, int repeats ){
 
 			
 			// Snapback repeats
-			if( !yoyo ) 
+			if( !yoyo && r ) 
 				timeline.addTo(_duty, (float)lastpwm, 1);
 
 			int v = intensity;
 			if( yflip )
 				v = lastpwm;
+			
+			timeline.addTo(_duty, (float)v, duration, ease, easeType);
 
-			timeline.addTo(_duty, (float)v, duration);
 			Serial.print("\nAdded playback: ");
 			Serial.print("yFlip ");
 			Serial.print(yflip);
