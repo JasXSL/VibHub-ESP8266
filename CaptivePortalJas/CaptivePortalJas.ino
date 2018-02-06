@@ -131,48 +131,67 @@ https://github.com/bbx10/webserver_tng
 		Serial.printf("got vib: %s\n", payload);
 
 		DynamicJsonBuffer jsonBuffer;
-		JsonObject& json = jsonBuffer.parseObject(payload);
+		JsonVariant variant = jsonBuffer.parse(payload);
+
 		
-		json.printTo(Serial);
+		variant.printTo(Serial);
 
-		if( json.success() ){
+		if( variant.success() ){
 
-			bool mo[4] = {true, true, true, true};
-			
+			// Convert to JSON array
+			int i;
+			DynamicJsonBuffer buf;
+			JsonArray& js = buf.createArray();
+			if( !variant.is<JsonArray>() ){
 
-			if( json.containsKey("port") ){
 
-				int port = atoi(json["port"]);
-				if( port != -1 ){
+				JsonObject& obj = variant;
+				js.add(obj);
 
-					mo[0] = mo[1] = mo[2] = mo[3] =  false;
-					mo[port] = true;
+			}
+			else{
+				
+				JsonArray &arr = variant;
+				for( i=0; i<arr.size(); ++i )
+					js.add(arr[i]);
+
+			}
+
+			// Cycle through all programs
+			for( i=0; i<js.size(); ++i ){
+
+				JsonObject& j = js[i];
+
+				bool mo[4] = {true, true, true, true};
+				
+				if( j.containsKey("port") ){
+
+					int port = atoi(j["port"]);
+					if( port != -1 ){
+
+						mo[0] = mo[1] = mo[2] = mo[3] =  false;
+						mo[port] = true;
+
+					}
+
+				}
+
+				int repeats = 0;
+				if( j.containsKey("repeats") )
+					repeats = atoi(j["repeats"]);
+
+				int i;
+				for( i=0; i<4; ++i ){
+					
+					//Todo: Add type checking?
+					if( mo[i] )
+						motors[i].loadProgram(j["stages"], repeats);
 
 				}
 
 			}
+			
 
-			int repeats = 0;
-			if( json.containsKey("repeats") )
-				repeats = atoi(json["repeats"]);
-
-			int i;
-			for( i=0; i<4; ++i ){
-				
-				//Todo: Add type checking?
-				if( mo[i] )
-					motors[i].loadProgram(json["stages"], repeats);
-
-			}
-
-			Serial.println("\nparsed json");
-			/*
-			strcpy(server, json["server"]);
-			char p[5];
-			strcpy(p, json["port"]);
-			port = atoi(p);
-			strcpy(deviceid, json["deviceid"]);
-			*/
 		}
 		else
 			Serial.println("failed to load json config");

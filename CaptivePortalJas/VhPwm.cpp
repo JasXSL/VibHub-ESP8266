@@ -14,7 +14,7 @@ VhPwm::VhPwm( int pin, int channel ){
   ledcAttachPin(pin, channel);
 
   _channel = channel;
-  _duty = 0;
+  setPWM(0);
 
 }
 

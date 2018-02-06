@@ -171,7 +171,6 @@ void Motor::update(){
 
 		}
 
-		
 
 	}
 
