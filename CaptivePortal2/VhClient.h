@@ -7,6 +7,7 @@
 #include <Arduino.h>
 #include "VhSocketIoClient.h"
 #include <functional>
+#include "Motor.h"
 
 using namespace std::placeholders;
 
@@ -14,6 +15,8 @@ using namespace std::placeholders;
 class VhClient {
     public:
         VhClient(void);
+        
+        void setup();
         
         void connect();
         void disconnect();
@@ -32,6 +35,8 @@ class VhClient {
         
         bool _connected;
         bool _running;
+        
+        std::vector<Motor> motors;		// Vector containing motors to be PWMed
 };
 
 extern VhClient client;

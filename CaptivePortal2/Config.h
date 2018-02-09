@@ -1,10 +1,8 @@
 /*
-	VibHub config and wifi
+	VibHub config
 */
 #ifndef VhConfig_h
 #define VhConfig_h
-
-#include "Configuration.h"
 
 
 class Config{

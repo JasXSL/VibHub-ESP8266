@@ -1,36 +1,26 @@
+
 /*
 	VibHub motor data
 */
-#ifndef VibHud_Motor_h
-#define VibHud_Motor_h
+#ifndef Motor_h
+#define Motor_h
+#include "VhPwm.h"
+#include <vector>
+#include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
+#include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 
-#include <Wire.h>
-// #include <Adafruit_MotorShield.h>
-
-#define FORWARD 1
-#define BACKWARD 2
-#define BRAKE 3
-#define RELEASE 4
-
-class Motor{
+class Motor: public VhPwm{
 
 	public:
-		Motor(void);
-        
-		void begin(uint16_t freq = 1600, TwoWire *theWire = NULL);
-        
-		void setIntensity( uint8_t channel, uint8_t intensity );
-        void run( uint8_t channel, uint8_t cmd );
-		
-        void setAll( uint8_t *intensities );
-        void runAll( uint8_t cmd );
-        
-	private:
-		
+		Motor( int pin, int channel ): VhPwm(pin, channel){}
+		void loadProgram( JsonArray &stages, int repeats );
+		void update();
 
+	private:
+		TweenDuino::Timeline timeline;
+		int _repeats;
+		
 
 };
 
-extern Motor motorCtrl;
-
-#endif //VibHud_Motor_h
+#endif

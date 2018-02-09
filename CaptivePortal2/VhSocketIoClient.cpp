@@ -10,7 +10,11 @@
 */
 
 #include "VhSocketIoClient.h"
+#include "Configuration.h"
 
+SocketIoClient::SocketIoClient(void){
+    _webSocket.setReconnectInterval(WEBSOCKET_RECONNECT_TIME);
+}
 
 const String getEventName(const String msg) {
 	return msg.substring(4, msg.indexOf("\"",4));

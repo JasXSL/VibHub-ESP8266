@@ -16,10 +16,10 @@ anything board specific or shared between classes
 	#define PIN_LED_BLUE 14
 
 	// MOTORS
-	#define PIN_MOTOR_0 25
-	#define PIN_MOTOR_1 33
-	#define PIN_MOTOR_2 32
-	#define PIN_MOTOR_3 35
+	#define PIN_MOTOR_0 26
+	#define PIN_MOTOR_1 25
+	#define PIN_MOTOR_2 33
+	#define PIN_MOTOR_3 32
 
 	// CONF BUTTON
 	#define CONF_PIN 36
@@ -27,6 +27,10 @@ anything board specific or shared between classes
 
 
 // Defaults
+    
+    // TWEENDUINO
+	#define TIMELINE_SIZE 64		// Max stages of the timeline
+
 	// Brightness of RGB LED (0-255)
 	#define DEFAULT_LED_PWM 90
     // Define LED_INVERT for common anode LED
@@ -34,6 +38,8 @@ anything board specific or shared between classes
     
     #define DEFAULT_SERVER  "vibhub.io"
     #define DEFAULT_PORT    80
+    
+    #define WEBSOCKET_RECONNECT_TIME    1000
 
     #define DEBOUNCE    30          // Prevents button bounce
     #define HOLD_TIME   3000        // ms hold period
@@ -49,6 +55,10 @@ anything board specific or shared between classes
 	#define CHANNEL_MOTOR_1 4
 	#define CHANNEL_MOTOR_2 5
 	#define CHANNEL_MOTOR_3 6
+    
+// PMW Config
+    #define LEDC_FREQ 5000
+    #define LEDC_RES 8
 
 
 #endif //VhConfiguration_h

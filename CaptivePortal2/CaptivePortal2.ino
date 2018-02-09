@@ -23,7 +23,7 @@ https://github.com/bbx10/webserver_tng
 	#include "VhWifi.h"
 	#include "VhClient.h"
 	#include "Motor.h"
-    
+
 
 void setup() {
     // Set LED state
@@ -38,6 +38,8 @@ void setup() {
 	
     
     button.setup();
+    client.setup();
+    
     
     // Reset config and wifi if config button is held on boot
     bool reset = false;
@@ -48,14 +50,13 @@ void setup() {
     
     vhConf.load(reset);
     
-    
     vhWifi.connect(reset, reset);
     Serial.println("Connected");
     
     // Set socket loading state
     vhled.setState(STATE_SOCKET_ERR);
     
-    motorCtrl.begin();
+    // motorCtrl.begin();
     
     //Connect to server
     client.connect();

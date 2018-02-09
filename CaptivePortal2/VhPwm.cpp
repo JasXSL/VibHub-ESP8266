@@ -1,9 +1,7 @@
 #include <Arduino.h>
 #include "VhPwm.h"
 #include "driver/ledc.h"
-
-#define LEDC_FREQ 12000
-#define LEDC_RES 8
+#include "Configuration.h"
 
 
 VhPwm::VhPwm( int pin, int channel ) :

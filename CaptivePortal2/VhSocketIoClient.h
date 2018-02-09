@@ -37,6 +37,7 @@ class SocketIoClient {
         void webSocketEvent(WStype_t type, uint8_t * payload, size_t length);
         void initialize();
     public:
+        SocketIoClient(void);
         void beginSSL(const char* host, const int port = DEFAULT_PORT, const char* url = DEFAULT_URL, const char* fingerprint = DEFAULT_FINGERPRINT);
         void begin(const char* host, const int port = DEFAULT_PORT, const char* url = DEFAULT_URL);
         void loop();

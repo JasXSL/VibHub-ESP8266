@@ -3,6 +3,7 @@
 #include <FS.h>
 #include <SPIFFS.h>
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
+#include "Configuration.h"
 
 #define ConfigPATH "/config.json"
 
@@ -100,11 +101,25 @@ void Config::load( bool reset ){
 		save();
 	}
     
+
 }
 
+void Config::gen_random( char *s, const int len ){
+    
+	static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+
+    for( int i = 0; i < len; ++i )
+        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    
+    s[len] = 0;
+
+}
 
 void Config::save(){
-    
+
     Serial.println("Config::save");
 	DynamicJsonBuffer jsonBuffer;
 	JsonObject& json = jsonBuffer.createObject();
@@ -134,19 +149,6 @@ void Config::reset(){
 }
 
 
-void Config::gen_random( char *s, const int len ){
-    
-	static const char alphanum[] =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-
-    for( int i = 0; i < len; ++i )
-        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
-    
-    s[len] = 0;
-
-}
 
 
 Config vhConf = Config();
