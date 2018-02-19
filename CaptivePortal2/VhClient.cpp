@@ -156,6 +156,9 @@ void VhClient::event_p(const char * payload, size_t length){
 void VhClient::loop() {
     if (_running){
         _socket.loop();
+        
+        for( int i=0; i<motors.size(); ++i )
+            motors[i].update();
     }
 }
 
