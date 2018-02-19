@@ -105,10 +105,10 @@ void VhClient::event_vib(const char * payload, size_t length){
             if( j.containsKey("port") ){
 
                 int port = atoi(j["port"]);
-                if( port != -1 ){
+                if( port > 0 ){
 
-                    mo[0] = mo[1] = mo[2] = mo[3] =  false;
-                    mo[port] = true;
+                    for( int i = 0; i<4; ++i )
+                        mo[i] = port&(1<<i);
 
                 }
 
@@ -124,6 +124,7 @@ void VhClient::event_vib(const char * payload, size_t length){
                 //Todo: Add type checking?
                 if( mo[i] )
                     motors[i].loadProgram(j["stages"], repeats);
+
 
             }
 
@@ -154,12 +155,14 @@ void VhClient::event_p(const char * payload, size_t length){
 
 
 void VhClient::loop() {
+
     if (_running){
         _socket.loop();
         
         for( int i=0; i<motors.size(); ++i )
             motors[i].update();
     }
+
 }
 
 
