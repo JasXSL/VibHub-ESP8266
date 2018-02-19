@@ -9,20 +9,37 @@ anything board specific or shared between classes
 #define VhConfiguration_h
 
 // PIN RESERVATIONS
-
-	// RGB LED
-	#define PIN_LED_RED 13
-	#define PIN_LED_GREEN 12
-	#define PIN_LED_BLUE 14
-
-	// MOTORS
-	#define PIN_MOTOR_0 26
-	#define PIN_MOTOR_1 25
-	#define PIN_MOTOR_2 33
-	#define PIN_MOTOR_3 32
-
-	// CONF BUTTON
-	#define CONF_PIN 36
+    
+    #if defined(ESP8266)
+        // RGB LED
+    	#define PIN_LED_RED 15
+    	#define PIN_LED_GREEN 2
+    	#define PIN_LED_BLUE 0
+    
+    	// MOTORS
+    	#define PIN_MOTOR_0 4
+    	#define PIN_MOTOR_1 5
+    	#define PIN_MOTOR_2 12
+    	#define PIN_MOTOR_3 13
+    
+    	// CONF BUTTON
+    	#define CONF_PIN 14
+    #elif defined(ESP32)
+    	// RGB LED
+    	#define PIN_LED_RED 13
+    	#define PIN_LED_GREEN 12
+    	#define PIN_LED_BLUE 14
+    
+    	// MOTORS
+    	#define PIN_MOTOR_0 26
+    	#define PIN_MOTOR_1 25
+    	#define PIN_MOTOR_2 33
+    	#define PIN_MOTOR_3 32
+    
+    	// CONF BUTTON
+    	#define CONF_PIN 36
+    #endif
+    
 
 
 

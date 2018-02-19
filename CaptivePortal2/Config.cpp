@@ -1,22 +1,29 @@
 #include "Config.h"
 #include <Arduino.h>
 #include <FS.h>
+#if defined(ESP32)
 #include <SPIFFS.h>
+#endif
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "Configuration.h"
 
 #define ConfigPATH "/config.json"
 
 
-Config::Config(void) :
-    server(DEFAULT_SERVER),
+VhConfig::VhConfig(void) :
+    // server(DEFAULT_SERVER),
     port(DEFAULT_PORT)
-{}
+{
+    strcpy(server, DEFAULT_SERVER);
+}
 
 
-void Config::load( bool reset ){
-    
+void VhConfig::load( bool reset ){
+    #if defined(ESP8266)
+    if(!SPIFFS.begin()){
+    #elif defined(ESP32)
     if(!SPIFFS.begin(true)){
+    #endif
         Serial.println("SPIFFS Mount Failed. Device may be damaged");
         return;
     }
@@ -104,7 +111,7 @@ void Config::load( bool reset ){
 
 }
 
-void Config::gen_random( char *s, const int len ){
+void VhConfig::gen_random( char *s, const int len ){
     
 	static const char alphanum[] =
         "0123456789"
@@ -118,9 +125,9 @@ void Config::gen_random( char *s, const int len ){
 
 }
 
-void Config::save(){
+void VhConfig::save(){
 
-    Serial.println("Config::save");
+    Serial.println("VhConfig::save");
 	DynamicJsonBuffer jsonBuffer;
 	JsonObject& json = jsonBuffer.createObject();
 	json["server"] = server;
@@ -138,10 +145,14 @@ void Config::save(){
 }
 
 
-void Config::reset(){
-    Serial.println("Config::reset");
+void VhConfig::reset(){
+    Serial.println("VhConfig::reset");
     
-    if(SPIFFS.begin(true)){
+    #if defined(ESP8266)
+    if(!SPIFFS.begin()){
+    #elif defined(ESP32)
+    if(!SPIFFS.begin(true)){
+    #endif
         if( SPIFFS.exists(ConfigPATH) ){
             SPIFFS.remove(ConfigPATH);
         }
@@ -151,4 +162,4 @@ void Config::reset(){
 
 
 
-Config vhConf = Config();
+VhConfig vhConf = VhConfig();

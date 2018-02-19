@@ -10,6 +10,7 @@
    Licensed under MIT license
  **************************************************************/
 
+#if defined(ESP32)
 #ifndef WiFiManager_h
 #define WiFiManager_h
 
@@ -342,4 +343,5 @@ class WiFiManager
     }
 };
 
+#endif
 #endif

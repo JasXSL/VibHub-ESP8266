@@ -31,9 +31,6 @@ class Vhled{
 };
 
 
-
-
-
 extern Vhled vhled;
 
 #endif //Vhled_h

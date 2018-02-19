@@ -4,11 +4,10 @@
 #ifndef VhConfig_h
 #define VhConfig_h
 
-
-class Config{
+class VhConfig{
 
 	public:
-		Config(void);
+		VhConfig(void);
         
         void load( bool reset=false );
         void save();
@@ -25,6 +24,6 @@ class Config{
         
 };
 
-extern Config vhConf;
+extern VhConfig vhConf;
 
 #endif //VhConfig_h

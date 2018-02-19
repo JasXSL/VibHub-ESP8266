@@ -5,7 +5,11 @@
 #define VhButton_h
 
 #include <Arduino.h>
+#if defined(ESP8266)
+#include <Ticker.h>
+#elif defined(ESP32)
 #include <ESP32Ticker.h>
+#endif
 #include "Configuration.h"
 
 

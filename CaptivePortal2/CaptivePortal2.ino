@@ -1,24 +1,26 @@
 /*
 Library requirements:
+ArduinoJson from library manager
 
+
+ESP8266:
+arduinoWebSockets from library manager
 
 ESP32 library requirements:
-Comment out SocketIoClient.cpp#L41, hexdump() is not available on ESP32
 https://github.com/bertmelis/Ticker-esp32
 https://github.com/bbx10/arduinoWebSockets/tree/esp32
 https://github.com/bbx10/Hash_tng
 https://github.com/bbx10/webserver_tng
+DNS patch or ESP32 platform from: https://github.com/tzapu/WiFiManager/issues/513
 
 */
-
-
 
 // Libraries
     #include <Arduino.h>
     #include "Configuration.h"
 	#include "Config.h"
 	#include "VhPwm.h"
-	#include "Vhled.h"
+    #include "Vhled.h"
 	#include "VhButton.h"
 	#include "VhWifi.h"
 	#include "VhClient.h"

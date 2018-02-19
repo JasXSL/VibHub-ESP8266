@@ -10,6 +10,7 @@
    Licensed under MIT license
  **************************************************************/
 
+#if defined(ESP32)
 #include "WiFiManager.h"
 #include "Config.h"
 #include "VhButton.h"
@@ -1664,3 +1665,5 @@ void WiFiManager::WiFi_autoReconnect(){
     }  
   #endif
 }
+
+#endif
