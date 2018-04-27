@@ -103,7 +103,7 @@ void VhClient::event_vib(const char * payload, size_t length){
             bool mo[4] = {true, true, true, true};
             
             if( j.containsKey("port") ){
-
+                
                 int port = atoi(j["port"]);
                 if( port != -1 ){
 
@@ -157,6 +157,10 @@ void VhClient::loop() {
     if (_running){
         _socket.loop();
     }
+
+    int i;
+    for( i=0; i<4; ++i )
+        motors[i].update();
 }
 
 

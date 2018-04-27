@@ -6,7 +6,7 @@
 void Motor::loadProgram( JsonArray &stages, int repeats ){
 
 	Serial.println();
-	Serial.print("Program loaded on:");
+	Serial.print("Program loaded on pin:");
 	Serial.print(_channel);
 
 	_repeats = repeats;
@@ -171,9 +171,7 @@ void Motor::update(){
 
 		}
 
-
 	}
-
 	setPWM(_duty);
 
 }
