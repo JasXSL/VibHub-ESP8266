@@ -1,0 +1,13 @@
+--- RGB LED ---
+half power blue = booting
+full power blue = initializing
+blue blinking = wifi connectable
+red = wifi connection failed
+yellow = unable to connect to socket
+green = everything's running fine
+
+-- SETTINGS BUTTON --
+Hold 3 sec after boot = Enter reconfigure mode
+??? = Reset settings
+
+
