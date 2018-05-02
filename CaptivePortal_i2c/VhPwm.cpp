@@ -36,7 +36,7 @@ void VhPwm::disable(){
 }
 
 void VhPwm::setPin( uint8_t pin, uint16_t duty, bool invert ){
-    Serial.printf("setPin: %d = %d\n", pin, duty);
+    //Serial.printf("setPin: %d = %d\n", pin, duty);
     // _pwm.setPin(pin, duty, invert);
     _pwm.set_duty(pin, invert ? (255 - duty) : duty);
 }
