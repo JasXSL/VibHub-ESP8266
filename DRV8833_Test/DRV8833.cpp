@@ -17,7 +17,7 @@ void drv8833::begin(){
     disable();
     
     pwm.begin();
-    pwm.set_mode2(0x04);
+    // pwm.set_mode2(0x04);
     
 }
 
@@ -42,8 +42,8 @@ void drv8833::setMotor( uint8_t motor, uint8_t duty, bool fast_decay, bool forwa
             pwm.set_duty(motor+1, 0);
         }
         else { // slow decay
-            pwm.set_duty(motor, 1);
-            pwm.set_duty(motor+1, duty);
+            pwm.set_duty(motor, 255);
+            pwm.set_duty(motor+1, 255-duty);
         }
     }
     else { // reverse
@@ -52,8 +52,8 @@ void drv8833::setMotor( uint8_t motor, uint8_t duty, bool fast_decay, bool forwa
             pwm.set_duty(motor+1, duty);
         }
         else { // slow decay
-           pwm.set_duty(motor, duty);
-            pwm.set_duty(motor+1, 1); 
+           pwm.set_duty(motor, 255-duty);
+            pwm.set_duty(motor+1, 255); 
         }
     }
 }

@@ -1,45 +1,54 @@
 #include <Arduino.h>
 #include "VhPwm.h"
 #include "Configuration.h"
-
 #include <Wire.h>
-// #include <Adafruit_PWMServoDriver.h>
-
 #include "PCA9634.h"
 
-// Adafruit_PWMServoDriver _pwm = Adafruit_PWMServoDriver(PWMI2CADDRESS);
-pca9634 _pwm = pca9634(PWMI2CADDRESS);
+pca9634 pwmdriver(PWMI2CADDRESS);
 
 void VhPwm::begin()
 {
     pinMode(PIN_ENABLE, OUTPUT);
-    digitalWrite(PIN_ENABLE, LOW);
+    disable();
     
-    // pinMode(PIN_OE, OUTPUT);
-    // // digitalWrite(PIN_OE, HIGH); //disable chip
-    // digitalWrite(PIN_OE, LOW); //enable chip
-    // _pwm.begin();
-    // _pwm.reset();
-    // _pwm.setPWMFreq(PWMFREQ);
+    Wire.begin();
     Wire.setClock(I2CCLOCK);
     
-    _pwm.begin();
-    _pwm.set_mode2(0x02);
+    pwmdriver.begin();
 }
 
 void VhPwm::enable(){
     digitalWrite(PIN_ENABLE, HIGH);
 }
 
-void VhPwm::disable(){
+void VhPwm::disable(){  
     digitalWrite(PIN_ENABLE, LOW);
 }
 
-void VhPwm::setPin( uint8_t pin, uint16_t duty, bool invert ){
-    //Serial.printf("setPin: %d = %d\n", pin, duty);
-    // _pwm.setPin(pin, duty, invert);
-    _pwm.set_duty(pin, invert ? (255 - duty) : duty);
+void VhPwm::setMotor( uint8_t motor, uint8_t duty, bool fast_decay, bool forward ){
+    // double motor index to give us the pwm pin offset
+    motor = motor*2;
+    
+    if (forward) {
+        if (fast_decay) {
+            pwmdriver.set_duty(motor, duty);
+            pwmdriver.set_duty(motor+1, 0);
+        }
+        else { // slow decay
+            pwmdriver.set_duty(motor, 255);
+            pwmdriver.set_duty(motor+1, 255-duty);
+        }
+    }
+    else { // reverse
+        if (fast_decay) {
+            pwmdriver.set_duty(motor, 0);
+            pwmdriver.set_duty(motor+1, duty);
+        }
+        else { // slow decay
+           pwmdriver.set_duty(motor, 255-duty);
+            pwmdriver.set_duty(motor+1, 255); 
+        }
+    }
 }
-
 
 VhPwm pwm = VhPwm();

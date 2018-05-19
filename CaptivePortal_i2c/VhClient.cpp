@@ -23,10 +23,11 @@ VhClient::VhClient(void) :
 
 void VhClient::setup(){
     // Initialize motors
-	motors.push_back(VhMotor(PIN_MOTOR_0, CHANNEL_MOTOR_0));
-	motors.push_back(VhMotor(PIN_MOTOR_1, CHANNEL_MOTOR_1));
-	motors.push_back(VhMotor(PIN_MOTOR_2, CHANNEL_MOTOR_2));
-	motors.push_back(VhMotor(PIN_MOTOR_3, CHANNEL_MOTOR_3));
+    // VhMotor::begin();
+	motors.push_back(VhMotor(CHANNEL_MOTOR_0));
+	motors.push_back(VhMotor(CHANNEL_MOTOR_1));
+	motors.push_back(VhMotor(CHANNEL_MOTOR_2));
+	motors.push_back(VhMotor(CHANNEL_MOTOR_3));
     
     // Attach event handlers
     // For simplicity, events are always attached regardless

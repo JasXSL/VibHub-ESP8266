@@ -4,8 +4,10 @@
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "VhPwm.h"
 
-VhMotor::VhMotor( int pin, int channel ) :
-    _channel(pin),
+
+
+VhMotor::VhMotor( int channel ) :
+    _channel(channel),
     _duty(0)
 {}
 
@@ -185,7 +187,9 @@ void VhMotor::update(){
 }
 
 void VhMotor::setPWM( int duty ){
-    _duty = duty;
-    pwm.setPin(_channel, duty);
+    if (_duty != duty){
+        _duty = duty;
+        pwm.setMotor(_channel, duty, true, true);
+    }
 }
 

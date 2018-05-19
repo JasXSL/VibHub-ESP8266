@@ -28,11 +28,11 @@ anything board specific or shared between classes
     	#define PIN_LED_GREEN 12
     	#define PIN_LED_BLUE 13
     
-    	// MOTORS
-    	#define PIN_MOTOR_0 4
-    	#define PIN_MOTOR_1 5
-    	#define PIN_MOTOR_2 13
-    	#define PIN_MOTOR_3 12
+    	// // MOTORS
+    	// #define PIN_MOTOR_0 4
+    	// #define PIN_MOTOR_1 5
+    	// #define PIN_MOTOR_2 13
+    	// #define PIN_MOTOR_3 12
     
     	// CONF BUTTON
     	#define CONF_PIN 14
@@ -81,10 +81,10 @@ anything board specific or shared between classes
 	#define CHANNEL_GREEN 1
 	#define CHANNEL_BLUE 2
 
-	#define CHANNEL_MOTOR_0 3
-	#define CHANNEL_MOTOR_1 4
-	#define CHANNEL_MOTOR_2 5
-	#define CHANNEL_MOTOR_3 6
+	#define CHANNEL_MOTOR_0 0
+	#define CHANNEL_MOTOR_1 1
+	#define CHANNEL_MOTOR_2 2
+	#define CHANNEL_MOTOR_3 3
     
 // PMW Config
     #define LEDC_FREQ 5000

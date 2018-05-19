@@ -31,6 +31,12 @@ uint8_t pca9634::set_mode2(uint8_t mode2){
 }
 
 uint8_t pca9634::set_duty(uint8_t led, uint8_t duty_cycle){
+    
+    Serial.print("pca9634::set_duty - pin: ");
+    Serial.print(led);
+    Serial.print(" duty_cycle: ");
+    Serial.println(duty_cycle);
+    
     // limit led to a 3-bit unsigned value.
     return write_reg( PCA9634_REG_PWM0 + ( (uint8_t) (led & 0x7) ),
                      duty_cycle );
@@ -42,5 +48,4 @@ uint8_t pca9634::write_reg(uint8_t reg, uint8_t value){
     Wire.write( reg );
     Wire.write( value );
     return Wire.endTransmission( );
-
 }

@@ -14,7 +14,7 @@ class VhPwm{
     void begin();
     void enable();
     void disable();
-    void setPin(uint8_t pin, uint16_t duty, bool invert=false);
+    void setMotor(uint8_t motor, uint8_t duty, bool fast_decay, bool forward);
 };
 
 extern VhPwm pwm;

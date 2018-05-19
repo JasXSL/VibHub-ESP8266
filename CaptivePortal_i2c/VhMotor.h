@@ -12,7 +12,8 @@
 class VhMotor: public VhPwm{
 
 	public:
-		VhMotor( int pin, int channel );
+		VhMotor( int channel );
+        
 		void loadProgram( JsonArray &stages, int repeats );
 		void update();
         
