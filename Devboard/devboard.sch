@@ -4300,6 +4300,43 @@ Source: PANASONIC .. aoc0000ce1.pdf</description>
 <text x="-1.5875" y="1.27" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.5875" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="SOIC127P1032X265-20" urn="urn:adsk.eagle:footprint:3162410/1" library_version="1" library_locally_modified="yes">
+<description>20-SOIC, 1.27 mm pitch, 10.325 mm span, 12.8 X 7.5 X 2.65 mm body
+&lt;p&gt;20-pin SOIC package with 1.27 mm pitch, 10.325 mm span with body size 12.8 X 7.5 X 2.65 mm&lt;/p&gt;</description>
+<circle x="-4.7399" y="6.5147" radius="0.25" width="0" layer="21"/>
+<wire x1="-3.8" y1="6.2647" x2="-3.8" y2="6.5" width="0.12" layer="21"/>
+<wire x1="-3.8" y1="6.5" x2="3.8" y2="6.5" width="0.12" layer="21"/>
+<wire x1="3.8" y1="6.5" x2="3.8" y2="6.2647" width="0.12" layer="21"/>
+<wire x1="-3.8" y1="-6.2647" x2="-3.8" y2="-6.5" width="0.12" layer="21"/>
+<wire x1="-3.8" y1="-6.5" x2="3.8" y2="-6.5" width="0.12" layer="21"/>
+<wire x1="3.8" y1="-6.5" x2="3.8" y2="-6.2647" width="0.12" layer="21"/>
+<wire x1="3.8" y1="-6.5" x2="-3.8" y2="-6.5" width="0.12" layer="51"/>
+<wire x1="-3.8" y1="-6.5" x2="-3.8" y2="6.5" width="0.12" layer="51"/>
+<wire x1="-3.8" y1="6.5" x2="3.8" y2="6.5" width="0.12" layer="51"/>
+<wire x1="3.8" y1="6.5" x2="3.8" y2="-6.5" width="0.12" layer="51"/>
+<smd name="1" x="-4.7218" y="5.715" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="2" x="-4.7218" y="4.445" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="3" x="-4.7218" y="3.175" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="4" x="-4.7218" y="1.905" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="5" x="-4.7218" y="0.635" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="6" x="-4.7218" y="-0.635" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="7" x="-4.7218" y="-1.905" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="8" x="-4.7218" y="-3.175" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="9" x="-4.7218" y="-4.445" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="10" x="-4.7218" y="-5.715" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="11" x="4.7218" y="-5.715" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="12" x="4.7218" y="-4.445" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="13" x="4.7218" y="-3.175" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="14" x="4.7218" y="-1.905" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="15" x="4.7218" y="-0.635" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="16" x="4.7218" y="0.635" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="17" x="4.7218" y="1.905" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="18" x="4.7218" y="3.175" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="19" x="4.7218" y="4.445" dx="1.916" dy="0.5915" layer="1"/>
+<smd name="20" x="4.7218" y="5.715" dx="1.916" dy="0.5915" layer="1"/>
+<text x="0" y="7.3997" size="1.27" layer="25" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-7.135" size="1.27" layer="27" align="top-center">&gt;VALUE</text>
+</package>
 </packages>
 <packages3d>
 <package3d name="LED-RGB-THRU" urn="urn:adsk.eagle:package:2531022/1" type="box" library_version="1">
@@ -4934,6 +4971,13 @@ Source: PANASONIC .. aoc0000ce1.pdf</description>
 Source: PANASONIC .. aoc0000ce1.pdf</description>
 <packageinstances>
 <packageinstance name="EXBV8V"/>
+</packageinstances>
+</package3d>
+<package3d name="SOIC127P1032X265-20" urn="urn:adsk.eagle:package:3162409/1" type="model" library_version="1" library_locally_modified="yes">
+<description>20-SOIC, 1.27 mm pitch, 10.325 mm span, 12.8 X 7.5 X 2.65 mm body
+&lt;p&gt;20-pin SOIC package with 1.27 mm pitch, 10.325 mm span with body size 12.8 X 7.5 X 2.65 mm&lt;/p&gt;</description>
+<packageinstances>
+<packageinstance name="SOIC127P1032X265-20"/>
 </packageinstances>
 </package3d>
 </packages3d>
@@ -10121,6 +10165,36 @@ BSS138 (Vgs&amp;gt;=+/-20V, Vds&amp;gt;=40V, Id&amp;gt;=0.2A + Rds&amp;lt;=3Ohm 
 <technology name=""/>
 </technologies>
 </device>
+<device name="20-SO" package="SOIC127P1032X265-20">
+<connects>
+<connect gate="G$1" pin="A0" pad="1"/>
+<connect gate="G$1" pin="A1" pad="2"/>
+<connect gate="G$1" pin="A2" pad="3"/>
+<connect gate="G$1" pin="A3" pad="4"/>
+<connect gate="G$1" pin="A4" pad="5"/>
+<connect gate="G$1" pin="A5" pad="16"/>
+<connect gate="G$1" pin="A6" pad="17"/>
+<connect gate="G$1" pin="GND" pad="10"/>
+<connect gate="G$1" pin="LED0" pad="6"/>
+<connect gate="G$1" pin="LED1" pad="7"/>
+<connect gate="G$1" pin="LED2" pad="8"/>
+<connect gate="G$1" pin="LED3" pad="9"/>
+<connect gate="G$1" pin="LED4" pad="11"/>
+<connect gate="G$1" pin="LED5" pad="12"/>
+<connect gate="G$1" pin="LED6" pad="13"/>
+<connect gate="G$1" pin="LED7" pad="14"/>
+<connect gate="G$1" pin="OE" pad="15"/>
+<connect gate="G$1" pin="SCL" pad="18"/>
+<connect gate="G$1" pin="SDA" pad="19"/>
+<connect gate="G$1" pin="VDD" pad="20"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:3162409/1"/>
+</package3dinstances>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="CONN_02" prefix="J" uservalue="yes" library_version="1" library_locally_modified="yes">
@@ -11375,26 +11449,26 @@ Source: RS Component / Phycomp</description>
 <part name="SUPPLY15" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
 <part name="GND29" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="SUPPLY19" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
-<part name="C1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="1.0uF"/>
-<part name="C2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="1.0uF"/>
+<part name="C1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="1.0uF"/>
+<part name="C2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="1.0uF"/>
 <part name="GND30" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="D4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="LED" device="0805-NO_OUTLINE" value="Blue"/>
 <part name="GND31" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="SUPPLY29" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="V_USB" device=""/>
 <part name="GND27" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="SUPPLY9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
-<part name="C3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="100uF/6.3V"/>
+<part name="C3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF"/>
 <part name="GND22" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="C4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="1.0uF"/>
+<part name="C4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="1.0uF"/>
 <part name="X1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="ESP-12" device="" package3d_urn="urn:adsk.eagle:package:2531161/1" value="ESP12"/>
 <part name="GND1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="R4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="10k"/>
 <part name="T1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="BSS138PS" device="" package3d_urn="urn:adsk.eagle:package:2531072/1"/>
 <part name="GND3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="SUPPLY4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
-<part name="C5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="10uF"/>
+<part name="C5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF"/>
 <part name="SUPPLY17" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
-<part name="U1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="PCA9634" device="" value="PCA9634PW"/>
+<part name="U1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="PCA9634" device="20-SO" package3d_urn="urn:adsk.eagle:package:3162409/1" value="PCA9634D"/>
 <part name="GND16" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="FLASH" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="MOMENTARY-SWITCH-SPST" device="-PTH-6.0MM" package3d_urn="urn:adsk.eagle:package:2531013/1" value="MOMENTARY-SWITCH-SPST-PTH-6.0MM"/>
 <part name="SUPPLY3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
@@ -11409,18 +11483,16 @@ Source: RS Component / Phycomp</description>
 <part name="R5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="10k"/>
 <part name="GND23" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND12" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="C6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF/16V"/>
-<part name="C7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="0.1uF/16V"/>
+<part name="C6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF"/>
+<part name="C7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="0.1uF"/>
 <part name="GND14" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="C10" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-0805" package3d_urn="urn:adsk.eagle:package:2531036/1" value="0.1uF/16V"/>
-<part name="C9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF/16V"/>
+<part name="C10" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="0.1uF"/>
+<part name="C9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF"/>
 <part name="GND15" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="C12" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR_POL" device="PANASONIC_D" value="10uF/25V"/>
 <part name="GND5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="U2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="DRV8833" device="" package3d_urn="urn:adsk.eagle:package:2531169/1" value="DRV8833C"/>
 <part name="U3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="DRV8833" device="" package3d_urn="urn:adsk.eagle:package:2531169/1" value="DRV8833C"/>
-<part name="C8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="2.2uF/16V"/>
-<part name="GND6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
+<part name="C8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="2.2uF"/>
 <part name="R7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
 <part name="R6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
 <part name="R9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
@@ -11430,7 +11502,7 @@ Source: RS Component / Phycomp</description>
 <part name="GND13" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND18" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND19" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="C11" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="2.2uF/16V"/>
+<part name="C11" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="2.2uF"/>
 <part name="GND20" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="J6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="USB" device="-A-HU" package3d_urn="urn:adsk.eagle:package:2531053/1"/>
 <part name="J7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="USB" device="-A-HU" package3d_urn="urn:adsk.eagle:package:2531053/1"/>
@@ -11477,7 +11549,6 @@ Source: RS Component / Phycomp</description>
 <part name="GND33" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="J17" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CONN_02" device="LOCK_LONGPADS" value="1x2M"/>
 <part name="SUPPLY6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
-<part name="SUPPLY8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
 <part name="SUPPLY10" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
 <part name="FD1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="FIDUCIAL" device="1X2"/>
 <part name="FD2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="FIDUCIAL" device="1X2"/>
@@ -11492,6 +11563,9 @@ Source: RS Component / Phycomp</description>
 <part name="RN7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
 <part name="RN8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="10k"/>
 <part name="RN9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="10k"/>
+<part name="C13" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR_POL" device="PANASONIC_D" value="100uF/10V"/>
+<part name="GND9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
+<part name="SUPPLY11" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11553,7 +11627,7 @@ Source: RS Component / Phycomp</description>
 <instance part="SUPPLY5" gate="G$1" x="259.08" y="137.16"/>
 <instance part="GND8" gate="1" x="243.84" y="116.84"/>
 <instance part="J1" gate="J" x="20.32" y="33.02" rot="MR0"/>
-<instance part="F1" gate="G$1" x="88.9" y="43.18"/>
+<instance part="F1" gate="G$1" x="76.2" y="43.18"/>
 <instance part="GND26" gate="1" x="30.48" y="12.7"/>
 <instance part="U4" gate="G$1" x="144.78" y="35.56"/>
 <instance part="GND28" gate="1" x="132.08" y="12.7"/>
@@ -11572,8 +11646,8 @@ Source: RS Component / Phycomp</description>
 <instance part="D4" gate="G$1" x="165.1" y="22.86"/>
 <instance part="GND31" gate="1" x="165.1" y="12.7"/>
 <instance part="SUPPLY29" gate="G$1" x="30.48" y="48.26"/>
-<instance part="GND27" gate="1" x="152.4" y="119.38"/>
-<instance part="SUPPLY9" gate="G$1" x="154.94" y="172.72" rot="MR0"/>
+<instance part="GND27" gate="1" x="165.1" y="129.54" rot="MR0"/>
+<instance part="SUPPLY9" gate="G$1" x="152.4" y="170.18" rot="MR0"/>
 <instance part="C3" gate="C" x="12.7" y="134.62" smashed="yes" rot="R270">
 <attribute name="NAME" x="10.16" y="137.16" size="1.778" layer="95" align="bottom-center"/>
 <attribute name="VALUE" x="10.16" y="132.08" size="1.778" layer="96" align="top-center"/>
@@ -11603,14 +11677,14 @@ Source: RS Component / Phycomp</description>
 <instance part="SUPPLY3" gate="G$1" x="259.08" y="104.14"/>
 <instance part="GND17" gate="1" x="243.84" y="83.82"/>
 <instance part="SUPPLY21" gate="G$1" x="218.44" y="162.56"/>
-<instance part="J2" gate="G$1" x="96.52" y="22.86" rot="R180"/>
-<instance part="GND21" gate="1" x="86.36" y="12.7"/>
-<instance part="Q1" gate="G$1" x="76.2" y="30.48" rot="MR180"/>
-<instance part="D2" gate="G$1" x="60.96" y="43.18"/>
-<instance part="SUPPLY14" gate="G$1" x="55.88" y="48.26"/>
-<instance part="SUPPLY24" gate="G$1" x="101.6" y="48.26"/>
-<instance part="R5" gate="G$1" x="55.88" y="22.86" rot="R90"/>
-<instance part="GND23" gate="1" x="55.88" y="12.7"/>
+<instance part="J2" gate="G$1" x="83.82" y="22.86" rot="R180"/>
+<instance part="GND21" gate="1" x="73.66" y="12.7"/>
+<instance part="Q1" gate="G$1" x="63.5" y="30.48" rot="MR180"/>
+<instance part="D2" gate="G$1" x="48.26" y="43.18"/>
+<instance part="SUPPLY14" gate="G$1" x="43.18" y="48.26"/>
+<instance part="SUPPLY24" gate="G$1" x="88.9" y="48.26"/>
+<instance part="R5" gate="G$1" x="43.18" y="22.86" rot="R90"/>
+<instance part="GND23" gate="1" x="43.18" y="12.7"/>
 <instance part="D5" gate="G$1" x="101.6" y="127" rot="MR270"/>
 <instance part="D6" gate="G$1" x="101.6" y="119.38" rot="MR270"/>
 <instance part="D7" gate="G$1" x="101.6" y="111.76" rot="MR270"/>
@@ -11620,9 +11694,9 @@ Source: RS Component / Phycomp</description>
 <instance part="D11" gate="G$1" x="101.6" y="81.28" rot="MR270"/>
 <instance part="D12" gate="G$1" x="101.6" y="73.66" rot="MR270"/>
 <instance part="GND24" gate="1" x="121.92" y="68.58"/>
-<instance part="J3" gate="G$1" x="144.78" y="160.02"/>
-<instance part="J4" gate="G$1" x="144.78" y="132.08"/>
-<instance part="J5" gate="G$1" x="144.78" y="93.98"/>
+<instance part="J3" gate="G$1" x="142.24" y="157.48"/>
+<instance part="J4" gate="G$1" x="142.24" y="127"/>
+<instance part="J5" gate="G$1" x="142.24" y="93.98"/>
 <instance part="J15" gate="G$1" x="226.06" y="45.72" rot="MR180"/>
 <instance part="J16" gate="G$1" x="208.28" y="45.72" rot="R180"/>
 <instance part="SUPPLY7" gate="G$1" x="182.88" y="55.88"/>
@@ -11648,6 +11722,9 @@ Source: RS Component / Phycomp</description>
 <instance part="RN9" gate="B" x="111.76" y="160.02"/>
 <instance part="RN9" gate="C" x="111.76" y="152.4"/>
 <instance part="RN9" gate="D" x="111.76" y="139.7"/>
+<instance part="C13" gate="C" x="101.6" y="33.02" rot="R270"/>
+<instance part="GND9" gate="1" x="101.6" y="12.7"/>
+<instance part="SUPPLY11" gate="G$1" x="101.6" y="48.26"/>
 </instances>
 <busses>
 </busses>
@@ -11721,9 +11798,9 @@ Source: RS Component / Phycomp</description>
 </segment>
 <segment>
 <pinref part="GND27" gate="1" pin="GND"/>
-<wire x1="152.4" y1="121.92" x2="152.4" y2="124.46" width="0.1524" layer="91"/>
-<wire x1="149.86" y1="124.46" x2="152.4" y2="124.46" width="0.1524" layer="91"/>
-<pinref part="J4" gate="G$1" pin="1"/>
+<wire x1="165.1" y1="132.08" x2="165.1" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="137.16" x2="147.32" y2="137.16" width="0.1524" layer="91"/>
+<pinref part="J4" gate="G$1" pin="8"/>
 </segment>
 <segment>
 <pinref part="GND3" gate="1" pin="GND"/>
@@ -11778,13 +11855,13 @@ Source: RS Component / Phycomp</description>
 <segment>
 <pinref part="J2" gate="G$1" pin="2"/>
 <pinref part="GND21" gate="1" pin="GND"/>
-<wire x1="88.9" y1="20.32" x2="86.36" y2="20.32" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="20.32" x2="86.36" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="20.32" x2="73.66" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="20.32" x2="73.66" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R5" gate="G$1" pin="1"/>
 <pinref part="GND23" gate="1" pin="GND"/>
-<wire x1="55.88" y1="17.78" x2="55.88" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="17.78" x2="43.18" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="J16" gate="G$1" pin="3"/>
@@ -11826,6 +11903,11 @@ Source: RS Component / Phycomp</description>
 <wire x1="119.38" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
 <junction x="121.92" y="73.66"/>
 </segment>
+<segment>
+<pinref part="C13" gate="C" pin="-"/>
+<pinref part="GND9" gate="1" pin="GND"/>
+<wire x1="101.6" y1="15.24" x2="101.6" y2="30.48" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="3.3V" class="0">
 <segment>
@@ -11866,8 +11948,8 @@ Source: RS Component / Phycomp</description>
 </segment>
 <segment>
 <pinref part="SUPPLY9" gate="G$1" pin="3.3V"/>
-<wire x1="154.94" y1="170.18" x2="154.94" y2="172.72" width="0.1524" layer="91"/>
-<wire x1="154.94" y1="170.18" x2="149.86" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="167.64" x2="152.4" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="167.64" x2="147.32" y2="167.64" width="0.1524" layer="91"/>
 <pinref part="J3" gate="G$1" pin="8"/>
 </segment>
 <segment>
@@ -11954,9 +12036,9 @@ Source: RS Component / Phycomp</description>
 <label x="71.12" y="154.94" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="139.7" x2="152.4" y2="139.7" width="0.1524" layer="91"/>
-<label x="152.4" y="139.7" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="7"/>
+<wire x1="147.32" y1="121.92" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
+<label x="149.86" y="121.92" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <wire x1="256.54" y1="45.72" x2="259.08" y2="45.72" width="0.1524" layer="91"/>
@@ -11989,9 +12071,9 @@ Source: RS Component / Phycomp</description>
 <label x="71.12" y="157.48" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="142.24" x2="152.4" y2="142.24" width="0.1524" layer="91"/>
-<label x="152.4" y="142.24" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="8"/>
+<wire x1="147.32" y1="119.38" x2="149.86" y2="119.38" width="0.1524" layer="91"/>
+<label x="149.86" y="119.38" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="1"/>
 </segment>
 <segment>
 <label x="259.08" y="40.64" size="1.27" layer="95" xref="yes"/>
@@ -12016,9 +12098,14 @@ Source: RS Component / Phycomp</description>
 </segment>
 <segment>
 <pinref part="F1" gate="G$1" pin="2"/>
-<wire x1="96.52" y1="43.18" x2="101.6" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="43.18" x2="88.9" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="SUPPLY24" gate="G$1" pin="5V"/>
-<wire x1="101.6" y1="43.18" x2="101.6" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="43.18" x2="88.9" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C13" gate="C" pin="+"/>
+<wire x1="101.6" y1="35.56" x2="101.6" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="SUPPLY11" gate="G$1" pin="5V"/>
 </segment>
 </net>
 <net name="DTR" class="0">
@@ -12055,16 +12142,16 @@ Source: RS Component / Phycomp</description>
 </segment>
 <segment>
 <pinref part="SUPPLY14" gate="G$1" pin="V_USB"/>
-<wire x1="55.88" y1="48.26" x2="55.88" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="48.26" x2="43.18" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="D2" gate="G$1" pin="A"/>
-<wire x1="55.88" y1="43.18" x2="58.42" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="43.18" x2="45.72" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="43.18" x2="55.88" y2="33.02" width="0.1524" layer="91"/>
-<junction x="55.88" y="43.18"/>
+<wire x1="43.18" y1="43.18" x2="43.18" y2="33.02" width="0.1524" layer="91"/>
+<junction x="43.18" y="43.18"/>
 <pinref part="Q1" gate="G$1" pin="G"/>
-<wire x1="55.88" y1="33.02" x2="55.88" y2="27.94" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="33.02" x2="55.88" y2="33.02" width="0.1524" layer="91"/>
-<junction x="55.88" y="33.02"/>
+<wire x1="43.18" y1="33.02" x2="43.18" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="33.02" x2="43.18" y2="33.02" width="0.1524" layer="91"/>
+<junction x="43.18" y="33.02"/>
 </segment>
 <segment>
 <pinref part="SUPPLY7" gate="G$1" pin="V_USB"/>
@@ -12095,8 +12182,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN8" gate="A" pin="2"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="152.4" x2="152.4" y2="152.4" width="0.1524" layer="91"/>
-<label x="152.4" y="152.4" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<wire x1="147.32" y1="149.86" x2="149.86" y2="149.86" width="0.1524" layer="91"/>
+<label x="149.86" y="149.86" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="1"/>
 </segment>
 </net>
@@ -12107,8 +12194,8 @@ Source: RS Component / Phycomp</description>
 <label x="30.48" y="154.94" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="154.94" x2="152.4" y2="154.94" width="0.1524" layer="91"/>
-<label x="152.4" y="154.94" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="152.4" x2="149.86" y2="152.4" width="0.1524" layer="91"/>
+<label x="149.86" y="152.4" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="2"/>
 </segment>
 </net>
@@ -12124,8 +12211,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN8" gate="B" pin="2"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="157.48" x2="152.4" y2="157.48" width="0.1524" layer="91"/>
-<label x="152.4" y="157.48" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="154.94" x2="149.86" y2="154.94" width="0.1524" layer="91"/>
+<label x="149.86" y="154.94" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="3"/>
 </segment>
 </net>
@@ -12136,8 +12223,8 @@ Source: RS Component / Phycomp</description>
 <label x="30.48" y="149.86" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="160.02" x2="152.4" y2="160.02" width="0.1524" layer="91"/>
-<label x="152.4" y="160.02" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="157.48" x2="149.86" y2="157.48" width="0.1524" layer="91"/>
+<label x="149.86" y="157.48" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="4"/>
 </segment>
 </net>
@@ -12157,8 +12244,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN8" gate="C" pin="2"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="162.56" x2="152.4" y2="162.56" width="0.1524" layer="91"/>
-<label x="152.4" y="162.56" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="160.02" x2="149.86" y2="160.02" width="0.1524" layer="91"/>
+<label x="149.86" y="160.02" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="5"/>
 </segment>
 </net>
@@ -12169,8 +12256,8 @@ Source: RS Component / Phycomp</description>
 <label x="30.48" y="144.78" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="165.1" x2="152.4" y2="165.1" width="0.1524" layer="91"/>
-<label x="152.4" y="165.1" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="162.56" x2="149.86" y2="162.56" width="0.1524" layer="91"/>
+<label x="149.86" y="162.56" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="6"/>
 </segment>
 <segment>
@@ -12186,8 +12273,8 @@ Source: RS Component / Phycomp</description>
 <label x="30.48" y="142.24" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="167.64" x2="152.4" y2="167.64" width="0.1524" layer="91"/>
-<label x="152.4" y="167.64" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="165.1" x2="149.86" y2="165.1" width="0.1524" layer="91"/>
+<label x="149.86" y="165.1" size="1.27" layer="95" xref="yes"/>
 <pinref part="J3" gate="G$1" pin="7"/>
 </segment>
 <segment>
@@ -12208,9 +12295,9 @@ Source: RS Component / Phycomp</description>
 <wire x1="205.74" y1="111.76" x2="200.66" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="132.08" x2="152.4" y2="132.08" width="0.1524" layer="91"/>
-<label x="152.4" y="132.08" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="4"/>
+<wire x1="147.32" y1="129.54" x2="149.86" y2="129.54" width="0.1524" layer="91"/>
+<label x="149.86" y="129.54" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="5"/>
 </segment>
 <segment>
 <wire x1="259.08" y1="91.44" x2="259.08" y2="88.9" width="0.1524" layer="91"/>
@@ -12234,9 +12321,9 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN9" gate="C" pin="1"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="129.54" x2="152.4" y2="129.54" width="0.1524" layer="91"/>
-<label x="152.4" y="129.54" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="3"/>
+<wire x1="147.32" y1="132.08" x2="149.86" y2="132.08" width="0.1524" layer="91"/>
+<label x="149.86" y="132.08" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="6"/>
 </segment>
 <segment>
 <pinref part="R2" gate="G$1" pin="2"/>
@@ -12256,9 +12343,9 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN9" gate="D" pin="1"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="127" x2="152.4" y2="127" width="0.1524" layer="91"/>
-<label x="152.4" y="127" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="2"/>
+<wire x1="147.32" y1="134.62" x2="149.86" y2="134.62" width="0.1524" layer="91"/>
+<label x="149.86" y="134.62" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="7"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -12280,8 +12367,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D5" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="86.36" x2="152.4" y2="86.36" width="0.1524" layer="91"/>
-<label x="152.4" y="86.36" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="86.36" x2="149.86" y2="86.36" width="0.1524" layer="91"/>
+<label x="149.86" y="86.36" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="1"/>
 </segment>
 </net>
@@ -12297,8 +12384,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D6" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="88.9" x2="152.4" y2="88.9" width="0.1524" layer="91"/>
-<label x="152.4" y="88.9" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="88.9" x2="149.86" y2="88.9" width="0.1524" layer="91"/>
+<label x="149.86" y="88.9" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="2"/>
 </segment>
 </net>
@@ -12314,8 +12401,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D7" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="91.44" x2="152.4" y2="91.44" width="0.1524" layer="91"/>
-<label x="152.4" y="91.44" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="91.44" x2="149.86" y2="91.44" width="0.1524" layer="91"/>
+<label x="149.86" y="91.44" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="3"/>
 </segment>
 </net>
@@ -12331,8 +12418,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D8" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="93.98" x2="152.4" y2="93.98" width="0.1524" layer="91"/>
-<label x="152.4" y="93.98" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="93.98" x2="149.86" y2="93.98" width="0.1524" layer="91"/>
+<label x="149.86" y="93.98" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="4"/>
 </segment>
 </net>
@@ -12348,8 +12435,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D9" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="96.52" x2="152.4" y2="96.52" width="0.1524" layer="91"/>
-<label x="152.4" y="96.52" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="96.52" x2="149.86" y2="96.52" width="0.1524" layer="91"/>
+<label x="149.86" y="96.52" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="5"/>
 </segment>
 </net>
@@ -12365,8 +12452,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D10" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="99.06" x2="152.4" y2="99.06" width="0.1524" layer="91"/>
-<label x="152.4" y="99.06" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="99.06" x2="149.86" y2="99.06" width="0.1524" layer="91"/>
+<label x="149.86" y="99.06" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="6"/>
 </segment>
 </net>
@@ -12382,8 +12469,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D11" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="101.6" x2="152.4" y2="101.6" width="0.1524" layer="91"/>
-<label x="152.4" y="101.6" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="101.6" x2="149.86" y2="101.6" width="0.1524" layer="91"/>
+<label x="149.86" y="101.6" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="7"/>
 </segment>
 </net>
@@ -12399,8 +12486,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="D12" gate="G$1" pin="A"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="104.14" x2="152.4" y2="104.14" width="0.1524" layer="91"/>
-<label x="152.4" y="104.14" size="1.27" layer="95" xref="yes"/>
+<wire x1="147.32" y1="104.14" x2="149.86" y2="104.14" width="0.1524" layer="91"/>
+<label x="149.86" y="104.14" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="8"/>
 </segment>
 </net>
@@ -12421,9 +12508,9 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN9" gate="A" pin="1"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="137.16" x2="152.4" y2="137.16" width="0.1524" layer="91"/>
-<label x="152.4" y="137.16" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="6"/>
+<wire x1="147.32" y1="124.46" x2="149.86" y2="124.46" width="0.1524" layer="91"/>
+<label x="149.86" y="124.46" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="3"/>
 </segment>
 </net>
 <net name="SCL" class="0">
@@ -12443,28 +12530,28 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN9" gate="B" pin="1"/>
 </segment>
 <segment>
-<wire x1="149.86" y1="134.62" x2="152.4" y2="134.62" width="0.1524" layer="91"/>
-<label x="152.4" y="134.62" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="G$1" pin="5"/>
+<wire x1="147.32" y1="127" x2="149.86" y2="127" width="0.1524" layer="91"/>
+<label x="149.86" y="127" size="1.27" layer="95" rot="MR180" xref="yes"/>
+<pinref part="J4" gate="G$1" pin="4"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="S"/>
-<wire x1="78.74" y1="35.56" x2="78.74" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="35.56" x2="66.04" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="F1" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="43.18" x2="83.82" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="43.18" x2="71.12" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="D2" gate="G$1" pin="C"/>
-<wire x1="63.5" y1="43.18" x2="78.74" y2="43.18" width="0.1524" layer="91"/>
-<junction x="78.74" y="43.18"/>
+<wire x1="50.8" y1="43.18" x2="66.04" y2="43.18" width="0.1524" layer="91"/>
+<junction x="66.04" y="43.18"/>
 </segment>
 </net>
 <net name="N$4" class="0">
 <segment>
 <pinref part="J2" gate="G$1" pin="1"/>
-<wire x1="88.9" y1="22.86" x2="78.74" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="22.86" x2="66.04" y2="22.86" width="0.1524" layer="91"/>
 <pinref part="Q1" gate="G$1" pin="D"/>
-<wire x1="78.74" y1="22.86" x2="78.74" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="22.86" x2="66.04" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="CP3V3" class="0">
@@ -12645,12 +12732,10 @@ Source: RS Component / Phycomp</description>
 <instance part="C10" gate="C" x="91.44" y="93.98" rot="R270"/>
 <instance part="C9" gate="C" x="101.6" y="86.36" rot="R90"/>
 <instance part="GND15" gate="1" x="101.6" y="76.2"/>
-<instance part="C12" gate="C" x="7.62" y="121.92" rot="R270"/>
 <instance part="GND5" gate="1" x="30.48" y="48.26"/>
 <instance part="U2" gate="G$1" x="53.34" y="144.78"/>
 <instance part="U3" gate="G$1" x="53.34" y="78.74"/>
 <instance part="C8" gate="C" x="101.6" y="124.46" rot="R90"/>
-<instance part="GND6" gate="1" x="7.62" y="109.22"/>
 <instance part="R7" gate="G$1" x="81.28" y="116.84" rot="R90"/>
 <instance part="R6" gate="G$1" x="91.44" y="116.84" rot="R90"/>
 <instance part="R9" gate="G$1" x="78.74" y="50.8" rot="R90"/>
@@ -12690,7 +12775,6 @@ Source: RS Component / Phycomp</description>
 <instance part="SUPPLY13" gate="G$1" x="175.26" y="170.18"/>
 <instance part="J14" gate="G$1" x="236.22" y="53.34"/>
 <instance part="SUPPLY6" gate="G$1" x="101.6" y="165.1"/>
-<instance part="SUPPLY8" gate="G$1" x="7.62" y="132.08"/>
 <instance part="SUPPLY10" gate="G$1" x="101.6" y="99.06"/>
 <instance part="FD1" gate="G$1" x="10.16" y="10.16"/>
 <instance part="FD2" gate="G$1" x="15.24" y="10.16"/>
@@ -12746,11 +12830,6 @@ Source: RS Component / Phycomp</description>
 <pinref part="U2" gate="G$1" pin="GND(THRML)"/>
 <wire x1="33.02" y1="124.46" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
 <junction x="30.48" y="124.46"/>
-</segment>
-<segment>
-<pinref part="C12" gate="C" pin="-"/>
-<pinref part="GND6" gate="1" pin="GND"/>
-<wire x1="7.62" y1="111.76" x2="7.62" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND11" gate="1" pin="GND"/>
@@ -13353,11 +13432,6 @@ Source: RS Component / Phycomp</description>
 <wire x1="88.9" y1="162.56" x2="101.6" y2="162.56" width="0.1524" layer="91"/>
 <junction x="88.9" y="162.56"/>
 <pinref part="SUPPLY6" gate="G$1" pin="5V"/>
-</segment>
-<segment>
-<pinref part="C12" gate="C" pin="+"/>
-<wire x1="7.62" y1="124.46" x2="7.62" y2="132.08" width="0.1524" layer="91"/>
-<pinref part="SUPPLY8" gate="G$1" pin="5V"/>
 </segment>
 </net>
 <net name="PWM5" class="0">
