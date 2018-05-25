@@ -1343,25 +1343,25 @@ design rules under a new name.</description>
 <attribute name="NAME" x="6.35" y="19.939" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="bottom-center"/>
 <attribute name="PROD_ID" value="TRANS-11308" x="6.35" y="21.59" size="1.778" layer="27" display="off"/>
 </element>
-<element name="R6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R" x="72.39" y="20.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="72.136" y="17.145" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>
+<element name="R6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R" x="72.39" y="20.32" smashed="yes" rot="R90">
+<attribute name="NAME" x="72.39" y="21.971" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="72.39" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="72.644" y="17.145" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
+<attribute name="VALUE" x="72.644" y="18.669" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="R9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R" x="61.595" y="20.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="62.357" y="17.78" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>
+<element name="R9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R" x="61.595" y="20.32" smashed="yes" rot="R90">
+<attribute name="NAME" x="61.595" y="21.971" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="61.595" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="62.611" y="17.78" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
+<attribute name="VALUE" x="61.595" y="18.542" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="R2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="220R" x="82.55" y="59.69" smashed="yes">
 <attribute name="NAME" x="80.772" y="59.69" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="82.55" y="59.69" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="84.328" y="59.69" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
 </element>
-<element name="R8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R" x="59.055" y="20.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="58.166" y="17.78" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>
+<element name="R8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R" x="59.055" y="20.32" smashed="yes" rot="R90">
+<attribute name="NAME" x="59.055" y="21.971" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="59.055" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="58.674" y="17.399" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
+<attribute name="VALUE" x="59.055" y="18.542" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="R5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="10k" x="8.89" y="27.305" smashed="yes" rot="R270">
 <attribute name="NAME" x="9.779" y="27.305" size="0.6096" layer="25" font="vector" ratio="20" rot="R270" align="bottom-center"/>
@@ -1378,10 +1378,10 @@ design rules under a new name.</description>
 <attribute name="PROD_ID" value=" " x="82.55" y="66.04" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="84.328" y="66.04" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
 </element>
-<element name="R7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R" x="76.2" y="20.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="75.946" y="17.145" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>
+<element name="R7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R" x="76.2" y="20.32" smashed="yes" rot="R90">
+<attribute name="NAME" x="76.2" y="21.971" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="76.2" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="76.454" y="17.145" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
+<attribute name="VALUE" x="77.216" y="20.32" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center"/>
 </element>
 <element name="R4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" package="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="10k" x="10.16" y="43.18" smashed="yes" rot="R90">
 <attribute name="NAME" x="9.271" y="43.18" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center"/>

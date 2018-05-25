@@ -11493,10 +11493,10 @@ Source: RS Component / Phycomp</description>
 <part name="U2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="DRV8833" device="" package3d_urn="urn:adsk.eagle:package:2531169/1" value="DRV8833C"/>
 <part name="U3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="DRV8833" device="" package3d_urn="urn:adsk.eagle:package:2531169/1" value="DRV8833C"/>
 <part name="C8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="2.2uF"/>
-<part name="R7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
-<part name="R6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
-<part name="R9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
-<part name="R8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.43R"/>
+<part name="R7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R"/>
+<part name="R6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R"/>
+<part name="R9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R"/>
+<part name="R8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="RESISTOR" device="0805" package3d_urn="urn:adsk.eagle:package:2531030/1" value="0.39R"/>
 <part name="GND7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND11" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND13" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
