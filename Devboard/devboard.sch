@@ -11438,7 +11438,7 @@ Source: RS Component / Phycomp</description>
 <part name="SUPPLY2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
 <part name="GND2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="GND4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="RESET" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="MOMENTARY-SWITCH-SPST" device="-PTH-6.0MM" package3d_urn="urn:adsk.eagle:package:2531013/1" value="MOMENTARY-SWITCH-SPST-PTH-6.0MM"/>
+<part name="RESET" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="MOMENTARY-SWITCH-SPST" device="-SMD-6.0X3.5MM" package3d_urn="urn:adsk.eagle:package:2531010/1" value="MOMENTARY-SWITCH-SPST-SMD-6.0X3.5MM"/>
 <part name="SUPPLY5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
 <part name="GND8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="J1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="USB" device="-MICROB-2" package3d_urn="urn:adsk.eagle:package:2531057/1"/>
@@ -11470,7 +11470,7 @@ Source: RS Component / Phycomp</description>
 <part name="SUPPLY17" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
 <part name="U1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="PCA9634" device="20-SO" package3d_urn="urn:adsk.eagle:package:3162409/1" value="PCA9634D"/>
 <part name="GND16" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
-<part name="FLASH" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="MOMENTARY-SWITCH-SPST" device="-PTH-6.0MM" package3d_urn="urn:adsk.eagle:package:2531013/1" value="MOMENTARY-SWITCH-SPST-PTH-6.0MM"/>
+<part name="FLASH" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="MOMENTARY-SWITCH-SPST" device="-SMD-6.0X3.5MM" package3d_urn="urn:adsk.eagle:package:2531010/1" value="MOMENTARY-SWITCH-SPST-SMD-6.0X3.5MM"/>
 <part name="SUPPLY3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
 <part name="GND17" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="SUPPLY21" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="3.3V" device=""/>
