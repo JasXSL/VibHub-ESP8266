@@ -27,6 +27,7 @@ void VhPwm::disable(){
 
 void VhPwm::setMotor( uint8_t motor, uint8_t duty, bool fast_decay, bool forward ){
     // double motor index to give us the pwm pin offset
+    // Double are for if you want to reverse to make it "choppy"
     motor = motor*2;
     
     if (forward) {

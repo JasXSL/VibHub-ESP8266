@@ -152,9 +152,10 @@ void VhClient::event_p(const char * payload, size_t length){
     Serial.printf("VhClient::event_p - v0: %u, v1: %u, v2: %u, v3: %u\n", vibArray[0], vibArray[1], vibArray[2], vibArray[3]);
     
     int i;
-    for( i = 0; i < 4; ++i )
+    for( i = 0; i < 4; ++i ){
+        motors[i].stopProgram();  // Stop any running program when this is received
         motors[i].setPWM(vibArray[i]);
-
+    }
 }
 
 

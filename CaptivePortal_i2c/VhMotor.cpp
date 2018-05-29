@@ -28,7 +28,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 	for( i=0; i<size; ++i ){
 
 		Serial.print("\nStage: ");
-		Serial.print(i);
+		Serial.println(i);
 
 		JsonObject& s = stages[i];
 		int intensity = 0;
@@ -57,6 +57,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 		if( rep < 0 )
 			rep = 0;
 
+		Serial.printf("Intensity: %i\n", intensity);
 		
 		char *token = strtok(easing, ".");
 
@@ -70,7 +71,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 
 		if( tokens.size() >= 2 ){
 
-			Serial.print("\nEasing: ");
+			Serial.print("Easing: ");
 			Serial.print(tokens[0]);
 			Serial.print(" >> ");
 			Serial.print(tokens[1]);
@@ -144,13 +145,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 			timeline.addTo(_duty, (float)v, duration, ease, easeType);
 
 			Serial.print("\nAdded playback: ");
-			Serial.print("yFlip ");
-			Serial.print(yflip);
-			Serial.print(" | to ");
-			Serial.print(v);
-			Serial.print(" | Over ");
-			Serial.print(duration);
-			
+			Serial.printf(" From %i to %i over %i ms | yFlip %b\n", lastpwm, v, duration, yflip);	
 			if( yoyo )
 				yflip = !yflip;
 
@@ -161,35 +156,43 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 
 	}
 
+	program_running = true;
 	timeline.begin(millis());
 
 }
 
+void VhMotor::stopProgram(){
+	program_running = false;
+}
+
 void VhMotor::update(){
+
+	if(!program_running)
+		return;
 
 	uint32_t time = millis();
 	timeline.update(time);
+	//Serial.println(_duty);
 	if( timeline.isComplete() ){
-
-		if( _repeats == -1 || _repeats > 0 ){
-			
+		// Handle repeats
+		if(_repeats == -1 || _repeats > 0){
 			timeline.restartFrom(time);
 			if( _repeats > 0 )
 				--_repeats;
-
 		}
-
-
+		else
+			stopProgram();
 	}
 
+	//Serial.printf("Setting program duty: %i\n", _duty);
 	setPWM(_duty);
 
 }
 
-void VhMotor::setPWM( int duty ){
+void VhMotor::setPWM( int duty, bool fast_decay, bool forward ){
     if (_duty != duty){
         _duty = duty;
-        pwm.setMotor(_channel, duty, true, true);
+        pwm.setMotor(_channel, duty, fast_decay, forward);
     }
 }
 

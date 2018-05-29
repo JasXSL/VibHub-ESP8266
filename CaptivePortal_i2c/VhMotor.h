@@ -9,6 +9,7 @@
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 
+// Motor class extending PWM class
 class VhMotor: public VhPwm{
 
 	public:
@@ -17,11 +18,13 @@ class VhMotor: public VhPwm{
 		void loadProgram( JsonArray &stages, int repeats );
 		void update();
         
-        void setPWM( int duty );
+        void setPWM( int duty, bool fast_decay = false, bool forward = false );
+		void stopProgram();
 
 	private:
 		TweenDuino::Timeline timeline;
 		int _repeats;
+		bool program_running = false;
 		
     protected:
         int _channel;
