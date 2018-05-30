@@ -55,7 +55,7 @@ void setup() {
     }
     
     vhConf.load(reset);
-    
+    Serial.println("Connecting to wifi");
     vhWifi.connect(reset, reset);
     Serial.println("Connected");
     
