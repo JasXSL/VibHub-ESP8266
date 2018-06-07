@@ -3,64 +3,48 @@
 #include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "VhPwm.h"
-
+#include "RandObject.h"
 
 
 VhMotor::VhMotor( int channel ) :
     _channel(channel),
     _duty(0)
-{}
+{
+}
 
-void VhMotor::loadProgram( JsonArray &stages, int repeats ){
-
-	Serial.println();
-	Serial.print("Program loaded on:");
-	Serial.print(_channel);
-
-	_repeats = repeats;
+// Plays cached program
+void VhMotor::playProgram(){
+	JsonArray &stages = active_program();
 	timeline = TweenDuino::Timeline();
-
-	
 
 	int size = stages.size();
 	int i;
 	int lastpwm = _duty;
+	Serial.printf("#Stages: %i\n", size);
 	for( i=0; i<size; ++i ){
 
-		Serial.print("\nStage: ");
-		Serial.println(i);
-
 		JsonObject& s = stages[i];
-		int intensity = 0;
-		int duration = 1;
+		RandObject intensity = RandObject();
+		RandObject duration = RandObject();
+		RandObject repeats = RandObject();
 		char easing[48] = "Linear.In";
-		int rep = 0;
 		bool yoyo = false;
-
 		
 		TweenDuino::Tween::Ease ease = TweenDuino::Tween::LINEAR;
 		TweenDuino::Tween::EaseType easeType = TweenDuino::Tween::IN;
 		
 		if( s.containsKey("i") )
-			intensity = s["i"];
+			intensity.load(s["i"]);
 		if( s.containsKey("d") )
-			duration = s["d"];
+			duration.load(s["d"]);
 		if( s.containsKey("e") )
 			strcpy(easing, s["e"]);
 		if( s.containsKey("r") )
-			rep = s["r"];
+			repeats.load(s["r"]);
 		if( s.containsKey("y") )
 			yoyo = s["y"] ? true : false;
-		
-		if( duration < 1 )
-			duration = 1;
-		if( rep < 0 )
-			rep = 0;
 
-		Serial.printf("Intensity: %i\n", intensity);
-		
 		char *token = strtok(easing, ".");
-
 		std::vector<char*> tokens;
 		while( token ){
 
@@ -128,36 +112,51 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 		Serial.println();
 		*/
 
-		++rep;
+		Serial.printf("\nStage #%i\n", i);
+		
 		int r;
-		bool yflip = false;
+		int intens = intensity.getValue(lastpwm);
+		int lastIntensity = lastpwm;
+		int dur = duration.getValue();
+		int rep = repeats.getValue();
+		if( dur < 1 )
+			dur = 1;
+		if( rep < 0 )
+			rep = 0;
+		++rep;
 		for( r = 0; r < rep; ++r ){
 
-			
 			// Snapback repeats
 			if( !yoyo && r ) 
 				timeline.addTo(_duty, (float)lastpwm, 1);
 
-			int v = intensity;
-			if( yflip )
+			int v = intens;
+			if( yoyo && r%2 == 1 )
 				v = lastpwm;
 			
-			timeline.addTo(_duty, (float)v, duration, ease, easeType);
-
-			Serial.print("\nAdded playback: ");
-			Serial.printf(" From %i to %i over %i ms | yFlip %b\n", lastpwm, v, duration, yflip);	
-			if( yoyo )
-				yflip = !yflip;
+			Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, duration, yoyo && r%2 == 1);	
+			lastIntensity = v;
+			timeline.addTo(_duty, (float)v, dur, ease, easeType);
 
 		}
 		
 
-		lastpwm = intensity;
+		lastpwm = lastIntensity;
 
 	}
 
 	program_running = true;
 	timeline.begin(millis());
+
+}
+
+void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
+
+	Serial.println();
+	Serial.printf("Program loaded on channel %i with %i #stages.\n", _channel, stages.size());
+	_repeats = repeats;
+	_active_program = stages;
+	playProgram();
 
 }
 
@@ -172,11 +171,12 @@ void VhMotor::update(){
 
 	uint32_t time = millis();
 	timeline.update(time);
-	//Serial.println(_duty);
+
 	if( timeline.isComplete() ){
 		// Handle repeats
 		if(_repeats == -1 || _repeats > 0){
-			timeline.restartFrom(time);
+			//timeline.restartFrom(time);
+			playProgram();
 			if( _repeats > 0 )
 				--_repeats;
 		}
@@ -184,7 +184,7 @@ void VhMotor::update(){
 			stopProgram();
 	}
 
-	//Serial.printf("Setting program duty: %i\n", _duty);
+	//Serial.printf("Setting program duty: %f\n", _duty);
 	setPWM(_duty);
 
 }

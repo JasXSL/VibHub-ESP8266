@@ -25,6 +25,9 @@ class VhMotor: public VhPwm{
 		TweenDuino::Timeline timeline;
 		int _repeats;
 		bool program_running = false;
+		JsonVariant _active_program;
+		JsonArray& active_program(){ return _active_program; }
+		void playProgram();					// Plays the loaded program
 		
     protected:
         int _channel;
