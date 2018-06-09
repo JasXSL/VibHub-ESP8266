@@ -14,15 +14,24 @@ VhMotor::VhMotor( int channel ) :
 
 // Plays cached program
 void VhMotor::playProgram(){
-	JsonArray &stages = active_program();
+	JsonArray &stages = _active_program;
 	timeline = TweenDuino::Timeline();
 
 	int size = stages.size();
 	int i;
 	int lastpwm = _duty;
-	Serial.printf("#Stages: %i\n", size);
+	Serial.printf("PlayProgram, received %i stages\n", size);
+	long free = ESP.getFreeHeap();
+	Serial.printf("Free memory: %i\n", free);
+	if(!size){
+		stopProgram();
+		return;
+	}
+
+	int totalDuration = 0;
 	for( i=0; i<size; ++i ){
 
+		Serial.printf("\nStage #%i\n", i);
 		JsonObject& s = stages[i];
 		RandObject intensity = RandObject();
 		RandObject duration = RandObject();
@@ -55,11 +64,7 @@ void VhMotor::playProgram(){
 
 		if( tokens.size() >= 2 ){
 
-			Serial.print("Easing: ");
-			Serial.print(tokens[0]);
-			Serial.print(" >> ");
-			Serial.print(tokens[1]);
-
+			Serial.printf("Easing: %s.%s\n", tokens[0], tokens[1]);
 			// Translate into a const
 			if( strcmp(tokens[0], "Quadratic") == 0 )
 				ease = TweenDuino::Tween::QUAD;
@@ -82,8 +87,7 @@ void VhMotor::playProgram(){
 			else if( strcmp(tokens[0], "Bounce") == 0 )
 				ease = TweenDuino::Tween::BOUNCE;
 			else{
-				Serial.print("\nUnknown easing function: ");
-				Serial.print(tokens[0]);
+				Serial.printf("Unknown easing function: %s\n", tokens[0]);
 			}
 			
 			if( strcmp(tokens[1], "In") == 0 )
@@ -112,7 +116,7 @@ void VhMotor::playProgram(){
 		Serial.println();
 		*/
 
-		Serial.printf("\nStage #%i\n", i);
+		
 		
 		int r;
 		int intens = intensity.getValue(lastpwm);
@@ -124,6 +128,7 @@ void VhMotor::playProgram(){
 		if( rep < 0 )
 			rep = 0;
 		++rep;
+		totalDuration += dur;
 		for( r = 0; r < rep; ++r ){
 
 			// Snapback repeats
@@ -134,7 +139,7 @@ void VhMotor::playProgram(){
 			if( yoyo && r%2 == 1 )
 				v = lastpwm;
 			
-			Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, duration, yoyo && r%2 == 1);	
+			//Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, dur, yoyo && r%2 == 1);	
 			lastIntensity = v;
 			timeline.addTo(_duty, (float)v, dur, ease, easeType);
 
@@ -145,6 +150,7 @@ void VhMotor::playProgram(){
 
 	}
 
+	Serial.printf("Program built, total duration: %i!\n", totalDuration);
 	program_running = true;
 	timeline.begin(millis());
 
@@ -153,7 +159,7 @@ void VhMotor::playProgram(){
 void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
 
 	Serial.println();
-	Serial.printf("Program loaded on channel %i with %i #stages.\n", _channel, stages.size());
+	Serial.printf("Loading new program on channel %i with %i stages.\n", _channel, stages.size());
 	_repeats = repeats;
 	_active_program = stages;
 	playProgram();
@@ -176,6 +182,7 @@ void VhMotor::update(){
 		// Handle repeats
 		if(_repeats == -1 || _repeats > 0){
 			//timeline.restartFrom(time);
+			Serial.println("Program completed, looping");
 			playProgram();
 			if( _repeats > 0 )
 				--_repeats;

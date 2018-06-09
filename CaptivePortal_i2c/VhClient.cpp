@@ -86,7 +86,6 @@ void VhClient::event_vib(const char * payload, size_t length){
         JsonArray& js = buf.createArray();
         if( !variant.is<JsonArray>() ){
 
-
             JsonObject& obj = variant;
             js.add(obj);
 

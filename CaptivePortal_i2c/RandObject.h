@@ -14,15 +14,12 @@ class RandObject{
         void load(JsonVariant data){
 			reset();
 			if(data.is<bool>()){
-				Serial.println("RandObject is BOOL");
 				useDefault = true;
 			}
 			else if(data.is<int>()){
-				Serial.println("RandObject is INT");
 				min = max = data.as<int>();
 			}
 			else if(data.is<JsonObject>()){
-				Serial.println("RandObject is OBJECT");
 				JsonObject &d = data.as<JsonObject&>();
 				if(d.containsKey("min"))
 					min = d["min"];
@@ -43,7 +40,10 @@ class RandObject{
 		int getValue(int valueOnFalse = 0){
 			if(useDefault)
 				return valueOnFalse;
-			return random(min, max)*multi+offset;
+			
+			int out = random(min, max)*multi+offset;
+			//Serial.printf("Returning a random value between min %i, max %i, multi %i, offset %i: %i\n", min, max, multi, offset, out);
+			return out;
 		}
 
 	private:
