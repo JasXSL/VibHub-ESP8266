@@ -5,7 +5,7 @@ Based off https://github.com/HydroSense/HydroSense_PCA9634
  
 #include "PCA9634.h"
 
-#define DEBUG_DUTY
+//#define DEBUG_DUTY
 
 pca9634::pca9634(uint8_t address){
     _address = address;
