@@ -36,6 +36,8 @@ void setup() {
     Serial.println("\nStarting...");
     
     pwm.begin();
+    randomSeed(analogRead(A0));          // Picks a random number
+    Serial.printf("Analog read %f \n", analogRead(A0));
     
     // Set LED state
     vhled.setup();

@@ -3,63 +3,48 @@
 #include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "VhPwm.h"
-
+#include "RandObject.h"
 
 
 VhMotor::VhMotor( int channel ) :
     _channel(channel),
     _duty(0)
-{}
+{
+}
 
-void VhMotor::loadProgram( JsonArray &stages, int repeats ){
-
-	Serial.println();
-	Serial.print("Program loaded on:");
-	Serial.print(_channel);
-
-	_repeats = repeats;
+// Plays cached program
+void VhMotor::playProgram(){
+	JsonArray &stages = active_program();
 	timeline = TweenDuino::Timeline();
-
-	
 
 	int size = stages.size();
 	int i;
 	int lastpwm = _duty;
+	Serial.printf("#Stages: %i\n", size);
 	for( i=0; i<size; ++i ){
 
-		Serial.print("\nStage: ");
-		Serial.print(i);
-
 		JsonObject& s = stages[i];
-		int intensity = 0;
-		int duration = 1;
+		RandObject intensity = RandObject();
+		RandObject duration = RandObject();
+		RandObject repeats = RandObject();
 		char easing[48] = "Linear.In";
-		int rep = 0;
 		bool yoyo = false;
-
 		
 		TweenDuino::Tween::Ease ease = TweenDuino::Tween::LINEAR;
 		TweenDuino::Tween::EaseType easeType = TweenDuino::Tween::IN;
 		
 		if( s.containsKey("i") )
-			intensity = s["i"];
+			intensity.load(s["i"]);
 		if( s.containsKey("d") )
-			duration = s["d"];
+			duration.load(s["d"]);
 		if( s.containsKey("e") )
 			strcpy(easing, s["e"]);
 		if( s.containsKey("r") )
-			rep = s["r"];
+			repeats.load(s["r"]);
 		if( s.containsKey("y") )
 			yoyo = s["y"] ? true : false;
-		
-		if( duration < 1 )
-			duration = 1;
-		if( rep < 0 )
-			rep = 0;
 
-		
 		char *token = strtok(easing, ".");
-
 		std::vector<char*> tokens;
 		while( token ){
 
@@ -70,7 +55,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 
 		if( tokens.size() >= 2 ){
 
-			Serial.print("\nEasing: ");
+			Serial.print("Easing: ");
 			Serial.print(tokens[0]);
 			Serial.print(" >> ");
 			Serial.print(tokens[1]);
@@ -127,69 +112,87 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats ){
 		Serial.println();
 		*/
 
-		++rep;
+		Serial.printf("\nStage #%i\n", i);
+		
 		int r;
-		bool yflip = false;
+		int intens = intensity.getValue(lastpwm);
+		int lastIntensity = lastpwm;
+		int dur = duration.getValue();
+		int rep = repeats.getValue();
+		if( dur < 1 )
+			dur = 1;
+		if( rep < 0 )
+			rep = 0;
+		++rep;
 		for( r = 0; r < rep; ++r ){
 
-			
 			// Snapback repeats
 			if( !yoyo && r ) 
 				timeline.addTo(_duty, (float)lastpwm, 1);
 
-			int v = intensity;
-			if( yflip )
+			int v = intens;
+			if( yoyo && r%2 == 1 )
 				v = lastpwm;
 			
-			timeline.addTo(_duty, (float)v, duration, ease, easeType);
-
-			Serial.print("\nAdded playback: ");
-			Serial.print("yFlip ");
-			Serial.print(yflip);
-			Serial.print(" | to ");
-			Serial.print(v);
-			Serial.print(" | Over ");
-			Serial.print(duration);
-			
-			if( yoyo )
-				yflip = !yflip;
+			Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, duration, yoyo && r%2 == 1);	
+			lastIntensity = v;
+			timeline.addTo(_duty, (float)v, dur, ease, easeType);
 
 		}
 		
 
-		lastpwm = intensity;
+		lastpwm = lastIntensity;
 
 	}
 
+	program_running = true;
 	timeline.begin(millis());
 
 }
 
+void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
+
+	Serial.println();
+	Serial.printf("Program loaded on channel %i with %i #stages.\n", _channel, stages.size());
+	_repeats = repeats;
+	_active_program = stages;
+	playProgram();
+
+}
+
+void VhMotor::stopProgram(){
+	program_running = false;
+}
+
 void VhMotor::update(){
+
+	if(!program_running)
+		return;
 
 	uint32_t time = millis();
 	timeline.update(time);
-	if( timeline.isComplete() ){
 
-		if( _repeats == -1 || _repeats > 0 ){
-			
-			timeline.restartFrom(time);
+	if( timeline.isComplete() ){
+		// Handle repeats
+		if(_repeats == -1 || _repeats > 0){
+			//timeline.restartFrom(time);
+			playProgram();
 			if( _repeats > 0 )
 				--_repeats;
-
 		}
-
-
+		else
+			stopProgram();
 	}
 
+	//Serial.printf("Setting program duty: %f\n", _duty);
 	setPWM(_duty);
 
 }
 
-void VhMotor::setPWM( int duty ){
+void VhMotor::setPWM( int duty, bool fast_decay, bool forward ){
     if (_duty != duty){
         _duty = duty;
-        pwm.setMotor(_channel, duty, true, true);
+        pwm.setMotor(_channel, duty, fast_decay, forward);
     }
 }
 

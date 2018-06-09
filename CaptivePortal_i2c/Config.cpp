@@ -66,7 +66,7 @@ void VhConfig::load( bool reset ){
                     strcpy(p, json["port"]);
                     port = atoi(p);
                     strcpy(deviceid, json["deviceid"]);
-
+                    
                 }
                 else
                     Serial.println("failed to load json config");
