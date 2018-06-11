@@ -8,8 +8,10 @@
 
 VhMotor::VhMotor( int channel ) :
     _channel(channel),
-    _duty(0)
+    _duty(-1)
 {
+    // Force initial state
+    setPWM(0);
 }
 
 // Plays cached program
