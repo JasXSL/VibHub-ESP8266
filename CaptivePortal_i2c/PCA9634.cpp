@@ -50,7 +50,7 @@ void pca9634::reset(){
     Wire.write( PCA9634_SWRST_B1 );
     Wire.write( PCA9634_SWRST_B2 );
     Wire.endTransmission( );
-    delayMicroseconds(50);
+    delayMicroseconds(60);
 }
 
 uint8_t pca9634::write_reg(uint8_t reg, uint8_t value){
