@@ -57,8 +57,9 @@ void setup() {
     Serial.println("Started");
     scan();
     
+    _pwm.reset();
     _pwm.begin();
-    _pwm.set_mode2(0x02);
+    // _pwm.set_mode2(0x02);
 }
 
 unsigned long timer = 0;
