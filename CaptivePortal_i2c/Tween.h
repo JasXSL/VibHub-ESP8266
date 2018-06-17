@@ -23,6 +23,7 @@ public:
     
     Tween(float &val, unsigned long duration, float to);
 	Tween();
+	~Tween();
 	void init(float &val, unsigned long duration, float to);
 
     static Tween *to(float& target, unsigned long duration, float to);

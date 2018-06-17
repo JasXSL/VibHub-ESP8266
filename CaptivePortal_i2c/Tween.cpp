@@ -48,6 +48,10 @@ TweenDuino::Tween::Tween()
     lastUpdateTime = 0;
 }
 
+TweenDuino::Tween::~Tween() {
+	if (ease != nullptr) delete ease;
+}
+
 void TweenDuino::Tween::init(float &val, unsigned long duration, float to) {
 	target = &val;
 	duration = duration;
@@ -61,7 +65,7 @@ void TweenDuino::Tween::init(float &val, unsigned long duration, float to) {
     startVal = val;
     totalChange = to - startVal;
     completed = false;
-	if (ease) delete ease;
+	if (ease != nullptr) delete ease;
     ease = nullptr;
     startTime = 0;
     lastUpdateTime = 0;
@@ -98,43 +102,46 @@ unsigned long TweenDuino::Tween::getStartTime() {
 // Modified by jas
 void TweenDuino::Tween::setTween(Ease e, EaseType type) {
 
-  switch(e) { 
-    case LINEAR:
-      ease = new LinearEase();
-      break;
-    case SINE:
-      ease = new SineEase();
-      break;
-    case QUAD:
-      ease = new QuadraticEase();
-      break;
-    case QUART:
-      ease = new QuarticEase();
-      break;
-    case QUINT:
-      ease = new QuinticEase();
-      break;
-    case CUBIC:
-      ease = new CubicEase();
-      break;
-    case BACK:
-      ease = new BackEase();
-      break;
-    case BOUNCE:
-      ease = new BounceEase();
-      break;
-    case CIRCULAR:
-      ease = new CircularEase();
-      break;
-    case ELASTIC:
-      ease = new ElasticEase();
-      break;
-    case EXPONENTIAL:
-      ease = new ExponentialEase();
-      break;
-  }
-  
-  easeType = type;
+	if (ease != nullptr) delete ease;
+    ease = nullptr;
+	
+	switch(e) { 
+		case LINEAR:
+		  ease = new LinearEase();
+		  break;
+		case SINE:
+		  ease = new SineEase();
+		  break;
+		case QUAD:
+		  ease = new QuadraticEase();
+		  break;
+		case QUART:
+		  ease = new QuarticEase();
+		  break;
+		case QUINT:
+		  ease = new QuinticEase();
+		  break;
+		case CUBIC:
+		  ease = new CubicEase();
+		  break;
+		case BACK:
+		  ease = new BackEase();
+		  break;
+		case BOUNCE:
+		  ease = new BounceEase();
+		  break;
+		case CIRCULAR:
+		  ease = new CircularEase();
+		  break;
+		case ELASTIC:
+		  ease = new ElasticEase();
+		  break;
+		case EXPONENTIAL:
+		  ease = new ExponentialEase();
+		  break;
+	}
+	
+	easeType = type;
 }
 
 void TweenDuino::Tween::begin(unsigned long timeMs) {

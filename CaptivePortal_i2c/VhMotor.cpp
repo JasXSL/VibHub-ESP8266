@@ -31,12 +31,12 @@ void VhMotor::playProgram(){
 	}
 
 	int totalDuration = 0;
-	for( VhProgramStage chunk : _active_program ){
+	for(std::vector<VhProgramStage>::iterator iter = _active_program.begin(); iter != _active_program.end(); iter++) {
 		int r;
-		int intens = chunk.intensity.getValue(lastpwm);
+		int intens = iter->intensity.getValue(lastpwm);
 		int lastIntensity = lastpwm;
-		int dur = chunk.duration.getValue();
-		int rep = chunk.repeats.getValue();
+		int dur = iter->duration.getValue();
+		int rep = iter->repeats.getValue();
 		if( dur < 1 )
 			dur = 1;
 		if( rep < 0 )
@@ -46,16 +46,16 @@ void VhMotor::playProgram(){
 		for( r = 0; r < rep; ++r ){
 
 			// Snapback repeats
-			if( !chunk.yoyo && r ) 
+			if( !iter->yoyo && r ) 
 				timeline.addTo(_duty, (float)lastpwm, 1);
 
 			int v = intens;
-			if( chunk.yoyo && r%2 == 1 )
+			if( iter->yoyo && r%2 == 1 )
 				v = lastpwm;
 			
 			//Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, dur, yoyo && r%2 == 1);	
 			lastIntensity = v;
-			timeline.addTo(_duty, (float)v, dur, chunk.ease, chunk.easeType);
+			timeline.addTo(_duty, (float)v, dur, iter->ease, iter->easeType);
 
 		}
 
