@@ -97,9 +97,9 @@ void VhMotor::update(){
 	if( timeline.isComplete() ){
 		// Handle repeats
 		if(_repeats == -1 || _repeats > 0){
-			//timeline.restartFrom(time);
 			Serial.println("Program completed, looping");
-			playProgram();
+			timeline.restartFrom(time);
+			// playProgram();
 			if( _repeats > 0 )
 				--_repeats;
 		}

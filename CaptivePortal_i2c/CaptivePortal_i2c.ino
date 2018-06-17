@@ -15,6 +15,8 @@ DNS patch or ESP32 platform from: https://github.com/tzapu/WiFiManager/issues/51
 
 */
 
+long lastFreeMem;
+
 // Libraries
     #include <Arduino.h>
     #include "Configuration.h"
@@ -111,4 +113,10 @@ void loop() {
     #ifdef ESP8266
         yield();
     #endif
+	
+	long freeMem = ESP.getFreeHeap();
+	if (freeMem != lastFreeMem) {
+		Serial.printf("Free memory: %i  Change: %i\n", freeMem, (freeMem-lastFreeMem));
+		lastFreeMem = freeMem;
+	}
 }
