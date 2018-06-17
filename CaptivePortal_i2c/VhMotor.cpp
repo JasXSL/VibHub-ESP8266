@@ -17,7 +17,8 @@ VhMotor::VhMotor( int channel ) :
 // Plays cached program
 void VhMotor::playProgram(){
 
-	timeline = TweenDuino::Timeline();
+	timeline.cleanAndReset();
+	
 	int size = _active_program.size();
 	int lastpwm = _duty;
 	Serial.printf("PlayProgram, received %i stages\n", size);

@@ -18,21 +18,55 @@
 
 #include "Tween.h"
 
-TweenDuino::Tween::Tween(float& t, unsigned long duration, float finalVal) 
-  : target(t), duration(duration), finalVal(finalVal) {
+TweenDuino::Tween::Tween(float &val, unsigned long duration, float to)
+  : target(&val), duration(duration), finalVal(to) {
     initialized = false;
     active = false;
     onFirstUpdate = true;
     time = 0;
     ratio = 0;
-    startVal = t;
-    totalChange = finalVal - startVal;
+    startVal = val;
+    totalChange = to - startVal;
     completed = false;
     ease = nullptr;
     startTime = 0;
     lastUpdateTime = 0;
-  }
+}
 
+TweenDuino::Tween::Tween() 
+  : target(nullptr), duration(0), finalVal(0.0f) {
+	initialized = false;
+    active = false;
+    onFirstUpdate = true;
+    time = 0;
+    ratio = 0;
+    startVal = 0;
+    totalChange = 0;
+    completed = false;
+    ease = nullptr;
+    startTime = 0;
+    lastUpdateTime = 0;
+}
+
+void TweenDuino::Tween::init(float &val, unsigned long duration, float to) {
+	target = &val;
+	duration = duration;
+	finalVal = to;
+	
+	initialized = false;
+    active = false;
+    onFirstUpdate = true;
+    time = 0;
+    ratio = 0;
+    startVal = val;
+    totalChange = to - startVal;
+    completed = false;
+	if (ease) delete ease;
+    ease = nullptr;
+    startTime = 0;
+    lastUpdateTime = 0;
+}
+  
 TweenDuino::Tween *TweenDuino::Tween::to(float& target, unsigned long duration, float to) {
   Tween *tween = new Tween(target, duration, to);
   tween->setTween(LINEAR, INOUT); 
@@ -131,7 +165,7 @@ void TweenDuino::Tween::update(unsigned long updTime) {
   // We set startVal here instead of begin() because we want to be able to cooperate with
   // other code that might have adjusted the "target" value before we started to touch it.
   if (onFirstUpdate) {
-    startVal = target;
+    startVal = *target;
     totalChange = finalVal - startVal;
   }
 
@@ -162,7 +196,7 @@ void TweenDuino::Tween::update(unsigned long updTime) {
     return;
   }
 
-  target = totalChange * ratio + startVal;
+  *target = totalChange * ratio + startVal;
 }
 
 void TweenDuino::Tween::restartFrom(unsigned long newStart) {
