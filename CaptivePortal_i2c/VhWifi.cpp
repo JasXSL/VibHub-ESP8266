@@ -42,6 +42,7 @@ void VhWifi::connect( bool force, bool reset ){
         clearSettings();
     }
     
+    // TODO: build custom CSS here
     
     // The extra parameters to be configured
     WiFiManagerParameter devId("deviceid", "Device ID", vhConf.deviceid, 64);
