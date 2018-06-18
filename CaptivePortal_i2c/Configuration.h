@@ -8,6 +8,9 @@ anything board specific or shared between classes
 #ifndef VhConfiguration_h
 #define VhConfiguration_h
 
+// Software version
+	#define VH_VERSION "0.1.0"
+
 // PWM Settings
     // #define PWMFREQ 1600
     // #define PWMI2CADDRESS 0x40
