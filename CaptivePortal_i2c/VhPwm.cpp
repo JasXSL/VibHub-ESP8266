@@ -14,6 +14,7 @@ void VhPwm::begin()
     Wire.begin();
     Wire.setClock(I2CCLOCK);
     
+    pwmdriver.reset();
     pwmdriver.begin();
 }
 

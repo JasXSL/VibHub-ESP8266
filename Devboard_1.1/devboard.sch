@@ -8,6 +8,22 @@
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
+<<<<<<< HEAD
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="no" active="no"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="no" active="no"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="no"/>
+<layer number="20" name="Dimension" color="24" fill="1" visible="no" active="no"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="no"/>
+=======
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="no"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="no"/>
@@ -22,6 +38,7 @@
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="no"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="no"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="no"/>
+>>>>>>> master
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="no"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="no"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="no"/>
@@ -30,8 +47,13 @@
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="no"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="no"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
+<<<<<<< HEAD
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
+=======
 <layer number="37" name="tTest" color="7" fill="1" visible="yes" active="no"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="yes" active="no"/>
+>>>>>>> master
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="no"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="no"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="no"/>
@@ -39,6 +61,21 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="no"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="no"/>
+<<<<<<< HEAD
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="no"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
+<layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
+<layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
+<layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
+<layer number="57" name="tCAD" color="7" fill="1" visible="no" active="no"/>
+<layer number="59" name="tCarbon" color="7" fill="1" visible="no" active="no"/>
+<layer number="60" name="bCarbon" color="7" fill="1" visible="no" active="no"/>
+=======
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="no"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="yes" active="no"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="no"/>
@@ -52,6 +89,7 @@
 <layer number="57" name="tCAD" color="7" fill="1" visible="yes" active="no"/>
 <layer number="59" name="tCarbon" color="7" fill="1" visible="yes" active="no"/>
 <layer number="60" name="bCarbon" color="7" fill="1" visible="yes" active="no"/>
+>>>>>>> master
 <layer number="88" name="SimResults" color="9" fill="1" visible="yes" active="yes"/>
 <layer number="89" name="SimProbes" color="9" fill="1" visible="yes" active="yes"/>
 <layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
@@ -11554,6 +11592,20 @@ Source: RS Component / Phycomp</description>
 <part name="FD2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="FIDUCIAL" device="1X2"/>
 <part name="FD3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="FIDUCIAL" device="1X2"/>
 <part name="LOGO1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="OSHW-LOGO" device="M"/>
+<<<<<<< HEAD
+<part name="RN1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN4" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN6" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN7" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="1k"/>
+<part name="RN8" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="10k"/>
+<part name="RN9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXBS8V" package3d_urn="urn:adsk.eagle:package:24925/1" value="10k"/>
+<part name="C13" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR_POL" device="PANASONIC_D" value="100uF/10V"/>
+<part name="GND9" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
+<part name="SUPPLY11" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="5V" device=""/>
+=======
 <part name="RN1" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXB38V" package3d_urn="urn:adsk.eagle:package:24923/1" value="1k"/>
 <part name="RN2" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXB38V" package3d_urn="urn:adsk.eagle:package:24923/1" value="1k"/>
 <part name="RN3" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="4R-N" device="EXB38V" package3d_urn="urn:adsk.eagle:package:24923/1" value="1k"/>
@@ -11575,6 +11627,7 @@ Source: RS Component / Phycomp</description>
 <part name="U5" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="PCA9634" device="20-TSSOP" package3d_urn="urn:adsk.eagle:package:2531294/2" value="PCA9634D"/>
 <part name="GND25" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="GND" device=""/>
 <part name="C12" library="vibhud" library_urn="urn:adsk.eagle:library:2530795" deviceset="CAPACITOR" device="-1206" package3d_urn="urn:adsk.eagle:package:2531037/1" value="10uF"/>
+>>>>>>> master
 </parts>
 <sheets>
 <sheet>
@@ -11685,7 +11738,11 @@ Source: RS Component / Phycomp</description>
 </instance>
 <instance part="SUPPLY3" gate="G$1" x="259.08" y="104.14"/>
 <instance part="GND17" gate="1" x="243.84" y="83.82"/>
+<<<<<<< HEAD
+<instance part="SUPPLY21" gate="G$1" x="218.44" y="162.56"/>
+=======
 <instance part="SUPPLY21" gate="G$1" x="226.06" y="162.56"/>
+>>>>>>> master
 <instance part="J2" gate="G$1" x="83.82" y="22.86" rot="R180"/>
 <instance part="GND21" gate="1" x="73.66" y="12.7"/>
 <instance part="Q1" gate="G$1" x="63.5" y="30.48" rot="MR180"/>
@@ -11734,6 +11791,8 @@ Source: RS Component / Phycomp</description>
 <instance part="C13" gate="C" x="101.6" y="33.02" rot="R270"/>
 <instance part="GND9" gate="1" x="101.6" y="12.7"/>
 <instance part="SUPPLY11" gate="G$1" x="101.6" y="48.26"/>
+<<<<<<< HEAD
+=======
 <instance part="R10" gate="G$1" x="220.98" y="157.48"/>
 <instance part="GND10" gate="1" x="-66.04" y="66.04"/>
 <instance part="SUPPLY8" gate="G$1" x="-25.4" y="101.6"/>
@@ -11743,6 +11802,7 @@ Source: RS Component / Phycomp</description>
 <attribute name="NAME" x="-15.24" y="93.98" size="1.778" layer="95" align="bottom-center"/>
 <attribute name="VALUE" x="-16.002" y="89.154" size="1.778" layer="96" align="top-center"/>
 </instance>
+>>>>>>> master
 </instances>
 <busses>
 </busses>
@@ -11926,6 +11986,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="GND9" gate="1" pin="GND"/>
 <wire x1="101.6" y1="15.24" x2="101.6" y2="30.48" width="0.1524" layer="91"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="-66.04" y1="96.52" x2="-66.04" y2="93.98" width="0.1524" layer="91"/>
@@ -11969,6 +12031,7 @@ Source: RS Component / Phycomp</description>
 <wire x1="-12.7" y1="86.36" x2="-12.7" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="-25.4" y1="86.36" x2="-12.7" y2="86.36" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="3.3V" class="0">
 <segment>
@@ -12048,6 +12111,12 @@ Source: RS Component / Phycomp</description>
 <pinref part="RN8" gate="D" pin="1"/>
 </segment>
 <segment>
+<<<<<<< HEAD
+<pinref part="D1" gate="G$1" pin="A"/>
+<wire x1="213.36" y1="157.48" x2="218.44" y2="157.48" width="0.1524" layer="91"/>
+<pinref part="SUPPLY21" gate="G$1" pin="3.3V"/>
+<wire x1="218.44" y1="157.48" x2="218.44" y2="162.56" width="0.1524" layer="91"/>
+=======
 <pinref part="SUPPLY21" gate="G$1" pin="3.3V"/>
 <pinref part="R10" gate="G$1" pin="2"/>
 <wire x1="226.06" y1="157.48" x2="226.06" y2="162.56" width="0.1524" layer="91"/>
@@ -12061,6 +12130,7 @@ Source: RS Component / Phycomp</description>
 <wire x1="-25.4" y1="96.52" x2="-27.94" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="-25.4" y1="96.52" x2="-25.4" y2="101.6" width="0.1524" layer="91"/>
 <junction x="-25.4" y="96.52"/>
+>>>>>>> master
 </segment>
 </net>
 <net name="LED_R" class="0">
@@ -12441,11 +12511,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="86.36" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="1"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-68.58" y="83.82" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED0"/>
 <wire x1="-63.5" y1="83.82" x2="-68.58" y2="83.82" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM1" class="0">
 <segment>
@@ -12463,11 +12536,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="88.9" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="2"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-68.58" y="81.28" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED1"/>
 <wire x1="-68.58" y1="81.28" x2="-63.5" y2="81.28" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM2" class="0">
 <segment>
@@ -12485,11 +12561,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="91.44" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="3"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-68.58" y="78.74" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED2"/>
 <wire x1="-63.5" y1="78.74" x2="-68.58" y2="78.74" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM3" class="0">
 <segment>
@@ -12507,11 +12586,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="93.98" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="4"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-68.58" y="76.2" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED3"/>
 <wire x1="-68.58" y1="76.2" x2="-63.5" y2="76.2" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM4" class="0">
 <segment>
@@ -12529,11 +12611,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="96.52" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="5"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-22.86" y="73.66" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED4"/>
 <wire x1="-22.86" y1="73.66" x2="-27.94" y2="73.66" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM5" class="0">
 <segment>
@@ -12551,11 +12636,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="99.06" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="6"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-22.86" y="76.2" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED5"/>
 <wire x1="-27.94" y1="76.2" x2="-22.86" y2="76.2" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM6" class="0">
 <segment>
@@ -12573,11 +12661,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="101.6" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="7"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-22.86" y="78.74" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED6"/>
 <wire x1="-27.94" y1="78.74" x2="-22.86" y2="78.74" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM7" class="0">
 <segment>
@@ -12595,11 +12686,14 @@ Source: RS Component / Phycomp</description>
 <label x="149.86" y="104.14" size="1.27" layer="95" xref="yes"/>
 <pinref part="J5" gate="G$1" pin="8"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-22.86" y="81.28" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="LED7"/>
 <wire x1="-22.86" y1="81.28" x2="-27.94" y2="81.28" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="SDA" class="0">
 <segment>
@@ -12622,11 +12716,14 @@ Source: RS Component / Phycomp</description>
 <label x="104.14" y="160.02" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="RN9" gate="B" pin="1"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-25.4" y="93.98" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="SDA"/>
 <wire x1="-25.4" y1="93.98" x2="-27.94" y2="93.98" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="SCL" class="0">
 <segment>
@@ -12649,11 +12746,14 @@ Source: RS Component / Phycomp</description>
 <label x="104.14" y="167.64" size="1.27" layer="95" rot="MR0" xref="yes"/>
 <pinref part="RN9" gate="A" pin="1"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <label x="-25.4" y="91.44" size="1.27" layer="95" rot="MR180" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="SCL"/>
 <wire x1="-25.4" y1="91.44" x2="-27.94" y2="91.44" width="0.1524" layer="91"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="N$5" class="0">
 <segment>
@@ -12838,6 +12938,8 @@ Source: RS Component / Phycomp</description>
 <wire x1="109.22" y1="73.66" x2="106.68" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
+<<<<<<< HEAD
+=======
 <net name="N$12" class="0">
 <segment>
 <pinref part="D1" gate="G$1" pin="A"/>
@@ -12845,6 +12947,7 @@ Source: RS Component / Phycomp</description>
 <wire x1="215.9" y1="157.48" x2="213.36" y2="157.48" width="0.1524" layer="91"/>
 </segment>
 </net>
+>>>>>>> master
 </nets>
 </sheet>
 <sheet>
@@ -12878,10 +12981,17 @@ Source: RS Component / Phycomp</description>
 <instance part="J7" gate="J" x="246.38" y="137.16"/>
 <instance part="J8" gate="J" x="246.38" y="111.76"/>
 <instance part="J9" gate="J" x="246.38" y="86.36"/>
+<<<<<<< HEAD
+<instance part="J10" gate="G$1" x="213.36" y="165.1"/>
+<instance part="J11" gate="G$1" x="213.36" y="147.32"/>
+<instance part="J12" gate="G$1" x="213.36" y="129.54"/>
+<instance part="J13" gate="G$1" x="213.36" y="111.76"/>
+=======
 <instance part="J10" gate="G$1" x="215.9" y="165.1"/>
 <instance part="J11" gate="G$1" x="215.9" y="139.7"/>
 <instance part="J12" gate="G$1" x="215.9" y="114.3"/>
 <instance part="J13" gate="G$1" x="215.9" y="88.9"/>
+>>>>>>> master
 <instance part="D13" gate="G$1" x="142.24" y="170.18" rot="MR270"/>
 <instance part="D14" gate="G$1" x="142.24" y="149.86" rot="MR270"/>
 <instance part="D15" gate="G$1" x="142.24" y="129.54" rot="MR270"/>
@@ -12923,9 +13033,12 @@ Source: RS Component / Phycomp</description>
 <instance part="RN6" gate="B" x="157.48" y="38.1"/>
 <instance part="RN6" gate="C" x="132.08" y="27.94"/>
 <instance part="RN6" gate="D" x="157.48" y="17.78"/>
+<<<<<<< HEAD
+=======
 <instance part="D3" gate="G$1" x="99.06" y="22.86" rot="MR270"/>
 <instance part="GND6" gate="1" x="104.14" y="17.78"/>
 <instance part="R11" gate="G$1" x="88.9" y="22.86"/>
+>>>>>>> master
 </instances>
 <busses>
 </busses>
@@ -13025,6 +13138,18 @@ Source: RS Component / Phycomp</description>
 <wire x1="147.32" y1="27.94" x2="149.86" y2="27.94" width="0.1524" layer="91"/>
 <junction x="149.86" y="27.94"/>
 </segment>
+<<<<<<< HEAD
+</net>
+<net name="MOT_0P" class="0">
+<segment>
+<wire x1="238.76" y1="162.56" x2="233.68" y2="162.56" width="0.1524" layer="91"/>
+<label x="233.68" y="162.56" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J6" gate="J" pin="VBUS"/>
+</segment>
+<segment>
+<wire x1="200.66" y1="167.64" x2="198.12" y2="167.64" width="0.1524" layer="91"/>
+<label x="198.12" y="167.64" size="1.27" layer="95" rot="R180" xref="yes"/>
+=======
 <segment>
 <pinref part="GND6" gate="1" pin="GND"/>
 <wire x1="104.14" y1="20.32" x2="104.14" y2="22.86" width="0.1524" layer="91"/>
@@ -13035,6 +13160,7 @@ Source: RS Component / Phycomp</description>
 <segment>
 <wire x1="203.2" y1="167.64" x2="200.66" y2="167.64" width="0.1524" layer="91"/>
 <label x="200.66" y="167.64" size="1.27" layer="95" rot="R180" xref="yes"/>
+>>>>>>> master
 <pinref part="J10" gate="G$1" pin="T"/>
 </segment>
 <segment>
@@ -13064,8 +13190,13 @@ Source: RS Component / Phycomp</description>
 <pinref part="J6" gate="J" pin="GND"/>
 </segment>
 <segment>
+<<<<<<< HEAD
+<wire x1="200.66" y1="160.02" x2="198.12" y2="160.02" width="0.1524" layer="91"/>
+<label x="198.12" y="160.02" size="1.27" layer="95" rot="R180" xref="yes"/>
+=======
 <wire x1="203.2" y1="160.02" x2="200.66" y2="160.02" width="0.1524" layer="91"/>
 <label x="200.66" y="160.02" size="1.27" layer="95" rot="R180" xref="yes"/>
+>>>>>>> master
 <pinref part="J10" gate="G$1" pin="S"/>
 </segment>
 <segment>
@@ -13090,11 +13221,29 @@ Source: RS Component / Phycomp</description>
 </net>
 <net name="MOT_1P" class="0">
 <segment>
+<<<<<<< HEAD
+<wire x1="238.76" y1="137.16" x2="233.68" y2="137.16" width="0.1524" layer="91"/>
+<label x="233.68" y="137.16" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J7" gate="J" pin="VBUS"/>
+</segment>
+<segment>
+<wire x1="200.66" y1="149.86" x2="198.12" y2="149.86" width="0.1524" layer="91"/>
+<label x="198.12" y="149.86" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J11" gate="G$1" pin="T"/>
+</segment>
+<segment>
+<wire x1="71.12" y1="142.24" x2="76.2" y2="142.24" width="0.1524" layer="91"/>
+<label x="76.2" y="142.24" size="1.27" layer="95" xref="yes"/>
+<pinref part="U2" gate="G$1" pin="B_OUT2"/>
+</segment>
+<segment>
+=======
 <wire x1="203.2" y1="142.24" x2="200.66" y2="142.24" width="0.1524" layer="91"/>
 <label x="200.66" y="142.24" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="J11" gate="G$1" pin="T"/>
 </segment>
 <segment>
+>>>>>>> master
 <wire x1="127" y1="129.54" x2="124.46" y2="129.54" width="0.1524" layer="91"/>
 <label x="124.46" y="129.54" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="152.4" y1="119.38" x2="127" y2="119.38" width="0.1524" layer="91"/>
@@ -13108,11 +13257,14 @@ Source: RS Component / Phycomp</description>
 <label x="243.84" y="50.8" size="1.27" layer="95" xref="yes"/>
 <pinref part="J14" gate="G$1" pin="3"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <wire x1="71.12" y1="144.78" x2="76.2" y2="144.78" width="0.1524" layer="91"/>
 <label x="76.2" y="144.78" size="1.27" layer="95" xref="yes"/>
 <pinref part="U2" gate="G$1" pin="B_OUT1"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="MOT_1N" class="0">
 <segment>
@@ -13121,11 +13273,24 @@ Source: RS Component / Phycomp</description>
 <pinref part="J7" gate="J" pin="GND"/>
 </segment>
 <segment>
+<<<<<<< HEAD
+<wire x1="200.66" y1="142.24" x2="198.12" y2="142.24" width="0.1524" layer="91"/>
+<label x="198.12" y="142.24" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J11" gate="G$1" pin="S"/>
+</segment>
+<segment>
+<wire x1="71.12" y1="144.78" x2="76.2" y2="144.78" width="0.1524" layer="91"/>
+<label x="76.2" y="144.78" size="1.27" layer="95" xref="yes"/>
+<pinref part="U2" gate="G$1" pin="B_OUT1"/>
+</segment>
+<segment>
+=======
 <wire x1="203.2" y1="134.62" x2="200.66" y2="134.62" width="0.1524" layer="91"/>
 <label x="200.66" y="134.62" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="J11" gate="G$1" pin="S"/>
 </segment>
 <segment>
+>>>>>>> master
 <wire x1="127" y1="109.22" x2="124.46" y2="109.22" width="0.1524" layer="91"/>
 <label x="124.46" y="109.22" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="152.4" y1="99.06" x2="127" y2="99.06" width="0.1524" layer="91"/>
@@ -13139,6 +13304,18 @@ Source: RS Component / Phycomp</description>
 <label x="243.84" y="53.34" size="1.27" layer="95" xref="yes"/>
 <pinref part="J14" gate="G$1" pin="4"/>
 </segment>
+<<<<<<< HEAD
+</net>
+<net name="MOT_2P" class="0">
+<segment>
+<wire x1="238.76" y1="111.76" x2="233.68" y2="111.76" width="0.1524" layer="91"/>
+<label x="233.68" y="111.76" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J8" gate="J" pin="VBUS"/>
+</segment>
+<segment>
+<wire x1="200.66" y1="132.08" x2="198.12" y2="132.08" width="0.1524" layer="91"/>
+<label x="198.12" y="132.08" size="1.27" layer="95" rot="R180" xref="yes"/>
+=======
 <segment>
 <wire x1="71.12" y1="142.24" x2="76.2" y2="142.24" width="0.1524" layer="91"/>
 <label x="76.2" y="142.24" size="1.27" layer="95" xref="yes"/>
@@ -13149,6 +13326,7 @@ Source: RS Component / Phycomp</description>
 <segment>
 <wire x1="203.2" y1="116.84" x2="200.66" y2="116.84" width="0.1524" layer="91"/>
 <label x="200.66" y="116.84" size="1.27" layer="95" rot="R180" xref="yes"/>
+>>>>>>> master
 <pinref part="J12" gate="G$1" pin="T"/>
 </segment>
 <segment>
@@ -13178,8 +13356,13 @@ Source: RS Component / Phycomp</description>
 <pinref part="J8" gate="J" pin="GND"/>
 </segment>
 <segment>
+<<<<<<< HEAD
+<wire x1="200.66" y1="124.46" x2="198.12" y2="124.46" width="0.1524" layer="91"/>
+<label x="198.12" y="124.46" size="1.27" layer="95" rot="R180" xref="yes"/>
+=======
 <wire x1="203.2" y1="109.22" x2="200.66" y2="109.22" width="0.1524" layer="91"/>
 <label x="200.66" y="109.22" size="1.27" layer="95" rot="R180" xref="yes"/>
+>>>>>>> master
 <pinref part="J12" gate="G$1" pin="S"/>
 </segment>
 <segment>
@@ -13204,11 +13387,29 @@ Source: RS Component / Phycomp</description>
 </net>
 <net name="MOT_3P" class="0">
 <segment>
+<<<<<<< HEAD
+<wire x1="238.76" y1="86.36" x2="233.68" y2="86.36" width="0.1524" layer="91"/>
+<label x="233.68" y="86.36" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J9" gate="J" pin="VBUS"/>
+</segment>
+<segment>
+<wire x1="200.66" y1="114.3" x2="198.12" y2="114.3" width="0.1524" layer="91"/>
+<label x="198.12" y="114.3" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J13" gate="G$1" pin="T"/>
+</segment>
+<segment>
+<wire x1="71.12" y1="76.2" x2="76.2" y2="76.2" width="0.1524" layer="91"/>
+<label x="76.2" y="76.2" size="1.27" layer="95" xref="yes"/>
+<pinref part="U3" gate="G$1" pin="B_OUT2"/>
+</segment>
+<segment>
+=======
 <wire x1="203.2" y1="91.44" x2="200.66" y2="91.44" width="0.1524" layer="91"/>
 <label x="200.66" y="91.44" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="J13" gate="G$1" pin="T"/>
 </segment>
 <segment>
+>>>>>>> master
 <wire x1="127" y1="48.26" x2="124.46" y2="48.26" width="0.1524" layer="91"/>
 <label x="124.46" y="48.26" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="127" y1="48.26" x2="127" y2="38.1" width="0.1524" layer="91"/>
@@ -13222,11 +13423,14 @@ Source: RS Component / Phycomp</description>
 <label x="243.84" y="60.96" size="1.27" layer="95" xref="yes"/>
 <pinref part="J14" gate="G$1" pin="7"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <wire x1="71.12" y1="78.74" x2="76.2" y2="78.74" width="0.1524" layer="91"/>
 <label x="76.2" y="78.74" size="1.27" layer="95" xref="yes"/>
 <pinref part="U3" gate="G$1" pin="B_OUT1"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="MOT_3N" class="0">
 <segment>
@@ -13235,11 +13439,24 @@ Source: RS Component / Phycomp</description>
 <pinref part="J9" gate="J" pin="GND"/>
 </segment>
 <segment>
+<<<<<<< HEAD
+<wire x1="200.66" y1="106.68" x2="198.12" y2="106.68" width="0.1524" layer="91"/>
+<label x="198.12" y="106.68" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="J13" gate="G$1" pin="S"/>
+</segment>
+<segment>
+<wire x1="71.12" y1="78.74" x2="76.2" y2="78.74" width="0.1524" layer="91"/>
+<label x="76.2" y="78.74" size="1.27" layer="95" xref="yes"/>
+<pinref part="U3" gate="G$1" pin="B_OUT1"/>
+</segment>
+<segment>
+=======
 <wire x1="203.2" y1="83.82" x2="200.66" y2="83.82" width="0.1524" layer="91"/>
 <label x="200.66" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="J13" gate="G$1" pin="S"/>
 </segment>
 <segment>
+>>>>>>> master
 <wire x1="127" y1="27.94" x2="124.46" y2="27.94" width="0.1524" layer="91"/>
 <label x="124.46" y="27.94" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="127" y1="27.94" x2="127" y2="17.78" width="0.1524" layer="91"/>
@@ -13253,11 +13470,14 @@ Source: RS Component / Phycomp</description>
 <label x="243.84" y="63.5" size="1.27" layer="95" xref="yes"/>
 <pinref part="J14" gate="G$1" pin="8"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <wire x1="71.12" y1="76.2" x2="76.2" y2="76.2" width="0.1524" layer="91"/>
 <label x="76.2" y="76.2" size="1.27" layer="95" xref="yes"/>
 <pinref part="U3" gate="G$1" pin="B_OUT2"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM4" class="0">
 <segment>
@@ -13382,11 +13602,14 @@ Source: RS Component / Phycomp</description>
 <wire x1="33.02" y1="96.52" x2="22.86" y2="96.52" width="0.1524" layer="91"/>
 <label x="22.86" y="96.52" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
+<<<<<<< HEAD
+=======
 <segment>
 <wire x1="83.82" y1="22.86" x2="78.74" y2="22.86" width="0.1524" layer="91"/>
 <label x="78.74" y="22.86" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="R11" gate="G$1" pin="1"/>
 </segment>
+>>>>>>> master
 </net>
 <net name="PWM0" class="0">
 <segment>
@@ -13582,6 +13805,8 @@ Source: RS Component / Phycomp</description>
 <pinref part="U2" gate="G$1" pin="B_IN2"/>
 </segment>
 </net>
+<<<<<<< HEAD
+=======
 <net name="N$14" class="0">
 <segment>
 <pinref part="J13" gate="G$1" pin="TS"/>
@@ -13621,6 +13846,7 @@ Source: RS Component / Phycomp</description>
 <wire x1="93.98" y1="22.86" x2="96.52" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 </net>
+>>>>>>> master
 </nets>
 </sheet>
 </sheets>
