@@ -116,7 +116,7 @@ void loop() {
 	
 	long freeMem = ESP.getFreeHeap();
 	if (freeMem != lastFreeMem) {
-		Serial.printf("Free memory: %i  Change: %i\n", freeMem, (freeMem-lastFreeMem));
+		//Serial.printf("Free memory: %i  Change: %i\n", freeMem, (freeMem-lastFreeMem));
 		lastFreeMem = freeMem;
 	}
 }

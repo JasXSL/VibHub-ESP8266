@@ -19,7 +19,9 @@ class VhProgramStage{
 			easeType = TweenDuino::Tween::IN;
 			yoyo = false;
 
-			Serial.printf("Building stage object\n");
+			#ifdef DEBUG
+				Serial.printf("Building stage object\n");
+			#endif
 			char easing[48] = "Linear.In";
 
 			if( s.containsKey("i") )
@@ -44,7 +46,9 @@ class VhProgramStage{
 
 			if( tokens.size() >= 2 ){
 
-				Serial.printf("Building Easing: %s.%s\n", tokens[0], tokens[1]);
+				#ifdef DEBUG
+					Serial.printf("Building Easing: %s.%s\n", tokens[0], tokens[1]);
+				#endif
 				// Translate into a const
 				if( strcmp(tokens[0], "Quadratic") == 0 )
 					ease = TweenDuino::Tween::QUAD;
@@ -66,9 +70,11 @@ class VhProgramStage{
 					ease = TweenDuino::Tween::BACK;
 				else if( strcmp(tokens[0], "Bounce") == 0 )
 					ease = TweenDuino::Tween::BOUNCE;
+				#ifdef DEBUG
 				else{
 					Serial.printf("Unknown easing function: %s\n", tokens[0]);
 				}
+				#endif
 				
 				if( strcmp(tokens[1], "In") == 0 )
 					easeType = TweenDuino::Tween::IN;

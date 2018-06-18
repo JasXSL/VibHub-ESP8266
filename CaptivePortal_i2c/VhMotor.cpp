@@ -6,6 +6,7 @@
 #include "RandObject.h"
 
 
+
 VhMotor::VhMotor( int channel ) :
     _channel(channel),
     _duty(-1)
@@ -21,9 +22,11 @@ void VhMotor::playProgram(){
 	
 	int size = _active_program.size();
 	int lastpwm = _duty;
-	Serial.printf("PlayProgram, received %i stages\n", size);
-	long free = ESP.getFreeHeap();
-	Serial.printf("Free memory: %i\n", free);
+	#ifdef DEBUG
+		Serial.printf("PlayProgram, received %i stages\n", size);
+		long free = ESP.getFreeHeap();
+		Serial.printf("Free memory: %i\n", free);
+	#endif
 
 	if(!size){
 		stopProgram();
@@ -63,7 +66,9 @@ void VhMotor::playProgram(){
 
 	}
 
-	Serial.printf("Program built, total duration: %i!\n", totalDuration);
+	#ifdef DEBUG
+		Serial.printf("Program built, total duration: %i!\n", totalDuration);
+	#endif
 	program_running = true;
 	timeline.begin(millis());
 
@@ -71,8 +76,10 @@ void VhMotor::playProgram(){
 
 void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
 
-	Serial.println();
-	Serial.printf("Loading new program on channel %i with %i stages.\n", _channel, stages.size());
+	#ifdef DEBUG
+		Serial.println();
+		Serial.printf("Loading new program on channel %i with %i stages.\n", _channel, stages.size());
+	#endif
 	_repeats = repeats;
 	std::vector<VhProgramStage>().swap(_active_program);
 	for( auto stage : stages ){
@@ -97,9 +104,10 @@ void VhMotor::update(){
 	if( timeline.isComplete() ){
 		// Handle repeats
 		if(_repeats == -1 || _repeats > 0){
-			Serial.println("Program completed, looping");
-			timeline.restartFrom(time);
-			// playProgram();
+			#ifdef DEBUG
+				Serial.println("Program completed, looping");
+			#endif
+			playProgram();	// needed for randObjects. Memory seems fine anyways.
 			if( _repeats > 0 )
 				--_repeats;
 		}
@@ -113,9 +121,13 @@ void VhMotor::update(){
 }
 
 void VhMotor::setPWM( int duty, bool fast_decay, bool forward ){
-    if (_duty != duty){
+    /*
+	This would cause instant programs to malfunction since _duty is set by tweenduino 
+	if (_duty != duty){
         _duty = duty;
-        pwm.setMotor(_channel, duty, fast_decay, forward);
-    }
+	*/
+	//Serial.printf("Setting duty: %f\n", _duty);
+    pwm.setMotor(_channel, duty, fast_decay, forward);
+    //}
 }
 
