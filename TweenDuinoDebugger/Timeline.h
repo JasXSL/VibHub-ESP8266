@@ -15,6 +15,8 @@ class Timeline {
 public:
     Timeline();
 
+	void wipe();
+
     void begin(unsigned long startTime);
     bool isActive();
     void update(unsigned long time);
@@ -22,18 +24,18 @@ public:
     TweenDuino::Tween* addTo(float& target, float to,  unsigned long duration);
     TweenDuino::Tween* addTo(float& target, float to,  unsigned long duration, TweenDuino::Tween::Ease e, TweenDuino::Tween::EaseType type);
     
+    bool add(TweenDuino::Tween &tween);
     void restartFrom(unsigned long newStart);
     int maxChildren();
     unsigned long getDuration();
     bool isComplete();
-	
-	void cleanAndReset();
 
 
 private:
     class TimelineEntry {
     public:
         TimelineEntry();
+        ~TimelineEntry();
         Tween *tween;
     };
 
@@ -45,8 +47,6 @@ private:
     unsigned long lastUpdateTime;
     bool completed;
     bool initialized;
-	
-	unsigned int numTweens;
 };
 
 }

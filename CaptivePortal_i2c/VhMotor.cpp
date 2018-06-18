@@ -17,7 +17,7 @@ VhMotor::VhMotor( int channel ) :
 // Plays cached program
 void VhMotor::playProgram(){
 
-	timeline.cleanAndReset();
+	timeline.wipe();
 	
 	int size = _active_program.size();
 	int lastpwm = _duty;

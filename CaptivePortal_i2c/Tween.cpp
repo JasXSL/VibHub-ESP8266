@@ -18,30 +18,15 @@
 
 #include "Tween.h"
 
-TweenDuino::Tween::Tween(float &val, unsigned long duration, float to)
-  : target(&val), duration(duration), finalVal(to) {
+TweenDuino::Tween::Tween(float& t, unsigned long duration, float finalVal) 
+  : target(t), duration(duration), finalVal(finalVal) {
     initialized = false;
     active = false;
     onFirstUpdate = true;
     time = 0;
     ratio = 0;
-    startVal = val;
-    totalChange = to - startVal;
-    completed = false;
-    ease = nullptr;
-    startTime = 0;
-    lastUpdateTime = 0;
-}
-
-TweenDuino::Tween::Tween() 
-  : target(nullptr), duration(0), finalVal(0.0f) {
-	initialized = false;
-    active = false;
-    onFirstUpdate = true;
-    time = 0;
-    ratio = 0;
-    startVal = 0;
-    totalChange = 0;
+    startVal = t;
+    totalChange = finalVal - startVal;
     completed = false;
     ease = nullptr;
     startTime = 0;
@@ -49,28 +34,9 @@ TweenDuino::Tween::Tween()
 }
 
 TweenDuino::Tween::~Tween() {
-	if (ease != nullptr) delete ease;
+	if (ease) delete ease;
 }
 
-void TweenDuino::Tween::init(float &val, unsigned long duration, float to) {
-	target = &val;
-	duration = duration;
-	finalVal = to;
-	
-	initialized = false;
-    active = false;
-    onFirstUpdate = true;
-    time = 0;
-    ratio = 0;
-    startVal = val;
-    totalChange = to - startVal;
-    completed = false;
-	if (ease != nullptr) delete ease;
-    ease = nullptr;
-    startTime = 0;
-    lastUpdateTime = 0;
-}
-  
 TweenDuino::Tween *TweenDuino::Tween::to(float& target, unsigned long duration, float to) {
   Tween *tween = new Tween(target, duration, to);
   tween->setTween(LINEAR, INOUT); 
@@ -102,46 +68,48 @@ unsigned long TweenDuino::Tween::getStartTime() {
 // Modified by jas
 void TweenDuino::Tween::setTween(Ease e, EaseType type) {
 
-	if (ease != nullptr) delete ease;
+  if (ease != nullptr){
+    delete ease;
     ease = nullptr;
-	
-	switch(e) { 
-		case LINEAR:
-		  ease = new LinearEase();
-		  break;
-		case SINE:
-		  ease = new SineEase();
-		  break;
-		case QUAD:
-		  ease = new QuadraticEase();
-		  break;
-		case QUART:
-		  ease = new QuarticEase();
-		  break;
-		case QUINT:
-		  ease = new QuinticEase();
-		  break;
-		case CUBIC:
-		  ease = new CubicEase();
-		  break;
-		case BACK:
-		  ease = new BackEase();
-		  break;
-		case BOUNCE:
-		  ease = new BounceEase();
-		  break;
-		case CIRCULAR:
-		  ease = new CircularEase();
-		  break;
-		case ELASTIC:
-		  ease = new ElasticEase();
-		  break;
-		case EXPONENTIAL:
-		  ease = new ExponentialEase();
-		  break;
-	}
-	
-	easeType = type;
+  }
+
+  switch(e) { 
+    case LINEAR:
+      ease = new LinearEase();
+      break;
+    case SINE:
+      ease = new SineEase();
+      break;
+    case QUAD:
+      ease = new QuadraticEase();
+      break;
+    case QUART:
+      ease = new QuarticEase();
+      break;
+    case QUINT:
+      ease = new QuinticEase();
+      break;
+    case CUBIC:
+      ease = new CubicEase();
+      break;
+    case BACK:
+      ease = new BackEase();
+      break;
+    case BOUNCE:
+      ease = new BounceEase();
+      break;
+    case CIRCULAR:
+      ease = new CircularEase();
+      break;
+    case ELASTIC:
+      ease = new ElasticEase();
+      break;
+    case EXPONENTIAL:
+      ease = new ExponentialEase();
+      break;
+  }
+  
+  easeType = type;
 }
 
 void TweenDuino::Tween::begin(unsigned long timeMs) {
@@ -172,7 +140,7 @@ void TweenDuino::Tween::update(unsigned long updTime) {
   // We set startVal here instead of begin() because we want to be able to cooperate with
   // other code that might have adjusted the "target" value before we started to touch it.
   if (onFirstUpdate) {
-    startVal = *target;
+    startVal = target;
     totalChange = finalVal - startVal;
   }
 
@@ -203,7 +171,7 @@ void TweenDuino::Tween::update(unsigned long updTime) {
     return;
   }
 
-  *target = totalChange * ratio + startVal;
+  target = totalChange * ratio + startVal;
 }
 
 void TweenDuino::Tween::restartFrom(unsigned long newStart) {

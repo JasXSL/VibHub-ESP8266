@@ -22,9 +22,7 @@ public:
     enum EaseType { IN, OUT, INOUT, NONE };
     
     Tween(float &val, unsigned long duration, float to);
-	Tween();
 	~Tween();
-	void init(float &val, unsigned long duration, float to);
 
     static Tween *to(float& target, unsigned long duration, float to);
     static Tween *to(float& target, unsigned long duration, float to, Ease &ease, EaseType &type);
@@ -39,7 +37,7 @@ public:
     unsigned long getStartTime();
 
 private:
-    float *target;
+    float &target;
 
     unsigned long duration;
     unsigned long totalDuration;
