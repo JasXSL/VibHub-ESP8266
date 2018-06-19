@@ -42,6 +42,16 @@ void VhWifi::connect( bool force, bool reset ){
         clearSettings();
     }
     
+    // Custom CSS shared among the whole site
+    String head = FPSTR(CSS_SHARED);
+    head += "<script>window.onload = () => {";
+        head += FPSTR(JS_SHARED);
+        head += getCustomJS();
+    head += "}</script>";
+            
+    wifiManager.setCustomHeadElement(head.c_str());
+
+
     
     // The extra parameters to be configured
     WiFiManagerParameter devId("deviceid", "Device ID", vhConf.deviceid, 64);
