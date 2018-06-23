@@ -6,7 +6,8 @@ Goal is to correct the errors in rev 1.0 and make additional improvements in the
 
 ~~Swap SDA/SCL pins on ESP8266 and header~~
 
-Change I2C address to something not reserved (https://www.i2c-bus.org/addressing/)
+~~Change I2C address to something not reserved (https://www.i2c-bus.org/addressing/)~~
+Uses 0x60
 
 ~~Replace resistor array package to fit 0402 that the EXB28V actually uses (never trust what summary descriptions show)~~ Using EXB38V/0603x4 instead
 
@@ -22,24 +23,26 @@ Change I2C address to something not reserved (https://www.i2c-bus.org/addressing
 
 ~~Move jacks close to board edge~~
 
-Add I2C header for great justice
+~~Add I2C header for great justice~~
+Meh
 
-Debug why auto flash and programming doesn't work
+~~Debug why auto flash and programming doesn't work~~
+Reworked circuit, should work now
 
-Remove auto boot mode since it may not even work and isn't required
+~~Remove auto boot mode since it may not even work and isn't required~~
 
-Add instructions to slikscreen for manual flash boot mode
+~~Add instructions to slikscreen for manual flash boot mode~~
+Not enough room to waste for this
 
 ~~Add FTDI style header near relocated flash and reboot pins (GND, CTS, VCC, TXD, RXD, RTS)~~
 
-Add lables to FTDI header
+~~Add lables to FTDI header~~
 
-Enlarged all text on silkscreen so its readable
+~~Enlarged all text on silkscreen so its readable~~
 
-Replace battery input with JST-XH (only needs silkscreen changes and more clearance)
+~~Replace battery input with JST-XH (only needs silkscreen changes and more clearance)~~
+Should be enough room now
 
-Add test points, maybe
-
-Replace fuse to larger package with higher voltage rating
+~~Replace fuse to larger package with higher voltage rating~~
 
 Other things
