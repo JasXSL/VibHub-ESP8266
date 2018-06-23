@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include "PCA9634.h"
 
-pca9634 _pwm = pca9634(0x00);
+pca9634 _pwm = pca9634(PCA9634_ALL_CALL_ADDR);
 
 void scan()
 {
@@ -58,8 +58,7 @@ void setup() {
     scan();
     
     _pwm.reset();
-    _pwm.begin();
-    // _pwm.set_mode2(0x02);
+    _pwm.begin(PCA9634_MODE1_ALLCALLS, (PCA9634_MODE2_INVRT|PCA9634_MODE2_OUTDRV|PCA9634_MODE2_OUTNE0));
 }
 
 unsigned long timer = 0;

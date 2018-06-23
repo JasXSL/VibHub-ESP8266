@@ -1,5 +1,10 @@
 /*
 Based off https://github.com/HydroSense/HydroSense_PCA9634
+
+Significantly expanded by Kadah, 2018
+
+See datasheet for more info on everything
+https://www.nxp.com/docs/en/data-sheet/PCA9634.pdf
 */
  
  
@@ -11,13 +16,13 @@ pca9634::pca9634(uint8_t address){
     _address = address;
 }
 
-void pca9634::begin(){
-    // initalize all leds to default PWM control
-    int i;
-    write_reg( PCA9634_REG_MODE1, 0 );
-    write_reg( PCA9634_REG_MODE2, 0x16 ); // INVRT | OUTDRV | OUTNE1
+void pca9634::begin( uint8_t mode1 /*= 0*/, uint8_t mode2 /*= 0x16*/ ){
+    write_reg( PCA9634_REG_MODE1, mode1 );
+    write_reg( PCA9634_REG_MODE2, mode2 );
     write_reg( PCA9634_REG_LEDOUT0, PCA9634_ALL_LED_TO_PWM );
     write_reg( PCA9634_REG_LEDOUT1, PCA9634_ALL_LED_TO_PWM );
+    // initalize all leds to default PWM control
+    int i;
     for (i=0; i < 8; i++){
         set_duty(i, 0);
     }
