@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "Vhled.h"
-
+#include <qrcode.h>
 
 #if defined(ESP8266)
 #define getssid() "VibHub_"+String((uint16_t)ESP.getChipId())
@@ -45,10 +45,12 @@ void VhWifi::connect( bool force, bool reset ){
     // Custom CSS shared among the whole site
     String head = FPSTR(CSS_SHARED);
     head += "<script>window.onload = () => {";
+        head += getCustomJSPre();
         head += FPSTR(JS_SHARED);
-        head += getCustomJS();
+        head += getCustomJSPost();
     head += "}</script>";
-            
+    
+    Serial.printf("Size of custom head: %i \n", head.length());
     wifiManager.setCustomHeadElement(head.c_str());
 
 
@@ -132,6 +134,42 @@ void VhWifi::clearSettings(){
     if (_wifiManager){
         _wifiManager->resetSettings();
     }
+}
+
+
+String VhWifi::getCustomJSPre(){
+    String out = "const QR_SIZE = 21;";
+
+    out+= "const QR_DATA ='";
+    QRCode qrcode;
+    uint8_t qrcodeData[qrcode_getBufferSize(1)];
+    qrcode_initText(&qrcode, qrcodeData, 1, ECC_MEDIUM, vhConf.deviceid);
+    for( uint8 y = 0; y < qrcode.size; y++ ){
+		for( uint8 x = 0; x < qrcode.size; x++ )
+            out+= qrcode_getModule(&qrcode, x, y) ? "1" : "0";
+	}
+    out += "';";
+    return out;
+}
+
+String VhWifi::getCustomJSPost(){
+
+    String out = "";
+    // Anything with class VH_VERSION gets innerText set to the version
+    out+= "document.querySelectorAll('.VH_VERSION').forEach(el => {";
+        out+="el.innerText='";
+        out+= VH_VERSION;
+        out+= "';";
+    out+= "});";
+
+    // Update with the DEVICE ID
+    out+= "document.querySelectorAll('.VH_DEV_ID').forEach(el => {";
+        out+="el.innerText='";
+        out+= vhConf.deviceid;
+        out+= "';";
+    out+= "});";
+    return out;
+		
 }
 
 

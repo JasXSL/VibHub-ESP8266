@@ -47,9 +47,11 @@ const char CSS_SHARED[] PROGMEM = "<style>"
 		"margin: 0 0 1vmax 0;"
 	"}"
 	"p.subtitle{"
-		"margin:-1vmax 0 1vmax 0;"
+		"margin:-0.5vmax 0 1vmax 0;"
 		"font-style: italic;"
 		"color:#666;"
+		"font-size:2vmax;"
+		"line-height:110%;"
 	"}"
     "h3{"
         "font-size:4vmax;"
@@ -124,7 +126,57 @@ const char CSS_SHARED[] PROGMEM = "<style>"
 	"dl{text-align:left; line-height:100%;}"
 	"dt{font-size:2vmax; font-style:italic; color:#666;}"
 	"dd{margin-bottom:1vmax;}"
-
+	"div #qr{"
+		"text-align:left;"
+	"}"
+	"div #qr svg{"
+		"width:40%;"
+		"max-width:300px;"
+	"}"
+	"div.right{"
+		"float:right;"
+		"text-align:right;"
+	"}"
+	"div.bottomRight{"
+		"position:absolute;"
+		"bottom:0; right:0;"
+		"text-align:right;"
+	"}"
+	"p.devID{"
+		"background:#FFD;"
+		"padding:1vmax;"
+		"border:0.5vmax dotted #FFF;"
+		"border-radius:1vmax;"
+		"box-shadow:0 0 3vmax rgba(0,0,0,.5);"
+	"}"
+	"#qr svg, #qr p.devID{"
+		"cursor:pointer;"
+	"}"
+	"#qr svg:active, #qr p.devID:active{"
+		"transform:scale(0.97);"
+		"box-shadow:0 0 1vmax rgba(0,0,0,.5);"
+	"}"
+	"#cNote{"
+		"position:fixed;"
+		"top:5vmax;"
+		"left:50%;"
+		"transform:translateX(-50%);"
+		"padding:1vmax;"
+		"border-radius:1vmax;"
+		"border:0.5vmax solid #EFE;"
+		"box-shadow:0.5vmax 0.5vmax 3vmax rgba(0,0,0,.4);"
+		"background:linear-gradient(to bottom, #eeffed 0%,#d3ffd1 100%);"
+		"pointer-events:none;"
+		"opacity:0;"
+	"}"
+	"@keyframes cNote{"
+		"0%{opacity:1;}"
+		"50%{opacity:1;}"
+		"100%{opacity:0;}"
+	"}"
+	"#cNote.show{"
+		"animation:cNote 3s ease-in-out;"
+	"}"
 "</style>";
 
 const char JS_SHARED[] PROGMEM = "\n"
@@ -140,16 +192,54 @@ const char JS_SHARED[] PROGMEM = "\n"
 		// Remove the unnecessary H3
 		"document.querySelector('h3').remove();\n"
 		// Header can be the same
-		"document.querySelector('h1').innerText = 'VibHub';\n"
+		"document.querySelector('h1').remove();\n"
 		"document.querySelector('button').className = 'setup';\n"
-		// Add version
-		"let p = document.createElement('p');\n"
-		"let h1 = document.querySelector('h1');\n"
-		"p.innerHTML = 'v<span class=\"VH_VERSION\"></span>';\n"
-		"p.className = 'subtitle';\n"
-		"h1.parentNode.insertBefore(p, h1.nextSibling);\n"
 		"document.querySelector(\"form:nth-of-type(1) button\").innerText = \"Configure\";\n"
 		"document.querySelector(\"form:nth-of-type(2) button\").innerText = \"Configure (No Scan)\";\n"
+		// Draw the QR code
+		"let qr = '<svg viewbox=\"0 0 21 21\" shape-rendering=\"optimizeSpeed\"><rect width=21 height=21 style=\"fill:#FFF\"></rect>';"
+		"for(let y =0; y<QR_SIZE; ++y){"
+			"for(let x=0; x<QR_SIZE; ++x){"
+				"if(+QR_DATA.substr(y*QR_SIZE+x,1))"
+					"qr += '<rect x='+x+' y='+y+' width=1 height=1 style=\"fill:#000;\" />';"
+			"}"
+		"}"
+		"qr+= '</svg>';"
+		"let right = '<div class=\"right\">"
+			"<h1>VibHub</h1>"
+			"<p class=\"subtitle\">Version <span class=\"VH_VERSION\"></span></p>"
+		"</div>'"
+		"+'<div class=\"bottomRight\">"
+			"<p class=\"subtitle\">Device ID:</p>"
+			"<p class=\"devID VH_DEV_ID\"></p>"
+		"</div>';"
+		"document.querySelector('div').innerHTML = "
+			"'<div id=\"qr\">'+right+qr+'</div>'+"
+			"document.querySelector('div').innerHTML+"
+			"'<div id=\"cNote\">Device ID copied</div>'"
+		";"
+		// Bind events
+		"document.querySelectorAll('p.devID, #qr svg').forEach(el => {"
+			"el.onclick = () => {"
+				"document.getElementById('cNote').className = '';"
+				"setTimeout(()=>{ document.getElementById('cNote').className = 'show'; }, 10);"
+				"if(document.queryCommandSupported && document.queryCommandSupported('copy')){"
+					"let ta = document.createElement('textarea');"
+					"ta.textContent = document.querySelector('p.devID').innerText;"
+					"ta.style.position = 'fixed';"
+					"document.body.appendChild(ta);"
+					"ta.select();"
+					"try{"
+						"return document.execCommand('copy');"
+					"}catch(ex){"
+						"console.alert('Unable to copy. Browser not supported.');"
+						"return false;"
+					"}finally{"
+						"document.body.removeChild(ta);"
+					"}"
+				"}"
+			"};"
+		"});"
 	"}\n"
 
 	// Wifi page
@@ -234,17 +324,9 @@ class VhWifi{
         WiFiManager* _wifiManager;
 
 		// Any non-constant data needed to be loaded should go in here
-		String getCustomJS(){
-			String out = "";
-			// Anything with class VH_VERSION gets innerText set to the version
-			out+= "document.querySelectorAll('.VH_VERSION').forEach(el => {";
-				out+="el.innerText='";
-				out+= VH_VERSION;
-				out+= "';";
-			out+= "});";
-
-			return out;
-		}
+		String getCustomJSPre();		// Non constant data that should go above the constant data
+		String getCustomJSPost();		// == || == below the constant data
+		
 };
 
 
