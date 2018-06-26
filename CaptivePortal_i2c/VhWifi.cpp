@@ -48,7 +48,7 @@ void VhWifi::connect( bool force, bool reset ){
         head += getCustomJSPre();
         head += FPSTR(JS_SHARED);
         head += getCustomJSPost();
-    head += "}</script>";
+    head += "};</script>";
     
     Serial.printf("Size of custom head: %i \n", head.length());
     wifiManager.setCustomHeadElement(head.c_str());
@@ -56,13 +56,13 @@ void VhWifi::connect( bool force, bool reset ){
 
     
     // The extra parameters to be configured
-    WiFiManagerParameter devId("deviceid", "Device ID", vhConf.deviceid, 64);
+    //WiFiManagerParameter devId("deviceid", "Device ID", vhConf.deviceid, 64);
     WiFiManagerParameter serverHost("server", "Server Host", vhConf.server, 64);
     char port[6];
     itoa(vhConf.port, port, 10);
     WiFiManagerParameter serverPort("port", "Server Port", port, 6);
     
-    wifiManager.addParameter(&devId);
+    //wifiManager.addParameter(&devId);
     wifiManager.addParameter(&serverHost);
     wifiManager.addParameter(&serverPort);
     
@@ -107,7 +107,7 @@ void VhWifi::connect( bool force, bool reset ){
         Serial.println("VhWifi: Configuration change detected, saving and rebootski");
         
         //read updated parameters
-        strcpy(vhConf.deviceid, devId.getValue());
+        //strcpy(vhConf.deviceid, devId.getValue());
         strcpy(vhConf.server, serverHost.getValue());
         char p[5];
         strcpy(p, serverPort.getValue());
