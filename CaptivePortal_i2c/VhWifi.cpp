@@ -51,6 +51,8 @@ void VhWifi::connect( bool force, bool reset ){
     head += "};</script>";
     
     Serial.printf("Size of custom head: %i \n", head.length());
+    uint32_t free = system_get_free_heap_size();
+    
     wifiManager.setCustomHeadElement(head.c_str());
 
 
@@ -82,6 +84,7 @@ void VhWifi::connect( bool force, bool reset ){
     //in seconds
     //wifiManager.setConfigPortalTimeout(120);
 
+    Serial.printf("Free memory: %i \n", free);
     
     String ssid = getssid();
     if( force ){
