@@ -9,33 +9,21 @@ anything board specific or shared between classes
 #define VhConfiguration_h
 
 // Software version
-	#define VH_VERSION "0.1.0"
-
-// PWM Settings
-    // #define PWMFREQ 1600
-    // #define PWMI2CADDRESS 0x40
-    #define PWMI2CADDRESS 0x00
-    #define I2CCLOCK 400000
-
+	#define VH_VERSION "0.1.1"
 
 // PIN RESERVATIONS
     
     #if defined(ESP8266)
-        // PWM Driver
+        // PCA9634 PWM Driver
         // SDA pin: GPIO 4
         // SCL pin: GPIO 5
+        // I2C address: Set to any valid I2C address
         #define PIN_ENABLE 15
         
         // RGB LED pins
     	#define PIN_LED_RED 2
     	#define PIN_LED_GREEN 12
     	#define PIN_LED_BLUE 13
-    
-    	// // MOTORS
-    	// #define PIN_MOTOR_0 4
-    	// #define PIN_MOTOR_1 5
-    	// #define PIN_MOTOR_2 13
-    	// #define PIN_MOTOR_3 12
     
     	// CONF BUTTON
     	#define CONF_PIN 14

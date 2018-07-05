@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include "PCA9634.h"
 
-pca9634 pwmdriver(PWMI2CADDRESS);
+pca9634 pwmdriver(PCA9634_ALL_CALL_ADDR);
 
 void VhPwm::begin()
 {
@@ -12,10 +12,10 @@ void VhPwm::begin()
     disable();
     
     Wire.begin();
-    Wire.setClock(I2CCLOCK);
+    // Wire.setClock(I2CCLOCK);
     
     pwmdriver.reset();
-    pwmdriver.begin();
+    pwmdriver.begin(PCA9634_MODE1_ALLCALLS, (PCA9634_MODE2_INVRT|PCA9634_MODE2_OUTDRV|PCA9634_MODE2_OUTNE0));
 }
 
 void VhPwm::enable(){
