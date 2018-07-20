@@ -115,38 +115,6 @@ void pwmn_wave() {
 	driver.setPin(0, 255);
 	delay(LEDTESTDELAY);
 	driver.setPin(0, 0);
-	
-	// Fade on each channel then off
-	Serial.println("LED Fade");
-	for (k=0; k<2; k++){
-		for (i=0; i<8; i++){
-			for (j=0; j<256; j++){
-				yield();
-				delay(1);
-				driver.setPin(i, j);
-			}
-			yield();
-		}
-		for (i=0; i<8; i++){
-			for (j=255; j>=0; j--){
-				yield();
-				delay(1);
-				driver.setPin(i, j);
-			}
-		}
-	}
-	
-	// Waves all
-	Serial.println("LED Wave");
-    for (j=0; j<500; j++){
-		timer = millis();
-		for (i=0; i<8; i++){
-			ledValue = 128 + (127 * cos((2*PI/2000 * timer) + ((i/8.0) * PI*2)));
-			driver.setPin(i, ledValue);
-		}
-		delay(10);
-		yield();
-	}
 }
 
 //
@@ -226,7 +194,7 @@ void motor_test_channel(uint8_t ch){
 
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(74880);
     
     Wire.begin();
     Serial.println("Started");
