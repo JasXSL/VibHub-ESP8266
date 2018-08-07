@@ -141,12 +141,14 @@ void VhWifi::clearSettings(){
 
 
 String VhWifi::getCustomJSPre(){
-    String out = "const QR_SIZE = 21;";
+    String out = "const QR_SIZE = 25;";
 
     out+= "const QR_DATA ='";
     QRCode qrcode;
-    uint8_t qrcodeData[qrcode_getBufferSize(1)];
-    qrcode_initText(&qrcode, qrcodeData, 1, ECC_MEDIUM, vhConf.deviceid);
+    uint8_t qrcodeData[qrcode_getBufferSize(2)];
+    String text = "vibhub:";
+    text+= vhConf.deviceid;
+    qrcode_initText(&qrcode, qrcodeData, 2, ECC_MEDIUM, text.c_str());
     for( uint8 y = 0; y < qrcode.size; y++ ){
 		for( uint8 x = 0; x < qrcode.size; x++ )
             out+= qrcode_getModule(&qrcode, x, y) ? "1" : "0";

@@ -89,7 +89,7 @@ void VhConfig::load( bool reset ){
 		if( deviceid[0] == '\0' ){
 
 			Serial.println("No device ID found, randomizing one");
-			gen_random(deviceid, 10);
+			gen_random(deviceid, 12);
 
 		}
 
@@ -116,7 +116,7 @@ void VhConfig::load( bool reset ){
 void VhConfig::gen_random( char *s, const int len ){
     
 	static const char alphanum[] =
-        "abcdefghijklmnopqrstuvwxyz";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     for( int i = 0; i < len; ++i )
         s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];

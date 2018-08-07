@@ -12,7 +12,6 @@ class VhConfig{
         void load( bool reset=false );
         void save();
         void reset();
-		void generateDeviceID();
 		
         
         char server[64];
