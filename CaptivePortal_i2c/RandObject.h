@@ -41,7 +41,7 @@ class RandObject{
 			if(useDefault)
 				return valueOnFalse;
 			
-			int out = random(min, max)*multi+offset;
+			int out = random(min, max+1)*multi+offset;
 			//Serial.printf("Returning a random value between min %i, max %i, multi %i, offset %i: %i\n", min, max, multi, offset, out);
 			return out;
 		}

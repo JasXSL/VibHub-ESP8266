@@ -9,7 +9,7 @@
 
 VhMotor::VhMotor( int channel ) :
     _channel(channel),
-    _duty(-1)
+    _duty(0)
 {
     // Force initial state
     setPWM(0);
@@ -35,6 +35,7 @@ void VhMotor::playProgram(){
 
 	int totalDuration = 0;
 	for(std::vector<VhProgramStage>::iterator iter = _active_program.begin(); iter != _active_program.end(); iter++) {
+
 		int r;
 		int intens = iter->intensity.getValue(lastpwm);
 		int lastIntensity = lastpwm;
@@ -111,8 +112,10 @@ void VhMotor::update(){
 			if( _repeats > 0 )
 				--_repeats;
 		}
-		else
+		else{
 			stopProgram();
+			//Serial.printf("Program is complete, and duty is %i \n", _duty);
+		}
 	}
 
 	//Serial.printf("Setting program duty: %f\n", _duty);
@@ -120,14 +123,10 @@ void VhMotor::update(){
 
 }
 
+// fast_decay and forward are false by default
 void VhMotor::setPWM( int duty, bool fast_decay, bool forward ){
-    /*
-	This would cause instant programs to malfunction since _duty is set by tweenduino 
-	if (_duty != duty){
-        _duty = duty;
-	*/
-	//Serial.printf("Setting duty: %f\n", _duty);
+	//Serial.printf("Setting duty: %i \n", duty);
+	_duty = duty;
     pwm.setMotor(_channel, duty, fast_decay, forward);
-    //}
 }
 

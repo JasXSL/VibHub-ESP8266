@@ -47,7 +47,8 @@ void VhPwm::setMotor( uint8_t motor, uint8_t duty, bool fast_decay, bool forward
             pwmdriver.set_duty(motor+1, duty);
         }
         else { // slow decay
-           pwmdriver.set_duty(motor, 255-duty);
+            //Serial.printf("Setting duty: %i = %i, %i = %i \n", motor, 255-duty, motor+1, 255);
+            pwmdriver.set_duty(motor, 255-duty);
             pwmdriver.set_duty(motor+1, 255); 
         }
     }
