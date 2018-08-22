@@ -4,7 +4,7 @@
 
 
 #ifndef TWEEN_TIMELINE_SIZE
-  #define TWEEN_TIMELINE_SIZE 20
+  #define TWEEN_TIMELINE_SIZE 100
 #endif
 
 #include "Tween.h"
