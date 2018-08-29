@@ -1,9 +1,6 @@
 #include "Arduino.h"
 #include "VhMotor.h"
-#include "TweenDuino.h" // https://github.com/stickywes/TweenDuino
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
-#include "VhPwm.h"
-#include "RandObject.h"
 
 
 
@@ -15,110 +12,37 @@ VhMotor::VhMotor( int channel ) :
     setPWM(0);
 }
 
-// Plays cached program
-void VhMotor::playProgram(){
-
-	timeline.wipe();
-	
-	int size = _active_program.size();
-	int lastpwm = _duty;
-	#ifdef DEBUG
-		Serial.printf("PlayProgram, received %i stages\n", size);
-		long free = ESP.getFreeHeap();
-		Serial.printf("Free memory: %i\n", free);
-	#endif
-
-	if(!size){
-		stopProgram();
-		return;
-	}
-
-	int totalDuration = 0;
-	for(std::vector<VhProgramStage>::iterator iter = _active_program.begin(); iter != _active_program.end(); iter++) {
-
-		int r;
-		int intens = iter->intensity.getValue(lastpwm);
-		int lastIntensity = lastpwm;
-		int dur = iter->duration.getValue();
-		int rep = iter->repeats.getValue();
-		if( dur < 1 )
-			dur = 1;
-		if( rep < 0 )
-			rep = 0;
-		++rep;
-		totalDuration += dur;
-		for( r = 0; r < rep; ++r ){
-
-			// Snapback repeats
-			if( !iter->yoyo && r ) 
-				timeline.addTo(_duty, (float)lastpwm, 1);
-
-			int v = intens;
-			if( iter->yoyo && r%2 == 1 )
-				v = lastpwm;
-			
-			//Serial.printf("Added playback from %i to %i over %i ms | yFlip %i\n", lastIntensity, v, dur, yoyo && r%2 == 1);	
-			lastIntensity = v;
-			timeline.addTo(_duty, (float)v, dur, iter->ease, iter->easeType);
-
-		}
-
-		lastpwm = lastIntensity;
-
-	}
-
-	#ifdef DEBUG
-		Serial.printf("Program built, total duration: %i!\n", totalDuration);
-	#endif
-	program_running = true;
-	timeline.begin(millis());
-
-}
-
 void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
 
 	#ifdef DEBUG
 		Serial.println();
-		Serial.printf("Loading new program on channel %i with %i stages.\n", _channel, stages.size());
+		Serial.printf("Loading new program with #%i stages.\n", stages.size());
 	#endif
-	_repeats = repeats;
-	std::vector<VhProgramStage>().swap(_active_program);
-	for( auto stage : stages ){
-		_active_program.push_back(VhProgramStage(stage.as<JsonObject>()));
-	}
-	playProgram();
+	
+	program.reset(repeats);
+	for( auto stage : stages )
+		program.addStageFromJson(stage.as<JsonObject>());
+	
+	program.start();
 
 }
 
 void VhMotor::stopProgram(){
-	program_running = false;
+	program.completed = true;	// Makes sure we don't run loop on the program
+	program.reset(0);			// Frees up some memory
 }
 
 void VhMotor::update(){
 
-	if(!program_running)
+	if( !program.loop() )
 		return;
 
-	uint32_t time = millis();
-	timeline.update(time);
+	_duty = floor(program.value);
+	if( _duty < 0 )
+		_duty = 0;
+	else if( _duty > 255 )
+		_duty = 255;
 
-	if( timeline.isComplete() ){
-		// Handle repeats
-		if(_repeats == -1 || _repeats > 0){
-			#ifdef DEBUG
-				Serial.println("Program completed, looping");
-			#endif
-			playProgram();	// needed for randObjects. Memory seems fine anyways.
-			if( _repeats > 0 )
-				--_repeats;
-		}
-		else{
-			stopProgram();
-			//Serial.printf("Program is complete, and duty is %i \n", _duty);
-		}
-	}
-
-	//Serial.printf("Setting program duty: %f\n", _duty);
 	setPWM(_duty);
 
 }
