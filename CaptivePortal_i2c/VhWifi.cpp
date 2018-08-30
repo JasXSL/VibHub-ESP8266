@@ -42,21 +42,6 @@ void VhWifi::connect( bool force, bool reset ){
         clearSettings();
     }
     
-    // Custom CSS shared among the whole site
-    String head = FPSTR(CSS_SHARED);
-    head += "<script>window.onload = () => {";
-        head += getCustomJSPre();
-        head += FPSTR(JS_SHARED);
-        head += getCustomJSPost();
-    head += "};</script>";
-    
-    Serial.printf("Size of custom head: %i \n", head.length());
-    uint32_t free = system_get_free_heap_size();
-    
-    wifiManager.setCustomHeadElement(head.c_str());
-
-
-    
     // The extra parameters to be configured
     //WiFiManagerParameter devId("deviceid", "Device ID", vhConf.deviceid, 64);
     WiFiManagerParameter serverHost("server", "Server Host", vhConf.server, 64);
@@ -64,10 +49,16 @@ void VhWifi::connect( bool force, bool reset ){
     itoa(vhConf.port, port, 10);
     WiFiManagerParameter serverPort("port", "Server Port", port, 6);
     
+    String ct = "Device ID: ";
+    ct += vhConf.deviceid;
+    WiFiManagerParameter custom_text(ct.c_str());
+
+
+
     //wifiManager.addParameter(&devId);
     wifiManager.addParameter(&serverHost);
     wifiManager.addParameter(&serverPort);
-    
+    wifiManager.addParameter(&custom_text);
     
     //set config save notify callback
     wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -155,26 +146,6 @@ String VhWifi::getCustomJSPre(){
 	}
     out += "';";
     return out;
-}
-
-String VhWifi::getCustomJSPost(){
-
-    String out = "";
-    // Anything with class VH_VERSION gets innerText set to the version
-    out+= "document.querySelectorAll('.VH_VERSION').forEach(el => {";
-        out+="el.innerText='";
-        out+= VH_VERSION;
-        out+= "';";
-    out+= "});";
-
-    // Update with the DEVICE ID
-    out+= "document.querySelectorAll('.VH_DEV_ID').forEach(el => {";
-        out+="el.innerText='";
-        out+= vhConf.deviceid;
-        out+= "';";
-    out+= "});";
-    return out;
-		
 }
 
 
