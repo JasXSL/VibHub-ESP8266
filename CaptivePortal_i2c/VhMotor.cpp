@@ -12,7 +12,7 @@ VhMotor::VhMotor( int channel ) :
     setPWM(0);
 }
 
-void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
+void VhMotor::loadProgram( JsonArray stages, int repeats = 0 ){
 
 	#ifdef DEBUG
 		Serial.println();
@@ -21,7 +21,7 @@ void VhMotor::loadProgram( JsonArray &stages, int repeats = 0 ){
 	
 	program.reset(repeats);
 	for( auto stage : stages )
-		program.addStageFromJson(stage.as<JsonObject>());
+		program.addStageFromJson(stage);
 	
 	program.start();
 

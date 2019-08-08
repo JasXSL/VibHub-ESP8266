@@ -72,71 +72,67 @@ void VhClient::event_disconnect(const char * payload, size_t length){
 void VhClient::event_vib(const char * payload, size_t length){
     Serial.printf("VhClient::event_vib: %s\n", payload);
 
-    DynamicJsonBuffer jsonBuffer;
-    JsonVariant variant = jsonBuffer.parse(payload);
+    DynamicJsonDocument jsonBuffer(4096);
+    DeserializationError error = deserializeJson(jsonBuffer, payload);
 
-    
-    variant.printTo(Serial);
+    if( error ){
+        Serial.println("Unable to read vib event");
+        return;
+    }
 
-    if( variant.success() ){
+    Serial.println("Vib received with");
+    serializeJson(jsonBuffer, Serial);
+    Serial.println();
 
-        // Convert to JSON array
-        int i;
-        DynamicJsonBuffer buf;
-        JsonArray& js = buf.createArray();
-        if( !variant.is<JsonArray>() ){
+    DynamicJsonDocument js(2048);
+    JsonArray arr = js.to<JsonArray>();
 
-            JsonObject& obj = variant;
-            js.add(obj);
+    if( !jsonBuffer.is<JsonArray>() ){
+        JsonObject obj = jsonBuffer.as<JsonObject>();
+        arr.add(obj);
+    }
+    else{
+        for( byte i=0; i<jsonBuffer.size(); ++i )
+            arr.add(jsonBuffer[i]);
+    }
 
-        }
-        else{
-            
-            JsonArray &arr = variant;
-            for( i=0; i<arr.size(); ++i )
-                js.add(arr[i]);
+    // Cycle through all programs
+    for( byte i=0; i<arr.size(); ++i ){
 
-        }
+        JsonObject j = arr[i];
 
-        // Cycle through all programs
-        for( i=0; i<js.size(); ++i ){
+        //Serial.printf("Program %i\n", i);
+        //serializeJson(j, Serial);
+        //Serial.println();
 
-            JsonObject& j = js[i];
-
-            bool mo[4] = {true, true, true, true};
-            
-            if( j.containsKey("port") ){
-
-                int port = atoi(j["port"]);
-                if( port > 0 ){
-
-                    for( int i = 0; i<4; ++i )
-                        mo[i] = port&(1<<i);
-
-                }
-
-            }
-
-            int repeats = 0;
-            if( j.containsKey("repeats") )
-                repeats = atoi(j["repeats"]);
-
-            int i;
-            for( i=0; i<4; ++i ){
-                
-                //Todo: Add type checking?
-                if( mo[i] )
-                    motors[i].loadProgram(j["stages"], repeats);
-
-
-            }
-
-        }
+        bool mo[4] = {true, true, true, true};
         
+        if( j.containsKey("port") ){
+
+            int port = j["port"];
+            if( port > 0 ){
+
+                for( int i = 0; i<4; ++i )
+                    mo[i] = port&(1<<i);
+
+            }
+
+        }
+
+        int repeats = 0;
+        if( j.containsKey("repeats") )
+            repeats = j["repeats"];
+
+        for( byte n=0; n<4; ++n ){
+
+            if( mo[n] )
+                motors[n].loadProgram(j["stages"], repeats);
+
+        }
 
     }
-    else
-        Serial.println("failed to load json config");
+    
+
 
 }
 

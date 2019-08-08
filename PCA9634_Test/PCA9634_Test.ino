@@ -59,6 +59,11 @@ void setup() {
     
     _pwm.reset();
     _pwm.begin(PCA9634_MODE1_ALLCALLS, (PCA9634_MODE2_INVRT|PCA9634_MODE2_OUTDRV|PCA9634_MODE2_OUTNE0));
+    int i;
+    for(i=0; i<8; ++i)
+      	_pwm.set_duty(i, 0);
+
+
 }
 
 unsigned long timer = 0;
