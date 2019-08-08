@@ -13,37 +13,20 @@ anything board specific or shared between classes
 
 // PIN RESERVATIONS
     
-    #if defined(ESP8266)
-        // PCA9634 PWM Driver
-        // SDA pin: GPIO 4
-        // SCL pin: GPIO 5
-        // I2C address: Set to any valid I2C address
-        #define PIN_ENABLE 15
-        
-        // RGB LED pins
-    	#define PIN_LED_RED 2
-    	#define PIN_LED_GREEN 12
-    	#define PIN_LED_BLUE 13
-    
-    	// CONF BUTTON
-    	#define CONF_PIN 14
-        
-    #elif defined(ESP32)
-    	// // RGB LED
-    	// #define PIN_LED_RED 13
-    	// #define PIN_LED_GREEN 12
-    	// #define PIN_LED_BLUE 14
-    
-    	// // MOTORS
-    	// #define PIN_MOTOR_0 26
-    	// #define PIN_MOTOR_1 25
-    	// #define PIN_MOTOR_2 33
-    	// #define PIN_MOTOR_3 32
-    
-    	// // CONF BUTTON
-    	// #define CONF_PIN 36
-    #endif
-    
+	// PCA9634 PWM Driver
+	// SDA pin: GPIO 4
+	// SCL pin: GPIO 5
+	// I2C address: Set to any valid I2C address
+	#define PIN_ENABLE 15
+	
+	// RGB LED pins
+	#define PIN_LED_RED 2
+	#define PIN_LED_GREEN 12
+	#define PIN_LED_BLUE 13
+
+	// CONF BUTTON
+	#define CONF_PIN 14
+
 
 
 

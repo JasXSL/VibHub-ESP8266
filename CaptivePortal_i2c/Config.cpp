@@ -1,9 +1,6 @@
 #include "Config.h"
 #include <Arduino.h>
 #include <FS.h>
-#if defined(ESP32)
-#include <SPIFFS.h>
-#endif
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 #include "Configuration.h"
 
@@ -21,11 +18,7 @@ VhConfig::VhConfig(void) :
 void VhConfig::load( bool reset ){
     Serial.println("VhConfig::load");
     
-    #if defined(ESP8266)
     if(!SPIFFS.begin()){
-    #elif defined(ESP32)
-    if(!SPIFFS.begin(true)){
-    #endif
         Serial.println("SPIFFS Mount Failed. Device may be damaged");
         return;
     }
@@ -148,11 +141,7 @@ void VhConfig::save(){
 void VhConfig::reset(){
     Serial.println("VhConfig::reset");
     
-    #if defined(ESP8266)
     if(!SPIFFS.begin()){
-    #elif defined(ESP32)
-    if(!SPIFFS.begin(true)){
-    #endif
         if( SPIFFS.exists(ConfigPATH) ){
             SPIFFS.remove(ConfigPATH);
         }

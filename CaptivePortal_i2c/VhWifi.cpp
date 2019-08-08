@@ -6,11 +6,8 @@
 #include "Vhled.h"
 #include <qrcode.h>
 
-#if defined(ESP8266)
 #define getssid() "VibHub_"+String((uint16_t)ESP.getChipId())
-#elif defined(ESP32)
-#define getssid() "VibHub_"+String((uint16_t)(ESP.getEfuseMac()>>32))
-#endif
+
 
 
 //flag for saving data
