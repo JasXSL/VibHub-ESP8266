@@ -38,3 +38,5 @@
 *.l#?
 .vscode/arduino.json
 .vscode/c_cpp_properties.json
+CaptivePortal_i2c/.vscode/arduino.json
+CaptivePortal_i2c/.vscode/c_cpp_properties.json

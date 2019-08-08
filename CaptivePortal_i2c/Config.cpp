@@ -48,24 +48,24 @@ void VhConfig::load( bool reset ){
             if( configFile ){
 
                 Serial.println("opened config file");
-                size_t size = configFile.size();
-                // Allocate a buffer to store contents of the file.
-                std::unique_ptr<char[]> buf(new char[size]);
+                String content = "";
+                while(configFile.available())
+                    content += char(configFile.read());
+                Serial.println(content);
 
-                configFile.readBytes(buf.get(), size);
-                DynamicJsonBuffer jsonBuffer;
-                JsonObject& json = jsonBuffer.parseObject(buf.get());
-                json.printTo(Serial);
+                DynamicJsonDocument jsonBuffer(1024);
+                DeserializationError error = deserializeJson(jsonBuffer, content.c_str());
 
-                if( json.success() ){
 
-                    Serial.println("\nparsed json");
+                if( !error ){
 
-                    strcpy(server, json["server"]);
-                    char p[5];
-                    strcpy(p, json["port"]);
-                    port = atoi(p);
-                    strcpy(deviceid, json["deviceid"]);
+                    Serial.println("Parsed json:");
+                    serializeJson(jsonBuffer, Serial);
+                    Serial.println("");
+
+                    strcpy(server, jsonBuffer["server"]);
+                    port = jsonBuffer["port"];
+                    strcpy(deviceid, jsonBuffer["deviceid"]);
                     
                 }
                 else
@@ -128,8 +128,8 @@ void VhConfig::gen_random( char *s, const int len ){
 void VhConfig::save(){
 
     Serial.println("VhConfig::save");
-	DynamicJsonBuffer jsonBuffer;
-	JsonObject& json = jsonBuffer.createObject();
+    DynamicJsonDocument jsonBuffer(1024);
+	JsonObject json = jsonBuffer.to<JsonObject>();
 	json["server"] = server;
 	json["port"] = port;
 	json["deviceid"] = deviceid;
@@ -138,8 +138,8 @@ void VhConfig::save(){
 	if( !configFile )
 		Serial.println("failed to open config file for writing");
 	
-	json.printTo(Serial);
-	json.printTo(configFile);
+	serializeJson(json, Serial);
+	serializeJson(json, configFile);
 	configFile.close();
     
 }

@@ -14,7 +14,7 @@ class VhMotor: public VhPwm{
 
 	public:
 		VhMotor( int channel );
-		void loadProgram( JsonArray &stages, int repeats );
+		void loadProgram( JsonArray stages, int repeats );
 		void update();
         void setPWM( int duty, bool fast_decay = false, bool forward = false );
 		void stopProgram();
